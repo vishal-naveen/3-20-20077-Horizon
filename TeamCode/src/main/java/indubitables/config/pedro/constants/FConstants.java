@@ -1,4 +1,4 @@
-package pedroPathing.constants;
+package indubitables.config.pedro.constants;
 
 import com.pedropathing.localization.Localizers;
 import com.pedropathing.follower.FollowerConstants;

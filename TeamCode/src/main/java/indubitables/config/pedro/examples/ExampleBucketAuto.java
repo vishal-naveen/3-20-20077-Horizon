@@ -1,4 +1,4 @@
-package pedroPathing.examples;
+package indubitables.config.pedro.examples;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
@@ -12,8 +12,8 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import pedroPathing.constants.FConstants;
-import pedroPathing.constants.LConstants;
+import indubitables.config.pedro.constants.FConstants;
+import indubitables.config.pedro.constants.LConstants;
 
 /**
  * This is an example auto that showcases movement and control of two servos autonomously.

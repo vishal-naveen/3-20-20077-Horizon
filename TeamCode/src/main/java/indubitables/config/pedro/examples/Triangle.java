@@ -1,4 +1,4 @@
-package pedroPathing.examples;
+package indubitables.config.pedro.examples;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -13,8 +13,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import pedroPathing.constants.FConstants;
-import pedroPathing.constants.LConstants;
+import indubitables.config.pedro.constants.FConstants;
+import indubitables.config.pedro.constants.LConstants;
 
 
 /**
