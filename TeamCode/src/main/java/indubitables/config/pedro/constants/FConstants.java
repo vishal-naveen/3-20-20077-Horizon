@@ -18,7 +18,7 @@ public class FConstants {
         FollowerConstants.rightRearMotorName = "rightRear";
         
         FollowerConstants.xMovement = 74.4652;
-        FollowerConstants.yMovement = 61.5559;
+        FollowerConstants.yMovement = 61.55590;
 
         FollowerConstants.forwardZeroPowerAcceleration = -30.4793;
         FollowerConstants.lateralZeroPowerAcceleration = -63.8818;
