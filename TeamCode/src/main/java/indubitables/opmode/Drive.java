@@ -1,7 +1,5 @@
 package indubitables.opmode;
 
-import static indubitables.config.util.FieldConstants.*;
-
 import com.pedropathing.util.Constants;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -10,7 +8,7 @@ import com.pedropathing.follower.Follower;
 
 import indubitables.config.pedro.constants.FConstants;
 import indubitables.config.pedro.constants.LConstants;
-import indubitables.config.runmodes.Teleop;
+import indubitables.config.old.runmodes.Teleop;
 
 
 @TeleOp(name="Drive", group="A")

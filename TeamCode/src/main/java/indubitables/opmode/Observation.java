@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import indubitables.config.pedro.constants.FConstants;
 import indubitables.config.pedro.constants.LConstants;
-import indubitables.config.subsystem.IntakeSubsystem;
+
 import com.pedropathing.follower.Follower;
-import indubitables.config.runmodes.Auto;
+import indubitables.config.old.runmodes.Auto;
 import com.pedropathing.util.Timer;
 
 @Autonomous(name="Observation", group=".")

@@ -1,10 +1,8 @@
-package indubitables.config.runmodes;
+package indubitables.config.old.runmodes;
 
-import indubitables.config.subsystem.OuttakeSubsystem;
-import indubitables.config.subsystem.ExtendSubsystem;
-import indubitables.config.subsystem.IntakeSubsystem;
-import indubitables.config.subsystem.LiftSubsystem;
-import indubitables.config.util.RobotConstants;
+import indubitables.config.subsystems.outtake.Outtake;
+import indubitables.config.subsystems.intake.Intake;
+import indubitables.config.old.util.RobotConstants;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 
@@ -24,15 +22,15 @@ public class Teleop {
     private ExtendSubsystem extend;
     private LiftSubsystem lift;
 
-    private IntakeSubsystem intake;
-    private IntakeSubsystem.GrabState intakeGrabState;
-    private IntakeSubsystem.PivotState intakePivotState;
-    private IntakeSubsystem.RotateState intakeRotateState;
+    private Intake intake;
+    private Intake.GrabState intakeGrabState;
+    private Intake.PivotState intakePivotState;
+    private Intake.RotateState intakeRotateState;
 
-    private OuttakeSubsystem outtake;
-    private OuttakeSubsystem.GrabState outtakeGrabState;
-    private OuttakeSubsystem.PivotState outtakePivotState;
-    private OuttakeSubsystem.RotateState outtakeRotateState;
+    private Outtake outtake;
+    private Outtake.GrabState outtakeGrabState;
+    private Outtake.PivotState outtakePivotState;
+    private Outtake.RotateState outtakeRotateState;
 
     private Follower follower;
     private Pose startPose;
@@ -57,10 +55,10 @@ public class Teleop {
 
     public Teleop(HardwareMap hardwareMap, Telemetry telemetry, Follower follower, Pose startPose, boolean fieldCentric, Gamepad gamepad1, Gamepad gamepad2) {
 
-        outtake = new OuttakeSubsystem(hardwareMap, telemetry, outtakeGrabState, outtakeRotateState, outtakePivotState);
+        outtake = new Outtake(hardwareMap, telemetry, outtakeGrabState, outtakeRotateState, outtakePivotState);
         lift = new LiftSubsystem(hardwareMap, telemetry);
         extend = new ExtendSubsystem(hardwareMap, telemetry);
-        intake = new IntakeSubsystem(hardwareMap, telemetry, intakeGrabState, intakeRotateState, intakePivotState);
+        intake = new Intake(hardwareMap, telemetry, intakeGrabState, intakeRotateState, intakePivotState);
 
         this.follower = follower;
         this.startPose = startPose;
@@ -228,7 +226,7 @@ public class Teleop {
                 break;
             case 2:
                 if (transferTimer.getElapsedTimeSeconds() > 0.1) {
-                    outtake.setRotateState(OuttakeSubsystem.RotateState.TRANSFER);
+                    outtake.setRotateState(Outtake.RotateState.TRANSFER);
                     extend.toZero();
                     setTransferState(3);
                 }

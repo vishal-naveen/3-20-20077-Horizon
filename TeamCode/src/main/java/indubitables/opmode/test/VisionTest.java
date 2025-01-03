@@ -8,18 +8,18 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import indubitables.config.pedro.constants.FConstants;
 import indubitables.config.pedro.constants.LConstants;
-import indubitables.config.subsystem.IntakeSubsystem;
-import indubitables.config.subsystem.VisionSubsystem;
+import indubitables.config.subsystems.intake.Intake;
+import indubitables.config.old.subsystem.VisionSubsystem;
 import com.pedropathing.follower.Follower;
 
 @Config
 @TeleOp(name="visionTest", group="b")
 public class VisionTest extends OpMode {
 
-    private IntakeSubsystem intake;
-    private IntakeSubsystem.GrabState intakeGrabState;
-    private IntakeSubsystem.RotateState intakeRotateState;
-    private IntakeSubsystem.PivotState intakePivotState;
+    private Intake intake;
+    private Intake.GrabState intakeGrabState;
+    private Intake.RotateState intakeRotateState;
+    private Intake.PivotState intakePivotState;
 
     private VisionSubsystem vision;
 
@@ -29,7 +29,7 @@ public class VisionTest extends OpMode {
     @Override
     public void init() {
         Constants.setConstants(FConstants.class, LConstants.class);
-        intake = new IntakeSubsystem(hardwareMap, telemetry, intakeGrabState, intakeRotateState, intakePivotState);
+        intake = new Intake(hardwareMap, telemetry, intakeGrabState, intakeRotateState, intakePivotState);
         follower = new Follower(hardwareMap);
         intake.init();
         vision = new VisionSubsystem(hardwareMap, telemetry, "blue", intake);

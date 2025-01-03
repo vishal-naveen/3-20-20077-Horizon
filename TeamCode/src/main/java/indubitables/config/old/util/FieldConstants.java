@@ -1,4 +1,4 @@
-package indubitables.config.util;
+package indubitables.config.old.util;
 
 import com.acmerobotics.dashboard.config.Config;
 

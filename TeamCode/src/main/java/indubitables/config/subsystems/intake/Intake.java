@@ -1,6 +1,8 @@
-package indubitables.config.subsystem;
+package indubitables.config.subsystems.intake;
 
-import static indubitables.config.util.RobotConstants.*;
+import static indubitables.config.old.util.RobotConstants.*;
+
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -11,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * @version 1.0 | 12/3/24
  */
 
-public class IntakeSubsystem {
+public class Intake extends SubsystemBase {
 
     public enum GrabState {
         CLOSED, OPEN
@@ -33,7 +35,7 @@ public class IntakeSubsystem {
     private double rotateDegrees = 0;
     private static final double perDegree = 0.00122222222;
 
-    public IntakeSubsystem(HardwareMap hardwareMap, Telemetry telemetry, GrabState grabState, RotateState rotateState, PivotState pivotState) {
+    public Intake(HardwareMap hardwareMap, Telemetry telemetry, GrabState grabState, RotateState rotateState, PivotState pivotState) {
         grab = hardwareMap.get(Servo.class, "iG");
         leftRotate = hardwareMap.get(Servo.class, "iLR");
         rightRotate = hardwareMap.get(Servo.class, "iRR");
@@ -189,5 +191,10 @@ public class IntakeSubsystem {
         telemetry.addData("Intake Rotate State: ", rotateState);
         telemetry.addData("Intake Pivot State: ", pivotState);
         telemetry.addData("Rotate Degrees: ", rotateDegrees);
+    }
+
+    @Override
+    public void periodic() {
+        telemetry();
     }
 }

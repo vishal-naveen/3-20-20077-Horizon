@@ -1,6 +1,8 @@
-package indubitables.config.subsystem;
+package indubitables.config.subsystems.outtake;
 
-import static indubitables.config.util.RobotConstants.*;
+import static indubitables.config.old.util.RobotConstants.*;
+
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -13,7 +15,7 @@ import com.pedropathing.util.Timer;
  * @version 1.0 | 12/3/24
  */
 // jay wuz hear
-public class OuttakeSubsystem {
+public class Outtake extends SubsystemBase {
 
     public enum GrabState {
         CLOSED, OPEN
@@ -35,7 +37,7 @@ public class OuttakeSubsystem {
     private Timer specScoreTimer = new Timer();
     private int specGrabState = -1;
 
-    public OuttakeSubsystem(HardwareMap hardwareMap, Telemetry telemetry, GrabState grabState, RotateState rotateState, PivotState pivotState) {
+    public Outtake(HardwareMap hardwareMap, Telemetry telemetry, GrabState grabState, RotateState rotateState, PivotState pivotState) {
         grab = hardwareMap.get(Servo.class, "oG");
         leftRotate = hardwareMap.get(Servo.class, "oLR");
         rightRotate = hardwareMap.get(Servo.class, "oRR");
@@ -203,5 +205,10 @@ public class OuttakeSubsystem {
         telemetry.addData("Outtake Grab State: ", grabState);
         telemetry.addData("Outtake Rotate State: ", rotateState);
         telemetry.addData("Outtake Pivot State: ", pivotState);
+    }
+
+    @Override
+    public void periodic() {
+        telemetry();
     }
 }

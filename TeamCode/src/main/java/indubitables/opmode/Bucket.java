@@ -9,7 +9,7 @@ import com.pedropathing.follower.Follower;
 
 import indubitables.config.pedro.constants.FConstants;
 import indubitables.config.pedro.constants.LConstants;
-import indubitables.config.runmodes.Auto;
+import indubitables.config.old.runmodes.Auto;
 import com.pedropathing.util.Timer;
 
 @Disabled

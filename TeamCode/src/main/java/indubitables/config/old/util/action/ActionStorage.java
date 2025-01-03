@@ -1,4 +1,4 @@
-package indubitables.config.util.action;
+package indubitables.config.old.util.action;
 
 public class ActionStorage {
     public RunAction preparePurple = new RunAction(this::preparePurple);

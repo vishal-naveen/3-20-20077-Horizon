@@ -1,4 +1,4 @@
-package indubitables.config.util.action;
+package indubitables.config.old.util.action;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 

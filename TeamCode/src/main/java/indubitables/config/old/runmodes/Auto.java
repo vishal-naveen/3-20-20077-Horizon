@@ -1,20 +1,17 @@
-package indubitables.config.runmodes;
+package indubitables.config.old.runmodes;
 
-import static indubitables.config.util.FieldConstants.*;
+import static indubitables.config.old.util.FieldConstants.*;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import indubitables.config.util.FieldConstants;
 import com.pedropathing.pathgen.BezierCurve;
-import indubitables.config.subsystem.OuttakeSubsystem;
-import indubitables.config.subsystem.ExtendSubsystem;
-import indubitables.config.subsystem.IntakeSubsystem;
-import indubitables.config.subsystem.LiftSubsystem;
+import indubitables.config.subsystems.outtake.Outtake;
+import indubitables.config.subsystems.intake.Intake;
+
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierLine;
-import com.pedropathing.pathgen.Path;
 import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Timer;
@@ -23,15 +20,15 @@ public class Auto {
 
     private RobotStart startLocation;
 
-    public IntakeSubsystem intake;
-    private IntakeSubsystem.GrabState intakeGrabState;
-    private IntakeSubsystem.PivotState intakePivotState;
-    private IntakeSubsystem.RotateState intakeRotateState;
+    public Intake intake;
+    private Intake.GrabState intakeGrabState;
+    private Intake.PivotState intakePivotState;
+    private Intake.RotateState intakeRotateState;
 
-    public OuttakeSubsystem outtake;
-    private OuttakeSubsystem.GrabState outtakeGrabState;
-    private OuttakeSubsystem.PivotState outtakePivotState;
-    private OuttakeSubsystem.RotateState outtakeRotateState;
+    public Outtake outtake;
+    private Outtake.GrabState outtakeGrabState;
+    private Outtake.PivotState outtakePivotState;
+    private Outtake.RotateState outtakeRotateState;
     
     public LiftSubsystem lift;
     public ExtendSubsystem extend;
@@ -53,8 +50,8 @@ public class Auto {
 
         lift = new LiftSubsystem(hardwareMap, telemetry);
         extend = new ExtendSubsystem(hardwareMap, telemetry);
-        intake = new IntakeSubsystem(hardwareMap, telemetry, intakeGrabState, intakeRotateState, intakePivotState);
-        outtake = new OuttakeSubsystem(hardwareMap, telemetry, outtakeGrabState, outtakeRotateState, outtakePivotState);
+        intake = new Intake(hardwareMap, telemetry, intakeGrabState, intakeRotateState, intakePivotState);
+        outtake = new Outtake(hardwareMap, telemetry, outtakeGrabState, outtakeRotateState, outtakePivotState);
 
         this.follower = follower;
         this.telemetry = telemetry;

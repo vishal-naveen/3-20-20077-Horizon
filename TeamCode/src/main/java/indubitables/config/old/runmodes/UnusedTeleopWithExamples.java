@@ -1,7 +1,7 @@
-package indubitables.config.runmodes;
+package indubitables.config.old.runmodes;
 
 //import org.firstinspires.ftc.teamcode.config.subsystem.ServoSubsystem;
-import indubitables.config.subsystem.VisionSubsystem;
+import indubitables.config.old.subsystem.VisionSubsystem;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 

@@ -1,21 +1,22 @@
-package indubitables.config.subsystem;
+package indubitables.config.subsystems.extend;
 
-import static indubitables.config.util.RobotConstants.*;
+import static indubitables.config.old.util.RobotConstants.*;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class ExtendSubsystem {
+public class Extend extends SubsystemBase {
     private Telemetry telemetry;
 
     public Servo left, right;
     private double pos = 0;
     public double extendLimit = extendFullSample;
 
-    public ExtendSubsystem(HardwareMap hardwareMap, Telemetry telemetry) {
+    public Extend(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = telemetry;
         this.telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
@@ -58,7 +59,6 @@ public class ExtendSubsystem {
         setTarget(extendLimit);
     }
 
-    // Util
     public double getPos() {
         pos = right.getPosition();
         return pos;
@@ -72,16 +72,12 @@ public class ExtendSubsystem {
         extendLimit = extendFullSample;
     }
 
-    // Init + Start //
-    public void init() {
-        toZero();
-    }
-
-    public void start() {
-        toZero();
-    }
-
     public void telemetry() {
         telemetry.addData("Extend Pos: ", getPos());
+    }
+
+    @Override
+    public void periodic() {
+        telemetry();
     }
 }
