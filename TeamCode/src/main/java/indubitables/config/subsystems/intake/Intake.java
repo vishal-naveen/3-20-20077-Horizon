@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
 /** @author Baron Henderson
- * @version 1.0 | 12/3/24
+ * @version 2.0 | 1/4/25
  */
 
 public class Intake extends SubsystemBase {

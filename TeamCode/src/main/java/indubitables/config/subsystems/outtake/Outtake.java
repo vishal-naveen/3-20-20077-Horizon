@@ -12,9 +12,9 @@ import com.pedropathing.util.Timer;
 
 
 /** @author Baron Henderson
- * @version 1.0 | 12/3/24
+ * @version 2.0 | 1/4/25
  */
-// jay wuz hear
+
 public class Outtake extends SubsystemBase {
 
     public enum GrabState {

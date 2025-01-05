@@ -16,6 +16,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+/** @author Baron Henderson
+ * @version 2.0 | 1/4/25
+ */
+
 public class Lift extends SubsystemBase {
 
     private Telemetry telemetry;
