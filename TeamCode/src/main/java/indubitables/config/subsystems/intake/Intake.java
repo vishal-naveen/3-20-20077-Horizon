@@ -1,6 +1,6 @@
 package indubitables.config.subsystems.intake;
 
-import static indubitables.config.old.util.RobotConstants.*;
+import static indubitables.config.core.RobotConstants.*;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -35,16 +35,13 @@ public class Intake extends SubsystemBase {
     private double rotateDegrees = 0;
     private static final double perDegree = 0.00122222222;
 
-    public Intake(HardwareMap hardwareMap, Telemetry telemetry, GrabState grabState, RotateState rotateState, PivotState pivotState) {
+    public Intake(HardwareMap hardwareMap, Telemetry telemetry) {
         grab = hardwareMap.get(Servo.class, "iG");
         leftRotate = hardwareMap.get(Servo.class, "iLR");
         rightRotate = hardwareMap.get(Servo.class, "iRR");
         leftPivot = hardwareMap.get(Servo.class, "iLP");
         rightPivot = hardwareMap.get(Servo.class, "iRP");
         this.telemetry = telemetry;
-        this.grabState = grabState;
-        this.rotateState = rotateState;
-        this.pivotState = pivotState;
     }
 
     public void setRotateState(RotateState state) {
@@ -63,7 +60,6 @@ public class Intake extends SubsystemBase {
         } else if (state == RotateState.SPECIMEN) {
             leftRotate.setPosition(intakeRotateSpecimen - 0.03);
             rightRotate.setPosition(intakeRotateSpecimen);
-
         }
     }
 

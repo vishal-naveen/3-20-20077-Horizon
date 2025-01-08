@@ -1,6 +1,6 @@
 package indubitables.config.subsystems.outtake;
 
-import static indubitables.config.old.util.RobotConstants.*;
+import static indubitables.config.core.RobotConstants.*;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -37,16 +37,13 @@ public class Outtake extends SubsystemBase {
     private Timer specScoreTimer = new Timer();
     private int specGrabState = -1;
 
-    public Outtake(HardwareMap hardwareMap, Telemetry telemetry, GrabState grabState, RotateState rotateState, PivotState pivotState) {
+    public Outtake(HardwareMap hardwareMap, Telemetry telemetry) {
         grab = hardwareMap.get(Servo.class, "oG");
         leftRotate = hardwareMap.get(Servo.class, "oLR");
         rightRotate = hardwareMap.get(Servo.class, "oRR");
         leftPivot = hardwareMap.get(Servo.class, "oLP");
         rightPivot = hardwareMap.get(Servo.class, "oRP");
         this.telemetry = telemetry;
-        this.grabState = grabState;
-        this.rotateState = rotateState;
-        this.pivotState = pivotState;
     }
 
     public void setRotateState(RotateState state) {

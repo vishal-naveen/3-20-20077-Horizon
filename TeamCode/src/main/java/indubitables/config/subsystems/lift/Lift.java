@@ -1,11 +1,7 @@
 package indubitables.config.subsystems.lift;
 
-import static indubitables.config.old.util.RobotConstants.liftToHighBucket;
-import static indubitables.config.old.util.RobotConstants.liftToHighChamber;
-import static indubitables.config.old.util.RobotConstants.liftToHumanPlayer;
-import static indubitables.config.old.util.RobotConstants.liftToPark;
-import static indubitables.config.old.util.RobotConstants.liftToTransfer;
-import static indubitables.config.old.util.RobotConstants.liftToZero;
+import static indubitables.config.core.RobotConstants.liftToHighBucket;
+import static indubitables.config.core.RobotConstants.liftToZero;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;

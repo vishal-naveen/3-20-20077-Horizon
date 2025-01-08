@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import indubitables.config.pedro.constants.FConstants;
 import indubitables.config.pedro.constants.LConstants;
 import indubitables.config.old.subsystem.LimelightSubsystem;
-import indubitables.config.old.util.FieldConstants;
+import indubitables.config.core.FieldConstants;
 
 import com.pedropathing.localization.Pose;
 

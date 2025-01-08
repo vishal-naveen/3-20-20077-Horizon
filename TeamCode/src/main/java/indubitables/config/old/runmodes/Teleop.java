@@ -2,7 +2,7 @@ package indubitables.config.old.runmodes;
 
 import indubitables.config.subsystems.outtake.Outtake;
 import indubitables.config.subsystems.intake.Intake;
-import indubitables.config.old.util.RobotConstants;
+import indubitables.config.core.RobotConstants;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 
