@@ -12,6 +12,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import indubitables.config.core.hardware.CachedMotor;
+
 /** @author Baron Henderson
  * @version 2.0 | 1/4/25
  */
@@ -20,7 +22,8 @@ public class Lift extends SubsystemBase {
 
     private Telemetry telemetry;
 
-    public DcMotor rightLift, leftLift;
+    public DcMotor oldL,oldR;
+    public CachedMotor rightLift, leftLift;
     public boolean manual = false;
     public int pos;
     public PIDController pid;
@@ -32,8 +35,8 @@ public class Lift extends SubsystemBase {
         this.telemetry = telemetry;
         this.telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        rightLift = hardwareMap.get(DcMotor.class, "rightLift");
-        leftLift = hardwareMap.get(DcMotor.class, "leftLift");
+        rightLift = hardwareMap.get(CachedMotor.class, "rightLift");
+        leftLift = hardwareMap.get(CachedMotor.class, "leftLift");
 
         rightLift.setDirection(DcMotor.Direction.FORWARD);
         leftLift.setDirection(DcMotor.Direction.REVERSE);
@@ -80,8 +83,8 @@ public class Lift extends SubsystemBase {
     }
 
     public int getPos() {
-        pos = rightLift.getCurrentPosition();
-        return rightLift.getCurrentPosition();
+        pos = rightLift.getPosition();
+        return rightLift.getPosition();
     }
 
     public void init() {
