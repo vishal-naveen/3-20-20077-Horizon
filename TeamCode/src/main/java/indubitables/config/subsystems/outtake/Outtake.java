@@ -1,7 +1,5 @@
 package indubitables.config.subsystems.outtake;
 
-import static indubitables.config.core.RobotConstants.*;
-
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;

@@ -1,6 +1,5 @@
 package indubitables.config.subsystems.extend;
 
-import static indubitables.config.core.RobotConstants.*;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.SubsystemBase;

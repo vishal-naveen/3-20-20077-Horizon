@@ -1,7 +1,5 @@
 package indubitables.config.old.runmodes;
 
-import static indubitables.config.core.FieldConstants.*;
-
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 

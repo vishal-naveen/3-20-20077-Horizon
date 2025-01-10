@@ -9,7 +9,7 @@ import com.pedropathing.pathgen.PathBuilder;
 import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 
-public class five_zero {
+public class Five_Zero {
     public static Pose startPose = observationStartPose;
     public static Pose preloadPose = observationPreloadPose;
     public static Pose grab1Pose = observationSpecimenPickupPose;

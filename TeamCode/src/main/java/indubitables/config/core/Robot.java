@@ -3,15 +3,18 @@ package indubitables.config.core;
 import static indubitables.config.core.Opmode.*;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
+import com.pedropathing.util.Constants;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import indubitables.config.core.gamepad.ExGamepad;
+import indubitables.config.pedro.constants.FConstants;
+import indubitables.config.pedro.constants.LConstants;
 import indubitables.config.subsystems.extend.Extend;
 import indubitables.config.subsystems.intake.Intake;
 import indubitables.config.subsystems.lift.Lift;
@@ -38,6 +41,8 @@ public class Robot extends SubsystemBase {
         this.g2 = g2;
         this.a = a;
 
+        Constants.setConstants(FConstants.class, LConstants.class);
+
         f = new Follower(this.h);
         f.setStartingPose(startPose);
 
@@ -52,6 +57,8 @@ public class Robot extends SubsystemBase {
         this.h = h;
         this.t = t;
         this.a = a;
+
+        Constants.setConstants(FConstants.class, LConstants.class);
 
         f = new Follower(this.h);
         f.setStartingPose(startPose);
@@ -72,40 +79,21 @@ public class Robot extends SubsystemBase {
         t.update();
     }
 
-    public void teleopInit() {
-        CommandScheduler.getInstance().schedule();
-    }
-
     public HardwareMap getH() {
         return h;
-    }
-
-    public void setH(HardwareMap h) {
-        this.h = h;
     }
 
     public Telemetry getT() {
         return t;
     }
 
-    public void setT(Telemetry t) {
-        this.t = t;
-    }
 
     public ExGamepad getG1() {
         return g1;
     }
 
-    public void setG1(ExGamepad g1) {
-        this.g1 = g1;
-    }
-
     public ExGamepad getG2() {
         return g2;
-    }
-
-    public void setG2(ExGamepad g2) {
-        this.g2 = g2;
     }
 
     public Alliance getA() {
@@ -120,16 +108,8 @@ public class Robot extends SubsystemBase {
         return f;
     }
 
-    public void setF(Follower f) {
-        this.f = f;
-    }
-
     public Extend getE() {
         return e;
-    }
-
-    public void setE(Extend e) {
-        this.e = e;
     }
 
     public Intake getI() {
@@ -144,15 +124,7 @@ public class Robot extends SubsystemBase {
         return l;
     }
 
-    public void setL(Lift l) {
-        this.l = l;
-    }
-
     public Outtake getO() {
         return o;
-    }
-
-    public void setO(Outtake o) {
-        this.o = o;
     }
 }
