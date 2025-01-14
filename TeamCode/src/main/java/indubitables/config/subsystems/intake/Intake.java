@@ -185,6 +185,14 @@ public class Intake extends SubsystemBase {
         setGrabState(GrabState.OPEN);
     }
 
+    public void rotateCycleLeft() {
+        rotateCycle(false);
+    }
+
+    public void rotateCycleRight() {
+        rotateCycle(true);
+    }
+
     public void telemetry() {
         telemetry.addData("Intake Grab State: ", grabState);
         telemetry.addData("Intake Rotate State: ", rotateState);
