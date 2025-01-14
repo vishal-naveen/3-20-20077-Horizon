@@ -2,6 +2,7 @@ package indubitables.config.core;
 
 import static indubitables.config.core.Opmode.*;
 
+import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SubsystemBase;
@@ -31,6 +32,7 @@ public class Robot extends SubsystemBase {
     private Lift l;
     private Outtake o;
     private Opmode op = TELEOP;
+    public static Pose autoEndPose;
 
 
     public Robot(HardwareMap h, Telemetry t, ExGamepad g1, ExGamepad g2, Alliance a, Pose startPose) {
@@ -58,6 +60,8 @@ public class Robot extends SubsystemBase {
         this.t = t;
         this.a = a;
 
+        CommandScheduler.getInstance().enable();
+
         Constants.setConstants(FConstants.class, LConstants.class);
 
         f = new Follower(this.h);
@@ -67,6 +71,8 @@ public class Robot extends SubsystemBase {
         l = new Lift(this.h,this.t);
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
+
+        register();
     }
 
     @Override
@@ -77,6 +83,23 @@ public class Robot extends SubsystemBase {
         o.periodic();
         f.update();
         t.update();
+    }
+
+    public void start() {
+        if(op == TELEOP) {
+            e.setLimitToSample();
+            o.start();
+            f.startTeleopDrive();
+        }
+    }
+
+    public void stop() {
+        CommandScheduler.getInstance().cancelAll();
+        autoEndPose = f.getPose();
+    }
+
+    public void teleopControls() {
+
     }
 
     public HardwareMap getH() {

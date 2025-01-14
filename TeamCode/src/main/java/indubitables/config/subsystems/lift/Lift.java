@@ -21,10 +21,7 @@ import indubitables.config.core.hardware.CachedMotor;
 public class Lift extends SubsystemBase {
 
     private Telemetry telemetry;
-
-    public DcMotor oldL,oldR;
     public CachedMotor rightLift, leftLift;
-    public boolean manual = false;
     public int pos;
     public PIDController pid;
     public static int target;
@@ -45,37 +42,26 @@ public class Lift extends SubsystemBase {
         leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         pid = new PIDController(p, i, d);
+
+        register();
     }
 
-    public void update(){
-        if (!manual) {
-            updatePIDF();
-        }
-    }
-
-    public void updatePIDF() {
+    public void update() {
         pid.setPID(p,i,d);
 
         rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         double pid_output = pid.calculate(getPos(), target);
-        double ticks_in_degrees = 537.7 / 360.0;
-        double ff = Math.cos(Math.toRadians(target / ticks_in_degrees)) * f;
-        double power = pid_output + ff;
+        double power = pid_output + f;
 
-        rightLift.setPower(power);
-        leftLift.setPower(power);
-    }
-
-    public void manual(double n){
-        manual = true;
-
-        rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        rightLift.setPower(n);
-        leftLift.setPower(n);
+        if(getPos() < 50 && target < 50) {
+            rightLift.setPower(0);
+            leftLift.setPower(0);
+        } else {
+            rightLift.setPower(power);
+            leftLift.setPower(power);
+        }
     }
 
     public void setTarget(int b) {
@@ -95,14 +81,11 @@ public class Lift extends SubsystemBase {
         target = 0;
     }
 
-
     public void toZero() {
-        manual = false;
         setTarget(liftToZero);
     }
 
     public void toHighBucket() {
-        manual = false;
         setTarget(liftToHighBucket);
     }
 

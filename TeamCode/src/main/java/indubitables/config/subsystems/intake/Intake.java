@@ -1,5 +1,8 @@
 package indubitables.config.subsystems.intake;
 
+import static indubitables.config.core.RobotConstants.*;
+
+import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -40,6 +43,8 @@ public class Intake extends SubsystemBase {
         leftPivot = hardwareMap.get(Servo.class, "iLP");
         rightPivot = hardwareMap.get(Servo.class, "iRP");
         this.telemetry = telemetry;
+
+        register();
     }
 
     public void setRotateState(RotateState state) {

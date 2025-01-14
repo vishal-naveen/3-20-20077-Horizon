@@ -1,5 +1,7 @@
 package indubitables.config.subsystems.outtake;
 
+import static indubitables.config.core.RobotConstants.*;
+
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -42,6 +44,8 @@ public class Outtake extends SubsystemBase {
         leftPivot = hardwareMap.get(Servo.class, "oLP");
         rightPivot = hardwareMap.get(Servo.class, "oRP");
         this.telemetry = telemetry;
+
+        register();
     }
 
     public void setRotateState(RotateState state) {
