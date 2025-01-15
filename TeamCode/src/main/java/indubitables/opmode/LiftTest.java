@@ -1,5 +1,6 @@
 package indubitables.opmode;
 
+import static indubitables.config.core.RobotConstants.extendFullSample;
 import static indubitables.config.core.RobotConstants.outtakePivotSpecimenScore;
 import static indubitables.config.core.RobotConstants.outtakePivotTransfer;
 
@@ -16,7 +17,7 @@ public class LiftTest extends OpMode {
 
     DcMotor rightL = null;
     DcMotor leftL = null;
-    Servo hang, oLP, oRP;
+    Servo hang, oLP, oRP, eL, eR;
     @Override
     public void init() {
         rightL = hardwareMap.get(DcMotor.class, "rightLift");
@@ -24,6 +25,8 @@ public class LiftTest extends OpMode {
         hang = hardwareMap.get(Servo.class, "hang");
         oLP = hardwareMap.get(Servo.class, "oLP");
         oRP = hardwareMap.get(Servo.class, "oRP");
+        eL = hardwareMap.get(Servo.class,"eL");
+        eR = hardwareMap.get(Servo.class, "eR");
 
         rightL.setDirection(DcMotorSimple.Direction.REVERSE);
         leftL.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -45,13 +48,23 @@ public class LiftTest extends OpMode {
         }
 
         if (gamepad1.x) {
-            oLP.setPosition(outtakePivotTransfer);
-            oRP.setPosition(outtakePivotTransfer);
+            oLP.setPosition(0);
+            oRP.setPosition(0);
         }
 
         if (gamepad1.y) {
-            oLP.setPosition(outtakePivotSpecimenScore);
-            oRP.setPosition(outtakePivotSpecimenScore);
+            oLP.setPosition(1);
+            oRP.setPosition(1);
+        }
+
+        if(gamepad1.right_bumper) {
+            eL.setPosition(0);
+            eR.setPosition(0);
+        }
+
+        if(gamepad1.left_bumper) {
+            eL.setPosition(1);
+            eR.setPosition(1);
         }
 
         leftL.setPower(gamepad2.left_stick_y);
