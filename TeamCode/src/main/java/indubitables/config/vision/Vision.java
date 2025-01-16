@@ -26,6 +26,9 @@ public class Vision extends SubsystemBase {
     private final double limelightAngle = 58.5125; //angle of the limelight, camera facing straight down would be 0
     //and camera facing straight forwards would be 90
 
+    private double limelightRotationOffset = 90.0; // Rotation of the camera in degrees
+
+
     private double yDistance;
     private double xDistance;
 
@@ -115,9 +118,10 @@ public class Vision extends SubsystemBase {
         }
 
         if (!scoredDetections.isEmpty()) {
+            double adjustedXDegrees = scoredDetections.get(0).getDetection().getTargetXDegrees() - limelightRotationOffset;
             double actualYAngle = limelightAngle - scoredDetections.get(0).getDetection().getTargetYDegrees();
             yDistance = limelightHeight * Math.tan(Math.toRadians(actualYAngle));
-            xDistance = Math.tan(Math.toRadians(scoredDetections.get(0).getDetection().getTargetXDegrees())) * yDistance;
+            xDistance = Math.tan(Math.toRadians(adjustedXDegrees)) * yDistance;
         }
     }
 
@@ -164,6 +168,10 @@ public class Vision extends SubsystemBase {
         double adjustedX = xDistance * Math.cos(Math.toRadians(currentPose.getHeading())) - yDistance * Math.sin(Math.toRadians(currentPose.getHeading()));
         double adjustedY = xDistance * Math.sin(Math.toRadians(currentPose.getHeading())) + yDistance * Math.cos(Math.toRadians(currentPose.getHeading()));
         return new Pose(adjustedX - lateralOffset, adjustedY - forwardOffset, Math.toRadians(currentPose.getHeading()));
+    }
+
+    public void setLimelightRotationOffset(double limelightRotationOffset) {
+        this.limelightRotationOffset = limelightRotationOffset;
     }
 
     // Helper class for scored detections
