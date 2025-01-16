@@ -41,6 +41,6 @@ public class RobotConstants {
 
     // Extend Positions
     public static double extendZero = 0;
-    public static double extendFull = 0.225;
+    public static double extendFull = 0.525;
 
 }
