@@ -1,4 +1,4 @@
-package indubitables.config.vision;
+package indubitables.config.vision.c270;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.*;

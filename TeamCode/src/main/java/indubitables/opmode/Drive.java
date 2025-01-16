@@ -18,7 +18,12 @@ public class Drive extends OpMode {
     }
 
     @Override
-    public void loop() {
+    public void start() {
+        r.start();
+    }
 
+    @Override
+    public void loop() {
+        r.periodic();
     }
 }

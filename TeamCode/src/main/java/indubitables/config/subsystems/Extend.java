@@ -19,7 +19,6 @@ public class Extend extends SubsystemBase {
 
     public Servo left, right;
     private double pos = 0;
-    public double extendLimit = extendFullSample;
 
     public Extend(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
@@ -28,19 +27,6 @@ public class Extend extends SubsystemBase {
         right = hardwareMap.get(Servo.class, "eR");
 
         register();
-    }
-
-    public void manual(int direction) {
-        double rightPos = right.getPosition();
-
-        if (rightPos <= extendLimit || direction < 0) {
-            rightPos += (extendManualIncrements * direction);
-        } else {
-            rightPos = right.getPosition();
-        }
-
-        left.setPosition(rightPos);
-        right.setPosition(rightPos);
     }
 
     public void setTarget(double b) {
@@ -54,15 +40,15 @@ public class Extend extends SubsystemBase {
     }
 
     public void toQuarter() {
-        setTarget(extendLimit/4);
+        setTarget(extendFull/4);
     }
 
     public void toHalf() {
-        setTarget(extendLimit/2);
+        setTarget(extendFull/2);
     }
 
     public void toFull() {
-        setTarget(extendLimit);
+        setTarget(extendFull);
     }
 
     public double getPos() {
@@ -70,13 +56,6 @@ public class Extend extends SubsystemBase {
         return pos;
     }
 
-    public void setLimitToSpecimen() {
-        extendLimit = extendFullSpecimen;
-    }
-
-    public void setLimitToSample() {
-        extendLimit = extendFullSample;
-    }
 
     public void telemetry() {
         telemetry.addData("Extend Pos: ", getPos());

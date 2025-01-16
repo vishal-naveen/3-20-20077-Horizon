@@ -1,4 +1,4 @@
-package indubitables.config.vision;
+package indubitables.config.vision.c270;
 
 import org.openftc.easyopencv.OpenCvPipeline;
 

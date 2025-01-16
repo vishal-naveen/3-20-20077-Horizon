@@ -95,7 +95,6 @@ public class Robot extends SubsystemBase {
 
     public void start() {
         if(op == TELEOP) {
-            e.setLimitToSample();
             o.start();
             f.startTeleopDrive();
         }
@@ -138,13 +137,12 @@ public class Robot extends SubsystemBase {
         g2.getGamepadButton(A).whenPressed(o::switchGrabState);
 
         g2.getGamepadButton(Y).whenPressed(() -> {
-            e.setLimitToSample();
             o.transfer();
             i.hover();
         });
 
         g2.getGamepadButton(X).whenPressed(() -> {
-            e.setLimitToSample();
+
             o.score();
             i.hover();
         });
@@ -244,13 +242,11 @@ public class Robot extends SubsystemBase {
     }
 
     private void specimenGrabPos() {
-        e.setLimitToSpecimen();
         o.startSpecGrab();
         i.specimen();
     }
 
     private void specimenScorePos() {
-        e.setLimitToSpecimen();
         o.specimenScore();
         i.specimen();
     }

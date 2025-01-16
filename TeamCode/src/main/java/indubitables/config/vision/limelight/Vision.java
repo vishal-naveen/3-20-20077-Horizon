@@ -1,4 +1,4 @@
-package indubitables.config.vision;
+package indubitables.config.vision.limelight;
 
 import android.annotation.SuppressLint;
 
@@ -38,7 +38,7 @@ public class Vision extends SubsystemBase {
     // 0 is Blue, Red is 1, Yellow is 2
     private final int[] unwantedSamples;
 
-    public List<ScoredDetection> scoredDetections;
+    private List<ScoredDetection> scoredDetections;
 
     Limelight3A limelight;
     LLResult result;
@@ -174,36 +174,8 @@ public class Vision extends SubsystemBase {
         this.limelightRotationOffset = limelightRotationOffset;
     }
 
-    // Helper class for scored detections
-    private static class ScoredDetection {
-        private final LLResultTypes.DetectorResult detection;
-        private final double score;
-        private final double yDistance;
-        private final double rotationScore;
-        private final double xDistance;
-
-        public ScoredDetection(LLResultTypes.DetectorResult detection, double score, double yDistance, double xDistance, double rotationScore) {
-            this.detection = detection;
-            this.score = score;
-            this.yDistance = yDistance;
-            this.rotationScore = rotationScore;
-            this.xDistance = xDistance;
-        }
-
-        public LLResultTypes.DetectorResult getDetection() {
-            return detection;
-        }
-        public double getScore() {
-            return score;
-        }
-        public double getYDistance() {
-            return yDistance;
-        }
-        public double getXDistance() {
-            return xDistance;
-        }
-        public double getRotationScore() {
-            return rotationScore;
-        }
+    public ScoredDetection bestDetection() {
+        return scoredDetections.get(0);
     }
+
 }
