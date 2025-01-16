@@ -4,7 +4,7 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
 
 import indubitables.config.core.Robot;
-import indubitables.config.subsystems.outtake.Outtake;
+import indubitables.config.subsystems.Outtake;
 
 public class Transfer extends CommandBase {
     private final Robot robot;

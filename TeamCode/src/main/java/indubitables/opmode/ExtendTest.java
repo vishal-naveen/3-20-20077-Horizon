@@ -1,0 +1,30 @@
+package indubitables.opmode;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
+
+@TeleOp(group = "TeleOp", name = "Extend Test")
+public class ExtendTest extends OpMode {
+
+    Servo eL, eR;
+
+    @Override
+    public void init() {
+        eL = hardwareMap.get(Servo.class,"eL");
+        eR = hardwareMap.get(Servo.class, "eR");
+    }
+
+    @Override
+    public void loop() {
+        if(gamepad1.right_bumper) {
+            eL.setPosition(0);
+            eR.setPosition(0);
+        }
+
+        if(gamepad1.left_bumper) {
+            eL.setPosition(1);
+            eR.setPosition(1);
+        }
+    }
+}

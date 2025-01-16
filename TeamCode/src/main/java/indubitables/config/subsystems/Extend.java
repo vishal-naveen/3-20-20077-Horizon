@@ -1,10 +1,9 @@
-package indubitables.config.subsystems.extend;
+package indubitables.config.subsystems;
 
 import static indubitables.config.core.RobotConstants.*;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -25,8 +24,8 @@ public class Extend extends SubsystemBase {
     public Extend(HardwareMap hardwareMap, Telemetry telemetry) {
         this.telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        left = hardwareMap.get(Servo.class, "leftExtend");
-        right = hardwareMap.get(Servo.class, "rightExtend");
+        left = hardwareMap.get(Servo.class, "eL");
+        right = hardwareMap.get(Servo.class, "eR");
 
         register();
     }

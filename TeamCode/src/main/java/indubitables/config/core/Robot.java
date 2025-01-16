@@ -3,9 +3,7 @@ package indubitables.config.core;
 import static indubitables.config.core.Opmode.*;
 import static indubitables.config.core.gamepad.GamepadKeys.Button.*;
 
-import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
@@ -16,16 +14,14 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import indubitables.config.commands.Submersible;
 import indubitables.config.commands.Transfer;
-import indubitables.config.core.gamepad.ButtonReader;
 import indubitables.config.core.gamepad.ExGamepad;
 import indubitables.config.core.gamepad.GamepadKeys;
-import indubitables.config.core.gamepad.TriggerReader;
 import indubitables.config.pedro.constants.FConstants;
 import indubitables.config.pedro.constants.LConstants;
-import indubitables.config.subsystems.extend.Extend;
-import indubitables.config.subsystems.intake.Intake;
-import indubitables.config.subsystems.lift.Lift;
-import indubitables.config.subsystems.outtake.Outtake;
+import indubitables.config.subsystems.Extend;
+import indubitables.config.subsystems.Intake;
+import indubitables.config.subsystems.Lift;
+import indubitables.config.subsystems.Outtake;
 
 public class Robot extends SubsystemBase {
     private HardwareMap h;
@@ -80,6 +76,7 @@ public class Robot extends SubsystemBase {
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
 
+        CommandScheduler.getInstance().registerSubsystem(e,l,i,o);
         register();
     }
 

@@ -1,10 +1,8 @@
-package indubitables.config.subsystems.intake;
+package indubitables.config.subsystems;
 
 import static indubitables.config.core.RobotConstants.*;
 
-import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 

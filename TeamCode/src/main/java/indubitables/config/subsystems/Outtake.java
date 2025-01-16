@@ -1,4 +1,4 @@
-package indubitables.config.subsystems.outtake;
+package indubitables.config.subsystems;
 
 import static indubitables.config.core.RobotConstants.*;
 

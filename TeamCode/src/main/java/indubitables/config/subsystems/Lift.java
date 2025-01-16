@@ -1,4 +1,4 @@
-package indubitables.config.subsystems.lift;
+package indubitables.config.subsystems;
 
 import static indubitables.config.core.RobotConstants.liftToHighBucket;
 import static indubitables.config.core.RobotConstants.liftToZero;
