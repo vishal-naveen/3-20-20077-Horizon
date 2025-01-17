@@ -6,12 +6,17 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(group = "TeleOp", name = "Outtake Test")
 public class OuttakeTest extends OpMode {
-    Servo oLP, oRP;
+    Servo oLP, oRP, oLR, oRR;
 
     @Override
     public void init() {
         oLP = hardwareMap.get(Servo.class, "oLP");
         oRP = hardwareMap.get(Servo.class, "oRP");
+        oLR = hardwareMap.get(Servo.class, "oLR");
+        oRR = hardwareMap.get(Servo.class, "oRR");
+
+        oLR.setPosition(0.5);
+        oRR.setPosition(0.5);
     }
 
     @Override
