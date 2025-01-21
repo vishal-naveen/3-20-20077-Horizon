@@ -30,7 +30,7 @@ import indubitables.config.pedro.constants.LConstants;
 
 @TeleOp(name = "overall test")
 public class Test extends OpMode {
-    Servo eL, eR, oLP, oRP, hang;
+    Servo eL, eR, oLP, oRP;
     DcMotor rightL = null;
     DcMotor leftL = null;
     Follower f;
@@ -48,7 +48,6 @@ public class Test extends OpMode {
         oRP = hardwareMap.get(Servo.class, "oRP");
         rightL = hardwareMap.get(DcMotor.class, "rightLift");
         leftL = hardwareMap.get(DcMotor.class, "leftLift");
-        hang = hardwareMap.get(Servo.class, "hang");
         leftFront = hardwareMap.get(DcMotorEx.class, leftFrontMotorName);
         leftRear = hardwareMap.get(DcMotorEx.class, leftRearMotorName);
         rightRear = hardwareMap.get(DcMotorEx.class, rightRearMotorName);
@@ -82,8 +81,6 @@ public class Test extends OpMode {
 
         telemetry.addData("Init Complete", true);
         telemetry.update();
-
-        hang.setPosition(0.25);
     }
 
     @Override
@@ -131,16 +128,9 @@ public class Test extends OpMode {
             oRP.setPosition(1);
         }
 
-        if (gamepad2.dpad_up) {
-            hang.setPosition(0.25);
-        } else if (gamepad2.dpad_down) {
-            hang.setPosition(0.875);
-        }
-
         leftL.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
         rightL.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
 
-        telemetry.addData("Hang Position: ", hang.getPosition());
         telemetry.addData("Right Lift Position: ", rightL.getCurrentPosition());
         telemetry.update();
     }
