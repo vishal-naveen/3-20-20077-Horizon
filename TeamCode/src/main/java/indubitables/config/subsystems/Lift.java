@@ -37,7 +37,7 @@ public class Lift extends SubsystemBase {
 
         rightLift.setDirection(DcMotor.Direction.FORWARD);
         leftLift.setDirection(DcMotor.Direction.REVERSE);
-        rightLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -69,8 +69,8 @@ public class Lift extends SubsystemBase {
     }
 
     public int getPos() {
-        pos = rightLift.getPosition();
-        return rightLift.getPosition();
+        pos = leftLift.getPosition();
+        return leftLift.getPosition();
     }
 
     public void init() {
