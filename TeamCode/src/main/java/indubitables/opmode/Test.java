@@ -4,6 +4,11 @@ import static com.pedropathing.follower.FollowerConstants.leftFrontMotorDirectio
 import static com.pedropathing.follower.FollowerConstants.*;
 import static indubitables.config.core.RobotConstants.extendFull;
 import static indubitables.config.core.RobotConstants.extendZero;
+import static indubitables.config.core.RobotConstants.outtakePivotSpecimenGrab;
+import static indubitables.config.core.RobotConstants.outtakePivotSpecimenScore;
+import static indubitables.config.core.RobotConstants.outtakeRotateLeftSpecimenScore;
+import static indubitables.config.core.RobotConstants.outtakeRotateRightSpecimenScore;
+import static indubitables.config.core.RobotConstants.outtakeRotateSpecimenGrab;
 import static indubitables.opmode.ExtendTest.e;
 
 import android.provider.SyncStateContract;
@@ -30,7 +35,7 @@ import indubitables.config.pedro.constants.LConstants;
 
 @TeleOp(name = "overall test")
 public class Test extends OpMode {
-    Servo eL, eR, oLP, oRP;
+    Servo eL, eR, oLP, oRP, oLR, oRR;
     DcMotor rightL = null;
     DcMotor leftL = null;
     Follower f;
@@ -69,8 +74,8 @@ public class Test extends OpMode {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
-        rightL.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftL.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightL.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftL.setDirection(DcMotorSimple.Direction.REVERSE);
         rightL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -78,6 +83,9 @@ public class Test extends OpMode {
 
         eL = hardwareMap.get(Servo.class,"eL");
         eR = hardwareMap.get(Servo.class, "eR");
+
+        oLR = hardwareMap.get(Servo.class, "oLR");
+        oRR = hardwareMap.get(Servo.class, "oRR");
 
         telemetry.addData("Init Complete", true);
         telemetry.update();
@@ -118,14 +126,24 @@ public class Test extends OpMode {
             eR.setPosition(extendFull);
         }
 
-        if (gamepad2.x) {
-            oLP.setPosition(0);
-            oRP.setPosition(0);
+        if (gamepad2.y) {
+            oLP.setPosition(outtakePivotSpecimenScore);
+            oRP.setPosition(outtakePivotSpecimenScore);
         }
 
-        if (gamepad2.y) {
-            oLP.setPosition(1);
-            oRP.setPosition(1);
+        if (gamepad2.x) {
+            oLP.setPosition(outtakePivotSpecimenGrab);
+            oRP.setPosition(outtakePivotSpecimenGrab);
+        }
+
+        if(gamepad2.a) {
+            oLR.setPosition(outtakeRotateSpecimenGrab);
+            oRR.setPosition(outtakeRotateSpecimenGrab);
+        }
+
+        if(gamepad2.b) {
+            oLR.setPosition(outtakeRotateLeftSpecimenScore);
+            oRR.setPosition(outtakeRotateRightSpecimenScore);
         }
 
         leftL.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
