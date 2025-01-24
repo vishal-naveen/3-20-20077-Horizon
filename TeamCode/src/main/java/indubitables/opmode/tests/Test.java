@@ -4,6 +4,8 @@ import static com.pedropathing.follower.FollowerConstants.leftFrontMotorDirectio
 import static com.pedropathing.follower.FollowerConstants.*;
 import static indubitables.config.core.RobotConstants.extendFull;
 import static indubitables.config.core.RobotConstants.extendZero;
+import static indubitables.config.core.RobotConstants.outtakeGrabClose;
+import static indubitables.config.core.RobotConstants.outtakeGrabOpen;
 import static indubitables.config.core.RobotConstants.outtakePivotSpecimenGrab;
 import static indubitables.config.core.RobotConstants.outtakePivotSpecimenScore;
 import static indubitables.config.core.RobotConstants.outtakeRotateLeftSpecimenScore;
@@ -28,7 +30,7 @@ import indubitables.config.pedro.constants.LConstants;
 
 @TeleOp(name = "overall test")
 public class Test extends OpMode {
-    Servo eL, eR, oLP, oRP, oLR, oRR;
+    Servo eL, eR, oLP, oRP, oLR, oRR, oG;
     DcMotor rightL = null;
     DcMotor leftL = null;
     Follower f;
@@ -77,6 +79,8 @@ public class Test extends OpMode {
         eL = hardwareMap.get(Servo.class,"eL");
         eR = hardwareMap.get(Servo.class, "eR");
 
+        oG = hardwareMap.get(Servo.class, "oG");
+
         oLR = hardwareMap.get(Servo.class, "oLR");
         oRR = hardwareMap.get(Servo.class, "oRR");
 
@@ -119,6 +123,12 @@ public class Test extends OpMode {
             eR.setPosition(extendFull);
         }
 
+        if (gamepad1.dpad_down)
+            oG.setPosition(outtakeGrabClose);
+
+        if (gamepad1.dpad_up)
+            oG.setPosition(outtakeGrabOpen);
+
         if (gamepad2.y) {
             oLP.setPosition(outtakePivotSpecimenScore);
             oRP.setPosition(outtakePivotSpecimenScore);
@@ -130,7 +140,7 @@ public class Test extends OpMode {
         }
 
         if(gamepad2.a) {
-            oLR.setPosition(outtakeRotateSpecimenGrab);
+            oLR.setPosition(outtakeRotateSpecimenGrab+0.045);
             oRR.setPosition(outtakeRotateSpecimenGrab);
         }
 

@@ -6,8 +6,8 @@ import com.pedropathing.localization.constants.*;
 public class LConstants {
     static {
 
-        PinpointConstants.forwardY = 1.25;
-        PinpointConstants.strafeX = 1.25;
+        PinpointConstants.forwardY = -5;
+        PinpointConstants.strafeX = -2;
         PinpointConstants.hardwareMapName = "pinpoint";
 
         PinpointConstants.useYawScalar = false;
@@ -18,7 +18,7 @@ public class LConstants {
         PinpointConstants.customEncoderResolution = 13.26291192;
 
         PinpointConstants.forwardEncoderDirection = GoBildaPinpointDriver.EncoderDirection.REVERSED;
-        PinpointConstants.strafeEncoderDirection = GoBildaPinpointDriver.EncoderDirection.FORWARD;
+        PinpointConstants.strafeEncoderDirection = GoBildaPinpointDriver.EncoderDirection.REVERSED;
 
     }
 }

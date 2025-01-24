@@ -26,7 +26,7 @@ import indubitables.config.pedro.constants.LConstants;
 
 @TeleOp(group = "TeleOp", name = "Outtake Test")
 public class OuttakeTest extends OpMode {
-    Servo oLP, oRP, oLR, oRR;
+    Servo oLP, oRP, oLR, oRR, oG;
 
     private DcMotorEx leftFront;
     private DcMotorEx leftRear;
@@ -42,6 +42,7 @@ public class OuttakeTest extends OpMode {
         oRP = hardwareMap.get(Servo.class, "oRP");
         oLR = hardwareMap.get(Servo.class, "oLR");
         oRR = hardwareMap.get(Servo.class, "oRR");
+        oG = hardwareMap.get(Servo.class, "oG");
 
         oLR.setPosition(0.5);
         oRR.setPosition(0.5);
@@ -70,6 +71,12 @@ public class OuttakeTest extends OpMode {
 
     @Override
     public void loop() {
+        if (gamepad1.dpad_down)
+            oG.setPosition(outtakeGrabClose);
+
+        if (gamepad1.dpad_up)
+            oG.setPosition(outtakeGrabOpen);
+
         if (gamepad1.y) {
             oLP.setPosition(outtakePivotSpecimenScore);
             oRP.setPosition(outtakePivotSpecimenScore);
@@ -81,7 +88,7 @@ public class OuttakeTest extends OpMode {
         }
 
         if(gamepad1.a) {
-            oLR.setPosition(outtakeRotateSpecimenGrab);
+            oLR.setPosition(outtakeRotateSpecimenGrab+0.045);
             oRR.setPosition(outtakeRotateSpecimenGrab);
         }
 
