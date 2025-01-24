@@ -24,7 +24,7 @@ public class BlueFiveSpec extends OpModeCommand {
                 new ExtendZero(r)
                         .alongWith(new Chamber(r)),
                 new FollowPath(r.getF(), FiveSpec.preload(), true, 1),
-                new FollowPath(r.getF(), FiveSpec.pushSamples(), true, 0.9)
+                new FollowPath(r.getF(), FiveSpec.pushSamples(), true, 1)
                         .alongWith(new OuttakeOpen(r))
                         .alongWith(new WaitCommand(500)
                                 .andThen(new Specimen(r))),
@@ -82,11 +82,12 @@ public class BlueFiveSpec extends OpModeCommand {
                         .alongWith(
                                 new Chamber(r)
                         ),
-                new FollowPath(r.getF(), FiveSpec.park(), true, 1).alongWith(
-                        new OuttakeOpen(r),
-                        new ExtendFull(r),
-                        new InstantCommand(() -> r.getI().hover())
-                )
+                new FollowPath(r.getF(), FiveSpec.park(), true, 1)
+                        .alongWith(
+                                new OuttakeOpen(r),
+                                new ExtendFull(r),
+                                new InstantCommand(() -> r.getI().hover())
+                        )
         );
         CommandScheduler.getInstance().enable();
     }
