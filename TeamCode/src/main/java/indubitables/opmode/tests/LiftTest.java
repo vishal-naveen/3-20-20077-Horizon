@@ -1,16 +1,10 @@
-package indubitables.opmode;
-
-import static indubitables.config.core.RobotConstants.outtakePivotSpecimenScore;
-import static indubitables.config.core.RobotConstants.outtakePivotTransfer;
+package indubitables.opmode.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import indubitables.config.core.RobotConstants;
-import indubitables.config.core.hardware.CachedMotor;
 @TeleOp(group = "TeleOp", name = "Hang Test")
 public class LiftTest extends OpMode {
 

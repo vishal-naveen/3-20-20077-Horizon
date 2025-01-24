@@ -19,7 +19,7 @@ public class Drive extends OpMode {
 
     @Override
     public void start() {
-        r.start();
+        r.teleopStart();
     }
 
     @Override

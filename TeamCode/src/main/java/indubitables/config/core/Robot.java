@@ -64,8 +64,6 @@ public class Robot extends SubsystemBase {
         this.t = t;
         this.a = a;
 
-        CommandScheduler.getInstance().enable();
-
         Constants.setConstants(FConstants.class, LConstants.class);
 
         f = new Follower(this.h);
@@ -93,11 +91,9 @@ public class Robot extends SubsystemBase {
         t.update();
     }
 
-    public void start() {
-        if(op == TELEOP) {
-            o.start();
-            f.startTeleopDrive();
-        }
+    public void teleopStart() {
+        o.start();
+        f.startTeleopDrive();
     }
 
     public void stop() {

@@ -1,4 +1,4 @@
-package indubitables.opmode;
+package indubitables.opmode.tests;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.pedropathing.follower.Follower;

@@ -26,11 +26,11 @@ public class FConstants {
         FollowerConstants.forwardZeroPowerAcceleration = -30.4793;
         FollowerConstants.lateralZeroPowerAcceleration = -63.8818;
         
-        FollowerConstants.mass = 12.4;
+        FollowerConstants.mass = 10;
         
-        FollowerConstants.centripetalScaling = 0.0003;
+        FollowerConstants.centripetalScaling = 0.0005;
 
-        FollowerConstants.zeroPowerAccelerationMultiplier = 7;
+        FollowerConstants.zeroPowerAccelerationMultiplier = 4;
 
         FollowerConstants.pathEndVelocityConstraint = 0.1;
         FollowerConstants.pathEndTranslationalConstraint = 0.1;
@@ -42,50 +42,50 @@ public class FConstants {
         FollowerConstants.useSecondaryHeadingPID = true;
         FollowerConstants.useSecondaryDrivePID = true;
 
-        FollowerConstants.translationalPIDFCoefficients = new CustomPIDFCoefficients(
+        FollowerConstants.translationalPIDFCoefficients.setCoefficients(
                 0.05,
                 0,
                 0.0001,
                 0);
-        FollowerConstants.translationalIntegral = new CustomPIDFCoefficients(
+        FollowerConstants.translationalIntegral.setCoefficients(
                 0,
                 0,
                 0,
                 0);
         FollowerConstants.translationalPIDFFeedForward = 0.015;
-        FollowerConstants.secondaryTranslationalPIDFCoefficients = new CustomPIDFCoefficients(
+        FollowerConstants.secondaryTranslationalPIDFCoefficients.setCoefficients(
                 0.1,
                 0,
                 0.05,
                 0);
-        FollowerConstants.secondaryTranslationalIntegral = new CustomPIDFCoefficients(
+        FollowerConstants.secondaryTranslationalIntegral.setCoefficients(
                 0,
                 0,
                 0,
                 0);
         FollowerConstants.secondaryTranslationalPIDFFeedForward = 0.0005;
 
-        FollowerConstants.headingPIDFCoefficients = new CustomPIDFCoefficients(
+        FollowerConstants.headingPIDFCoefficients.setCoefficients(
                 5,
                 0,
                 0.5,
                 0);
         FollowerConstants.headingPIDFFeedForward = 0.01;
-        FollowerConstants.secondaryHeadingPIDFCoefficients = new CustomPIDFCoefficients(
+        FollowerConstants.secondaryHeadingPIDFCoefficients.setCoefficients(
                 3,
                 0,
                 0.1,
                 0);
         FollowerConstants.secondaryHeadingPIDFFeedForward = 0.0005;
 
-        FollowerConstants.drivePIDFCoefficients = new CustomFilteredPIDFCoefficients(
+        FollowerConstants.drivePIDFCoefficients.setCoefficients(
                 0.01,
                 0,
                 0.0001,
                 0.6,
                 0);
         FollowerConstants.drivePIDFFeedForward = 0.01;
-        FollowerConstants.secondaryDrivePIDFCoefficients = new CustomFilteredPIDFCoefficients(
+        FollowerConstants.secondaryDrivePIDFCoefficients.setCoefficients(
                 0.02,
                 0,
                 0.0005,

@@ -1,4 +1,4 @@
-package indubitables.opmode;
+package indubitables.opmode.tests;
 
 import static com.pedropathing.follower.FollowerConstants.leftFrontMotorDirection;
 import static com.pedropathing.follower.FollowerConstants.*;
@@ -9,16 +9,9 @@ import static indubitables.config.core.RobotConstants.outtakePivotSpecimenScore;
 import static indubitables.config.core.RobotConstants.outtakeRotateLeftSpecimenScore;
 import static indubitables.config.core.RobotConstants.outtakeRotateRightSpecimenScore;
 import static indubitables.config.core.RobotConstants.outtakeRotateSpecimenGrab;
-import static indubitables.opmode.ExtendTest.e;
 
-import android.provider.SyncStateContract;
-
-import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.pedropathing.commands.FollowPath;
-import com.pedropathing.commands.TeleopMovement;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.util.Constants;
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;

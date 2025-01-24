@@ -1,4 +1,4 @@
-package indubitables.opmode;
+package indubitables.opmode.tests;
 
 import static com.pedropathing.follower.FollowerConstants.leftFrontMotorDirection;
 import static com.pedropathing.follower.FollowerConstants.leftFrontMotorName;

@@ -1,4 +1,4 @@
-package indubitables.opmode;
+package indubitables.opmode.tests;
 
 import static indubitables.config.core.RobotConstants.extendFull;
 import static indubitables.config.core.RobotConstants.extendZero;
