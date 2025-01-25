@@ -12,6 +12,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import indubitables.config.core.gamepad.TriggerReader;
+import indubitables.config.core.gamepad.commands.Trigger;
 import indubitables.config.core.hardware.CachedMotor;
 
 /** @author Baron Henderson
@@ -24,6 +26,7 @@ public class Lift extends SubsystemBase {
     public CachedMotor rightLift, leftLift;
     public int pos;
     public PIDController pid;
+    public boolean pidOn = false;
     public static int target;
     public static double p = 0.01, i = 0, d = 0, f = 0.005;
 
@@ -47,24 +50,32 @@ public class Lift extends SubsystemBase {
     }
 
     public void update() {
-        pid.setPID(p,i,d);
+        if(pidOn) {
+            pid.setPID(p, i, d);
 
-        rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
-        double pid_output = pid.calculate(getPos(), target);
-        double power = pid_output + f;
+            double pid_output = pid.calculate(getPos(), target);
+            double power = pid_output + f;
 
-        if(getPos() < 50 && target < 50) {
-            rightLift.setPower(0);
-            leftLift.setPower(0);
-        } else {
-            rightLift.setPower(power);
-            leftLift.setPower(power);
+            if (getPos() < 50 && target < 50) {
+                rightLift.setPower(0);
+                leftLift.setPower(0);
+            } else {
+                rightLift.setPower(power);
+                leftLift.setPower(power);
+            }
         }
     }
 
+    public void manual(double left, double right) {
+        leftLift.setPower(right - left);
+        rightLift.setPower(right - left);
+    }
+
     public void setTarget(int b) {
+        pidOn = true;
         target = b;
     }
 

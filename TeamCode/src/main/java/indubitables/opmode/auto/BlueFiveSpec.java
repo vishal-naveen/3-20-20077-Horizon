@@ -7,7 +7,9 @@ import indubitables.config.core.*;
 import indubitables.config.subsystems.commands.*;
 import com.arcrobotics.ftclib.command.*;
 import com.pedropathing.commands.FollowPath;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+@Autonomous(name = "Blue Five Spec")
 public class BlueFiveSpec extends OpModeCommand {
     Robot r;
 
@@ -19,7 +21,6 @@ public class BlueFiveSpec extends OpModeCommand {
 
     @Override
     public void start() {
-        CommandScheduler.getInstance().disable();
         CommandScheduler.getInstance().schedule(
                 new ExtendZero(r)
                         .alongWith(new Chamber(r)),
@@ -89,7 +90,6 @@ public class BlueFiveSpec extends OpModeCommand {
                                 new InstantCommand(() -> r.getI().hover())
                         )
         );
-        CommandScheduler.getInstance().enable();
     }
 
     @Override

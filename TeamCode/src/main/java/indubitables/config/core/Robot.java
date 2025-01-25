@@ -38,7 +38,6 @@ public class Robot extends SubsystemBase {
     public double speed = 0.75;
     public int flip = 1;
 
-
     public Robot(HardwareMap h, Telemetry t, ExGamepad g1, ExGamepad g2, Alliance a, Pose startPose) {
         this.op = TELEOP;
         this.h = h;
@@ -54,7 +53,7 @@ public class Robot extends SubsystemBase {
 
         e = new Extend(this.h,this.t);
         l = new Lift(this.h,this.t);
-        i = new Intake(this.h,this.t);
+       // i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
     }
 
@@ -71,10 +70,10 @@ public class Robot extends SubsystemBase {
 
         e = new Extend(this.h,this.t);
         l = new Lift(this.h,this.t);
-        i = new Intake(this.h,this.t);
+        //i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
 
-        CommandScheduler.getInstance().registerSubsystem(e,l,i,o);
+        CommandScheduler.getInstance().registerSubsystem(e,l /*, i */,o);
         register();
     }
 
@@ -85,7 +84,7 @@ public class Robot extends SubsystemBase {
 
         e.periodic();
         l.periodic();
-        i.periodic();
+        //i.periodic();
         o.periodic();
         f.update();
         t.update();
@@ -110,14 +109,6 @@ public class Robot extends SubsystemBase {
         g1.getGamepadButton(RIGHT_BUMPER)
                 .whileHeld(this::slowDrive);
 
-        //lift.manual(gamepad2.right_trigger - gamepad2.left_trigger);
-
-        g1.getGamepadButton(LEFT_BUMPER)
-                .whileHeld(this::fastDrive);
-
-        g1.getGamepadButton(RIGHT_BUMPER)
-                .whileHeld(this::slowDrive);
-
         g1.getGamepadButton(X)
                 .whenPressed(this::flip);
 
@@ -130,17 +121,19 @@ public class Robot extends SubsystemBase {
         if(g1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
             e.toZero();
 
+        getL().manual(getG2().getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER), getG2().getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
+
         g2.getGamepadButton(A).whenPressed(o::switchGrabState);
 
         g2.getGamepadButton(Y).whenPressed(() -> {
             o.transfer();
-            i.hover();
+            //i.hover();
         });
 
         g2.getGamepadButton(X).whenPressed(() -> {
 
             o.score();
-            i.hover();
+            //i.hover();
         });
 
         g2.getGamepadButton(DPAD_LEFT).whenPressed(this::specimenGrabPos);
@@ -159,7 +152,7 @@ public class Robot extends SubsystemBase {
 
         g2.getGamepadButton(LEFT_STICK_BUTTON).whenPressed(() -> {
             o.hang();
-            i.transfer();
+            //i.transfer();
             e.toZero();
         });
 
@@ -239,11 +232,11 @@ public class Robot extends SubsystemBase {
 
     private void specimenGrabPos() {
         o.startSpecGrab();
-        i.specimen();
+        //i.specimen();
     }
 
     private void specimenScorePos() {
         o.specimenScore();
-        i.specimen();
+        //i.specimen();
     }
 }
