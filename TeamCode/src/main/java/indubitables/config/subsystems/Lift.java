@@ -35,8 +35,8 @@ public class Lift extends SubsystemBase {
         this.telemetry = telemetry;
         this.telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        rightLift = hardwareMap.get(CachedMotor.class, "rightLift");
-        leftLift = hardwareMap.get(CachedMotor.class, "leftLift");
+        rightLift = new CachedMotor(hardwareMap.get(DcMotor.class, "rightLift"));
+        leftLift = new CachedMotor(hardwareMap.get(DcMotor.class, "leftLift"));
 
         rightLift.setDirection(DcMotor.Direction.FORWARD);
         leftLift.setDirection(DcMotor.Direction.REVERSE);
