@@ -16,12 +16,12 @@ public class BlueFiveSpec extends OpModeCommand {
     @Override
     public void initialize() {
         r = new Robot(hardwareMap, telemetry, Alliance.BLUE, FiveSpec.startPose);
-        r.register();
+        register(r);
     }
 
     @Override
     public void start() {
-        CommandScheduler.getInstance().schedule(
+        schedule(
                 new ExtendZero(r)
                         .alongWith(new Chamber(r)),
                 new FollowPath(r.getF(), FiveSpec.preload(), true, 1),

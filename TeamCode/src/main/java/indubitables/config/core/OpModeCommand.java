@@ -53,13 +53,4 @@ public abstract class OpModeCommand extends OpMode {
 
     public abstract void initialize();
 
-    public static void disable() {
-        com.arcrobotics.ftclib.command.Robot.disable();
-    }
-
-    public static void enable() {
-        Robot.enable();
-    }
-
-
 }
