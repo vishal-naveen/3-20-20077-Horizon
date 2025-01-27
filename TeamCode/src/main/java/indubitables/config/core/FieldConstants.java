@@ -24,7 +24,7 @@ public class FieldConstants {
     public static Pose bucketParkPose = new Pose(60.7, 95.6, Math.toRadians(90));
 
     // Observation Poses
-    public static Pose observationStartPose = new Pose(7.5, 65.25, Math.toRadians(180));
+    public static Pose observationStartPose = new Pose(7, 66, Math.toRadians(180));
     public static Pose observationPreloadPose = new Pose(38.5, 75, Math.toRadians(180));
 
     public static Pose observationSpecimenSetPose = new Pose(12, 35, Math.toRadians(180));

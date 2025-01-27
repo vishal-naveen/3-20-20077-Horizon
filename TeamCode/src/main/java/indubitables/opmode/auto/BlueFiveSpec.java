@@ -22,73 +22,80 @@ public class BlueFiveSpec extends OpModeCommand {
     @Override
     public void start() {
         schedule(
-                new ExtendZero(r)
-                        .alongWith(new Chamber(r)),
-                new FollowPath(r.getF(), FiveSpec.preload(), true, 1),
-                new FollowPath(r.getF(), FiveSpec.pushSamples(), true, 1)
-                        .alongWith(new OuttakeOpen(r))
-                        .alongWith(new WaitCommand(500)
-                                .andThen(new Specimen(r))),
-                new WaitCommand(500).andThen(new OuttakeClose(r)),
-                new WaitCommand(250)
-                        .andThen(
-                                new FollowPath(r.getF(), FiveSpec.specimen1(), true, 1)
-                                        .alongWith(new Chamber(r))
-                        ),
-                new FollowPath(r.getF(), FiveSpec.grab2(), true, 1)
-                        .alongWith(
-                                new SequentialCommandGroup(
-                                        new WaitCommand(700)
-                                                .andThen(new Specimen(r)),
-                                        new WaitCommand(1500)
-                                                .andThen(new OuttakeClose(r))
+                new SequentialCommandGroup(
+                        new Chamber(r),
+                        new FollowPath(r.getF(), FiveSpec.preload(), true, 1),
+                        new FollowPath(r.getF(), FiveSpec.pushSamples(), true, 1)
+                                .alongWith(
+                                        new SequentialCommandGroup(
+                                                new OuttakeOpen(r),
+                                                new WaitCommand(500),
+                                                new Specimen(r)
+                                        )
+                                ),
+                        new WaitCommand(500).andThen(new OuttakeClose(r)),
+                        new WaitCommand(250)
+                                .andThen(
+                                        new FollowPath(r.getF(), FiveSpec.specimen1(), true, 1)
+                                                .alongWith(new Chamber(r))
+                                ),
+                        new FollowPath(r.getF(), FiveSpec.grab2(), true, 1)
+                                .alongWith(
+                                        new SequentialCommandGroup(
+                                                new WaitCommand(700)
+                                                        .andThen(new Specimen(r)),
+                                                new WaitCommand(1500)
+                                                        .andThen(new OuttakeClose(r))
+                                        )
+                                ),
+                        new WaitCommand(250)
+                                .andThen(
+                                        new FollowPath(r.getF(), FiveSpec.specimen2(), true, 1)
                                 )
-                        ),
-                new WaitCommand(250)
-                        .andThen(
-                                new FollowPath(r.getF(), FiveSpec.specimen2(), true, 1)
-                        )
-                        .alongWith(
-                                new Chamber(r)
-                        ),
-                new FollowPath(r.getF(), FiveSpec.grab3(), true, 1)
-                        .alongWith(
-                                new SequentialCommandGroup(
-                                        new WaitCommand(700)
-                                                .andThen(new Specimen(r)),
-                                        new WaitCommand(1500)
-                                                .andThen(new OuttakeClose(r))
+                                .alongWith(
+                                        new Chamber(r)
+                                ),
+                        new FollowPath(r.getF(), FiveSpec.grab3(), true, 1)
+                                .alongWith(
+                                        new SequentialCommandGroup(
+                                                new WaitCommand(700)
+                                                        .andThen(new Specimen(r)),
+                                                new WaitCommand(1500)
+                                                        .andThen(new OuttakeClose(r))
+                                        )
+                                ),
+                        new WaitCommand(250)
+                                .andThen(
+                                        new FollowPath(r.getF(), FiveSpec.specimen3(), true, 1)
                                 )
-                        ),
-                new WaitCommand(250)
-                        .andThen(
-                                new FollowPath(r.getF(), FiveSpec.specimen3(), true, 1)
-                        )
-                        .alongWith(
-                                new Chamber(r)
-                        ),
-                new FollowPath(r.getF(), FiveSpec.grab4(), true, 1)
-                        .alongWith(
-                                new SequentialCommandGroup(
-                                        new WaitCommand(700)
-                                                .andThen(new Specimen(r)),
-                                        new WaitCommand(1500)
-                                                .andThen(new OuttakeClose(r))
+                                .alongWith(
+                                        new Chamber(r)
+                                ),
+                        new FollowPath(r.getF(), FiveSpec.grab4(), true, 1)
+                                .alongWith(
+                                        new SequentialCommandGroup(
+                                                new WaitCommand(700)
+                                                        .andThen(new Specimen(r)),
+                                                new WaitCommand(1500)
+                                                        .andThen(new OuttakeClose(r))
+                                        )
+                                ),
+                        new WaitCommand(250)
+                                .andThen(
+                                        new FollowPath(r.getF(), FiveSpec.specimen4(), true, 1)
                                 )
-                        ),
-                new WaitCommand(250)
-                        .andThen(
-                                new FollowPath(r.getF(), FiveSpec.specimen4(), true, 1)
-                        )
-                        .alongWith(
-                                new Chamber(r)
-                        ),
-                new FollowPath(r.getF(), FiveSpec.park(), true, 1)
-                        .alongWith(
-                                new OuttakeOpen(r),
-                                new ExtendFull(r),
-                                new InstantCommand(() -> r.getI().hover())
-                        )
+                                .alongWith(
+                                        new Chamber(r)
+                                ),
+                        new FollowPath(r.getF(), FiveSpec.park(), true, 1)
+                                .alongWith(
+                                        new SequentialCommandGroup(
+                                                new OuttakeOpen(r),
+                                                new ExtendFull(r),
+                                                new InstantCommand(() -> r.getI().hover())
+                                        )
+                                )
+                )
         );
     }
 

@@ -44,8 +44,6 @@ public class Outtake extends SubsystemBase {
         leftPivot = hardwareMap.get(Servo.class, "oLP");
         rightPivot = hardwareMap.get(Servo.class, "oRP");
         this.telemetry = telemetry;
-
-        register();
     }
 
     public void setRotateState(RotateState state) {
@@ -58,7 +56,7 @@ public class Outtake extends SubsystemBase {
             rightRotate.setPosition(outtakeRotateRightScore);
             this.rotateState = RotateState.SCORE;
         } else if (state == RotateState.SPECIMENGRAB) {
-            leftRotate.setPosition(outtakeRotateSpecimenGrab);
+            leftRotate.setPosition(outtakeRotateSpecimenGrab+0.045);
             rightRotate.setPosition(outtakeRotateSpecimenGrab);
             this.rotateState = RotateState.SPECIMENGRAB;
         } else if (state == RotateState.SPECIMENSCORE) {
@@ -66,6 +64,8 @@ public class Outtake extends SubsystemBase {
             rightRotate.setPosition(outtakeRotateRightSpecimenScore);
             this.rotateState = RotateState.SPECIMENSCORE;
         }
+
+
     }
 
     public void setGrabState(GrabState grabState) {
