@@ -7,7 +7,7 @@ public class RobotConstants {
 
     // Outtake
     public static double outtakeGrabClose = 0.04;
-    public static double outtakeGrabOpen = 0.25;
+    public static double outtakeGrabOpen = 0.2;
     public static double outtakeRotateTransfer = 0.265; //.775
     public static double outtakeRotateSpecimenGrab = 0.73;
     public static double outtakeRotateLeftScore = 0.83;
