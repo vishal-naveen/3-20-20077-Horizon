@@ -26,7 +26,7 @@ public class Intake extends SubsystemBase {
         TRANSFER, GROUND, HOVER, SPECIMEN
     }
 
-    public Servo grab, leftRotate, rightRotate, leftPivot, rightPivot;
+    public Servo grab, leftRotate, rightRotate, pivot;
     public GrabState grabState;
     public RotateState rotateState;
     public PivotState pivotState;
@@ -38,8 +38,7 @@ public class Intake extends SubsystemBase {
         grab = hardwareMap.get(Servo.class, "iG");
         leftRotate = hardwareMap.get(Servo.class, "iLR");
         rightRotate = hardwareMap.get(Servo.class, "iRR");
-        leftPivot = hardwareMap.get(Servo.class, "iLP");
-        rightPivot = hardwareMap.get(Servo.class, "iRP");
+        pivot = hardwareMap.get(Servo.class, "iP");
         this.telemetry = telemetry;
 
         register();
@@ -119,20 +118,16 @@ public class Intake extends SubsystemBase {
 
     public void setPivotState(PivotState pivotState) {
         if (pivotState == PivotState.TRANSFER) {
-            leftPivot.setPosition(intakePivotTransfer);
-            rightPivot.setPosition(intakePivotTransfer);
+            pivot.setPosition(intakePivotTransfer);
             this.pivotState = PivotState.TRANSFER;
         } else if (pivotState == PivotState.GROUND) {
-            leftPivot.setPosition(intakePivotGround);
-            rightPivot.setPosition(intakePivotGround);
+            pivot.setPosition(intakePivotGround);
             this.pivotState = PivotState.GROUND;
         } else if (pivotState == PivotState.HOVER) {
-            leftPivot.setPosition(intakePivotHover);
-            rightPivot.setPosition(intakePivotHover);
+            pivot.setPosition(intakePivotHover);
             this.pivotState = PivotState.HOVER;
         } else if (pivotState == PivotState.SPECIMEN) {
-            leftPivot.setPosition(intakePivotSpecimen);
-            rightPivot.setPosition(intakePivotSpecimen);
+            pivot.setPosition(intakePivotSpecimen);
             this.pivotState = PivotState.SPECIMEN;
         }
     }

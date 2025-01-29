@@ -55,11 +55,11 @@ public class Robot extends SubsystemBase {
 
         e = new Extend(this.h,this.t);
         l = new Lift(this.h,this.t);
-       // i = new Intake(this.h,this.t);
+        i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
         b = new Light(this.h,this.t);
 
-        CommandScheduler.getInstance().registerSubsystem(e,l /*, i */,o, b);
+        CommandScheduler.getInstance().registerSubsystem(e,l,i,o,b);
         register();
     }
 
@@ -76,11 +76,11 @@ public class Robot extends SubsystemBase {
 
         e = new Extend(this.h,this.t);
         l = new Lift(this.h,this.t);
-        //i = new Intake(this.h,this.t);
+        i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
         b = new Light(this.h, this.t);
 
-        CommandScheduler.getInstance().registerSubsystem(e,l /*, i */,o, b);
+        CommandScheduler.getInstance().registerSubsystem(e,l, i ,o, b);
         register();
     }
 
@@ -91,7 +91,7 @@ public class Robot extends SubsystemBase {
 
         e.periodic();
         l.periodic();
-        //i.periodic();
+        i.periodic();
         o.periodic();
         f.update();
         t.update();
@@ -135,13 +135,13 @@ public class Robot extends SubsystemBase {
 
         g2.getGamepadButton(Y).whenPressed(() -> {
             o.transfer();
-            //i.hover();
+            i.hover();
         });
 
         g2.getGamepadButton(X).whenPressed(() -> {
 
             o.score();
-            //i.hover();
+            i.hover();
         });
 
         g2.getGamepadButton(DPAD_LEFT).whenPressed(this::specimenGrabPos);
@@ -160,7 +160,7 @@ public class Robot extends SubsystemBase {
 
         g2.getGamepadButton(LEFT_STICK_BUTTON).whenPressed(() -> {
             o.hang();
-            //i.transfer();
+            i.transfer();
             e.toZero();
         });
 
@@ -240,11 +240,11 @@ public class Robot extends SubsystemBase {
 
     private void specimenGrabPos() {
         o.startSpecGrab();
-        //i.specimen();
+        i.specimen();
     }
 
     private void specimenScorePos() {
         o.specimenScore();
-        //i.specimen();
+        i.specimen();
     }
 }
