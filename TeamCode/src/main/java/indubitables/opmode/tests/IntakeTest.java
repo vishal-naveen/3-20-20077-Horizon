@@ -23,7 +23,6 @@ import java.util.List;
 
 import indubitables.config.pedro.constants.FConstants;
 import indubitables.config.pedro.constants.LConstants;
-import indubitables.config.subsystems.Light;
 
 @TeleOp(group = "TeleOp", name = "Intake Test")
 public class IntakeTest extends OpMode {
@@ -35,8 +34,6 @@ public class IntakeTest extends OpMode {
     private DcMotorEx rightRear;
     private List<DcMotorEx> motors;
 
-    private Light l;
-
     @Override
     public void init() {
 
@@ -45,9 +42,6 @@ public class IntakeTest extends OpMode {
         iLR = hardwareMap.get(Servo.class, "iLR");
         iRR = hardwareMap.get(Servo.class, "iRR");
         iG = hardwareMap.get(Servo.class, "iG");
-        l = new Light(hardwareMap,telemetry);
-
-        l.off();
 
 
         iLR.setPosition(0.5);
@@ -77,13 +71,6 @@ public class IntakeTest extends OpMode {
 
     @Override
     public void loop() {
-
-        if (gamepad1.left_bumper)
-            l.off();
-
-        if(gamepad1.right_bumper)
-            l.on();
-
 
         if (gamepad1.dpad_down)
             iG.setPosition(intakeGrabClose);

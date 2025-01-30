@@ -21,7 +21,6 @@ import indubitables.config.pedro.constants.LConstants;
 import indubitables.config.subsystems.Extend;
 import indubitables.config.subsystems.Intake;
 import indubitables.config.subsystems.Lift;
-import indubitables.config.subsystems.Light;
 import indubitables.config.subsystems.Outtake;
 
 public class Robot extends SubsystemBase {
@@ -34,7 +33,6 @@ public class Robot extends SubsystemBase {
     private Intake i;
     private Lift l;
     private Outtake o;
-    private Light b;
     private Opmode op = TELEOP;
     public static Pose autoEndPose;
     public double speed = 0.75;
@@ -57,9 +55,8 @@ public class Robot extends SubsystemBase {
         l = new Lift(this.h,this.t);
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
-        b = new Light(this.h,this.t);
 
-        CommandScheduler.getInstance().registerSubsystem(e,l,i,o,b);
+        CommandScheduler.getInstance().registerSubsystem(e,l,i,o);
         register();
     }
 
@@ -78,9 +75,8 @@ public class Robot extends SubsystemBase {
         l = new Lift(this.h,this.t);
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
-        b = new Light(this.h, this.t);
 
-        CommandScheduler.getInstance().registerSubsystem(e,l, i ,o, b);
+        CommandScheduler.getInstance().registerSubsystem(e,l, i ,o);
         register();
     }
 
