@@ -3,6 +3,7 @@ package indubitables.opmode;
 import static indubitables.config.core.Robot.autoEndPose;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -18,7 +19,7 @@ public class Drive extends OpMode {
 
     @Override
     public void init() {
-        r = new Robot(hardwareMap, telemetry, new ExGamepad(gamepad1), new ExGamepad(gamepad2), Alliance.BLUE, autoEndPose);
+        r = new Robot(hardwareMap, telemetry, gamepad1 , gamepad2, Alliance.BLUE, autoEndPose);
     }
 
     @Override
@@ -28,6 +29,7 @@ public class Drive extends OpMode {
 
     @Override
     public void loop() {
+        r.updateControls(gamepad1, gamepad2);
         r.periodic();
     }
 

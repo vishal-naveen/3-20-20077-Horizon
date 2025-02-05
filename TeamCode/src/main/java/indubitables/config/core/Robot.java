@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.util.Constants;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -26,7 +27,7 @@ import indubitables.config.subsystems.Outtake;
 public class Robot {
     private HardwareMap h;
     private Telemetry t;
-    private ExGamepad g1, g2;
+    private Gamepad g1, g2, p1, p2;
     private Alliance a;
     private Follower f;
     private Extend e;
@@ -38,12 +39,14 @@ public class Robot {
     public double speed = 0.75;
     public int flip = 1;
 
-    public Robot(HardwareMap h, Telemetry t, ExGamepad g1, ExGamepad g2, Alliance a, Pose startPose) {
+    public Robot(HardwareMap h, Telemetry t, Gamepad g1, Gamepad g2, Alliance a, Pose startPose) {
         this.op = TELEOP;
         this.h = h;
         this.t = t;
-        this.g1 = g1;
-        this.g2 = g2;
+        this.g1 = new Gamepad();
+        this.g2 = new Gamepad();
+        this.p1 = new Gamepad();
+        this.p2 = new Gamepad();
         this.a = a;
 
         Constants.setConstants(FConstants.class, LConstants.class);
@@ -55,8 +58,6 @@ public class Robot {
         l = new Lift(this.h,this.t);
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
-
-        CommandScheduler.getInstance().registerSubsystem(e, l, i, o);
     }
 
     public Robot(HardwareMap h, Telemetry t, Alliance a, Pose startPose) {
@@ -74,21 +75,15 @@ public class Robot {
         l = new Lift(this.h,this.t);
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
-
-        CommandScheduler.getInstance().registerSubsystem(e, l, i, o);
     }
 
     public void periodic() {
-        if (op == TELEOP)
-            updateControls();
-       
         e.periodic();
         l.periodic();
         i.periodic();
         o.periodic();
         f.update();
         t.update();
-        l.periodic();
     }
 
     public void teleopStart() {
@@ -97,75 +92,89 @@ public class Robot {
     }
 
     public void stop() {
-        CommandScheduler.getInstance().cancelAll();
         autoEndPose = f.getPose();
     }
 
-    public void updateControls() {
-        if(g1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1)
-            e.toFull();
+    public void updateControls(Gamepad gamepad1, Gamepad gamepad2) {
 
-        if(g1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
-            e.toZero();
+        p1.copy(g1);
+        p2.copy(g2);
+        g1.copy(gamepad1);
+        g1.copy(gamepad1);
 
-        getL().manual(getG2().getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER), getG2().getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
-
-        if(g1.getButton(LEFT_BUMPER))
-            speed = 0.25;
-        else if(g1.getButton(RIGHT_BUMPER))
+        if (g1.right_bumper)
             speed = 1;
+        else if (g1.left_bumper)
+            speed = 0.25;
         else
             speed = 0.75;
 
-        if(g1.getButton(X))
-            flip = -1;
-        else if(g1.getButton(B))
-            flip = 1;
+        l.manual(g2.left_trigger, g2.right_trigger);
 
-        if (g2.wasJustPressed(A))
+        if (g1.x) {
+            flip = -1;
+        }
+
+        if (g1.b) {
+            flip = 1;
+        }
+
+        if (g1.right_trigger > 0.1)
+            e.toFull();
+
+        if (g1.left_trigger > 0.1)
+            e.toZero();
+
+        if (g2.a && !p2.a)
             o.switchGrabState();
 
-        if (g2.wasJustPressed(Y)) {
+        if (g2.y && !p2.y) {
             o.transfer();
             i.hover();
         }
 
-        if (g2.wasJustPressed(X)) {
+        if (g2.x && !p2.x) {
             o.score();
             i.hover();
         }
 
-        if (g2.wasJustPressed(DPAD_LEFT))
+        if (g2.dpad_left && !p2.dpad_left)
             specimenGrabPos();
 
-        if (g2.wasJustPressed(DPAD_RIGHT))
+        if (g2.dpad_right && !p2.dpad_right)
             specimenScorePos();
 
-        if (g2.wasJustPressed(B))
+        if (g2.b && !p2.b)
             CommandScheduler.getInstance().schedule(new Transfer(this));
 
-        if (g2.wasJustPressed(DPAD_UP))
+        if (g2.dpad_up && !p2.dpad_up) {
             i.switchGrabState();
+        }
 
-        if (g2.wasJustPressed(DPAD_DOWN))
+        if (g2.dpad_down && !p2.dpad_down) {
             CommandScheduler.getInstance().schedule(new Submersible(this));
+            o.score();
+        }
 
-        if (g2.wasJustPressed(LEFT_BUMPER))
-            i.rotateCycleLeft();
+        if (g2.left_bumper && !p2.left_bumper) {
+            i.rotateCycle(true);
+        }
 
-        if (g2.wasJustPressed(RIGHT_BUMPER))
-            i.rotateCycleRight();
+        if (g2.right_bumper && !p2.right_bumper) {
+            i.rotateCycle(false);
+        }
 
-        if (g2.wasJustPressed(LEFT_STICK_BUTTON)) {
+        if (g2.left_stick_button) {
             o.hang();
             i.transfer();
             e.toZero();
         }
 
-        if (g2.wasJustPressed(RIGHT_STICK_BUTTON))
+        if (g2.right_stick_button) {
             i.transfer();
-
-        f.setTeleOpMovementVectors(flip * -g1.getLeftY() * speed, flip * -g1.getLeftX() * speed, -g1.getRightX() * speed * 0.5);
+        }
+        
+        f.setTeleOpMovementVectors(flip * -g1.left_stick_y * speed, flip * -g1.left_stick_x * speed, -g1.right_stick_x * speed * 0.5, true);
     }
 
     public HardwareMap getH() {
@@ -177,12 +186,20 @@ public class Robot {
     }
 
 
-    public ExGamepad getG1() {
+    public Gamepad getG1() {
         return g1;
     }
 
-    public ExGamepad getG2() {
+    public Gamepad getG2() {
         return g2;
+    }
+
+    public Gamepad getP1() {
+        return p1;
+    }
+
+    public Gamepad getP2() {
+        return p2;
     }
 
     public Alliance getA() {

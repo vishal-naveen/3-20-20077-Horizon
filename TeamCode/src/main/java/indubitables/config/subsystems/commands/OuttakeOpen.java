@@ -9,7 +9,7 @@ public class OuttakeOpen extends CommandBase {
 
     public OuttakeOpen(Robot robot) {
         this.robot = robot;
-        addRequirements(robot);
+
     }
 
     @Override

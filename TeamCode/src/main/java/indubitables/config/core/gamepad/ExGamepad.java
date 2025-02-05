@@ -1,5 +1,7 @@
 package indubitables.config.core.gamepad;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.hardware.Gamepad;
 import indubitables.config.core.gamepad.GamepadKeys.Button;
 import indubitables.config.core.gamepad.commands.GamepadButton;
@@ -227,4 +229,29 @@ public class ExGamepad {
         return gamepadButtons.get(button);
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return "ExGamepad{" +
+                "gamepad=" + gamepad +
+                "A=" + getButton(Button.A) +
+                ", B=" + getButton(Button.B) +
+                ", X=" + getButton(Button.X) +
+                ", Y=" + getButton(Button.Y) +
+                ", leftBumper=" + getButton(Button.LEFT_BUMPER) +
+                ", rightBumper=" + getButton(Button.RIGHT_BUMPER) +
+                ", dpadUp=" + getButton(Button.DPAD_UP) +
+                ", dpadDown=" + getButton(Button.DPAD_DOWN) +
+                ", dpadLeft=" + getButton(Button.DPAD_LEFT) +
+                ", dpadRight=" + getButton(Button.DPAD_RIGHT) +
+                ", leftStickButton=" + getButton(Button.LEFT_STICK_BUTTON) +
+                ", rightStickButton=" + getButton(Button.RIGHT_STICK_BUTTON) +
+                ", leftTrigger=" + getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) +
+                ", rightTrigger=" + getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) +
+                ", leftY=" + getLeftY() +
+                ", rightY=" + getRightY() +
+                ", leftX=" + getLeftX() +
+                ", rightX=" + getRightX() +
+                '}';
+    }
 }

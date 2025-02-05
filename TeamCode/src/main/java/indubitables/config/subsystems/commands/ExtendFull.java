@@ -9,7 +9,7 @@ public class ExtendFull extends CommandBase {
 
     public ExtendFull(Robot robot) {
         this.robot = robot;
-        addRequirements(robot);
+
     }
 
     @Override
