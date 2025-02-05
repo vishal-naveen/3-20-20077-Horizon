@@ -34,7 +34,7 @@ public class Robot extends SubsystemBase {
     private Lift l;
     private Outtake o;
     private Opmode op = TELEOP;
-    public static Pose autoEndPose;
+    public static Pose autoEndPose = new Pose(0,0,0);
     public double speed = 0.75;
     public int flip = 1;
 
@@ -140,9 +140,13 @@ public class Robot extends SubsystemBase {
             i.hover();
         });
 
-        g2.getGamepadButton(DPAD_LEFT).whenPressed(this::specimenGrabPos);
+        if (g2.getGamepadButton(DPAD_RIGHT).get()) {
+            specimenScorePos();
+        }
 
-        g2.getGamepadButton(DPAD_RIGHT).whenPressed(this::specimenScorePos);
+        if (g2.getGamepadButton(DPAD_RIGHT).get()) {
+            specimenScorePos();
+        }
 
         g2.getGamepadButton(B).whenPressed(new Transfer(this));
 
