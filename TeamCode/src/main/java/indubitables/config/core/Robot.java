@@ -82,8 +82,8 @@ public class Robot extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if(op == TELEOP)
-            teleopControls();
+        updateControls();
+       // CommandScheduler.getInstance().run();
 
         e.periodic();
         l.periodic();
@@ -104,21 +104,7 @@ public class Robot extends SubsystemBase {
         autoEndPose = f.getPose();
     }
 
-    public void teleopControls() {
-        normalDrive();
-
-        g1.getGamepadButton(LEFT_BUMPER)
-                .whileHeld(this::fastDrive);
-
-        g1.getGamepadButton(RIGHT_BUMPER)
-                .whileHeld(this::slowDrive);
-
-        g1.getGamepadButton(X)
-                .whenPressed(this::flip);
-
-        g1.getGamepadButton(B)
-                .whenPressed(this::unflip);
-
+    public void updateControls() {
         if(g1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1)
             e.toFull();
 
@@ -127,44 +113,60 @@ public class Robot extends SubsystemBase {
 
         getL().manual(getG2().getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER), getG2().getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
 
-        g2.getGamepadButton(A).whenPressed(o::switchGrabState);
+        if(g1.getButton(LEFT_BUMPER))
+            speed = 0.25;
+        else if(g1.getButton(RIGHT_BUMPER))
+            speed = 1;
+        else
+            speed = 0.75;
 
-        g2.getGamepadButton(Y).whenPressed(() -> {
+        if(g1.getButton(X))
+            flip = -1;
+        else if(g1.getButton(B))
+            flip = 1;
+
+        if (g2.wasJustPressed(A))
+            o.switchGrabState();
+
+        if (g2.wasJustPressed(Y)) {
             o.transfer();
             i.hover();
-        });
+        }
 
-        g2.getGamepadButton(X).whenPressed(() -> {
-
+        if (g2.wasJustPressed(X)) {
             o.score();
             i.hover();
-        });
-
-        if (g2.getGamepadButton(DPAD_RIGHT).get()) {
-            specimenScorePos();
         }
 
-        if (g2.getGamepadButton(DPAD_RIGHT).get()) {
+        if (g2.wasJustPressed(DPAD_LEFT))
+            specimenGrabPos();
+
+        if (g2.wasJustPressed(DPAD_RIGHT))
             specimenScorePos();
-        }
 
-        g2.getGamepadButton(B).whenPressed(new Transfer(this));
+        if (g2.wasJustPressed(B))
+            CommandScheduler.getInstance().schedule(new Transfer(this));
 
-        g2.getGamepadButton(DPAD_UP).whenPressed(i::switchGrabState);
+        if (g2.wasJustPressed(DPAD_UP))
+            i.switchGrabState();
 
-        g2.getGamepadButton(DPAD_DOWN).whenPressed(new Submersible(this));
+        if (g2.wasJustPressed(DPAD_DOWN))
+            CommandScheduler.getInstance().schedule(new Submersible(this));
 
-        g2.getGamepadButton(LEFT_BUMPER).whenPressed(i::rotateCycleLeft);
+        if (g2.wasJustPressed(LEFT_BUMPER))
+            i.rotateCycleLeft();
 
-        g2.getGamepadButton(LEFT_BUMPER).whenPressed(i::rotateCycleRight);
+        if (g2.wasJustPressed(RIGHT_BUMPER))
+            i.rotateCycleRight();
 
-        g2.getGamepadButton(LEFT_STICK_BUTTON).whenPressed(() -> {
+        if (g2.wasJustPressed(LEFT_STICK_BUTTON)) {
             o.hang();
             i.transfer();
             e.toZero();
-        });
+        }
 
-        g2.getGamepadButton(RIGHT_STICK_BUTTON).whenPressed(i::transfer);
+        if (g2.wasJustPressed(RIGHT_STICK_BUTTON))
+            i.transfer();
 
         f.setTeleOpMovementVectors(flip * -g1.getLeftY() * speed, flip * -g1.getLeftX() * speed, -g1.getRightX() * speed * 0.5);
     }

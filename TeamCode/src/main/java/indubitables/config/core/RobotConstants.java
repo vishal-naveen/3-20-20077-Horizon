@@ -9,26 +9,26 @@ public class RobotConstants {
     public static double outtakeGrabClose = 0.04;
     public static double outtakeGrabOpen = 0.2;
     public static double outtakeRotateTransfer = 0.265; //.775
-    public static double outtakeRotateSpecimenGrab = 0.45;
-    public static double outtakeRotateLeftScore = 0.83;
-    public static double outtakeRotateRightScore = 0.4375;
-    public static double outtakeRotateLeftSpecimenScore = 0.61;
-    public static double outtakeRotateRightSpecimenScore = 0.15;
+    public static double outtakeRotateSpecimenGrab = .56;
+    public static double outtakeRotateLeftScore = 0.8;
+    public static double outtakeRotateRightScore = 0.32;
+    public static double outtakeRotateLeftSpecimenScore = 0.68;
+    public static double outtakeRotateRightSpecimenScore = .2;
     public static double outtakePivotTransfer= 0.18; //0
-    public static double outtakePivotScore = 0.475;
-    public static double outtakePivotSpecimenGrab = 0.92;
-    public static double outtakePivotSpecimenScore = 0.425;
+    public static double outtakePivotScore = 0.53;
+    public static double outtakePivotSpecimenGrab = 0.97;
+    public static double outtakePivotSpecimenScore = 0.41;
 
     // Intake
     public static double intakeGrabClose = 0.12;
     public static double intakeGrabOpen = 0.35;
-    public static double intakeRotateTransfer = 0.355;
-    public static double intakeRotateHoverVertical = 0.3;
-    public static double intakeRotateGroundVertical = 0.38;
+    public static double intakeRotateTransfer = 0.32;
+    public static double intakeRotateHoverVertical = 0.79;
+    public static double intakeRotateGroundVertical = 0.79;
     public static double intakeRotateSpecimen = 0.9;
-    public static double intakePivotTransfer= 0;
-    public static double intakePivotGround = 0.64;
-    public static double intakePivotHover = 0.4;
+    public static double intakePivotTransfer= 0.4;
+    public static double intakePivotGround = 0.625;
+    public static double intakePivotHover = 0.38;
     public static double intakePivotSpecimen = 0;
 
     // Lift Positions

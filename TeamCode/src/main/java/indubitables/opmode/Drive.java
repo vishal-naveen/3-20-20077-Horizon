@@ -19,7 +19,6 @@ public class Drive extends OpMode {
     @Override
     public void init() {
         r = new Robot(hardwareMap, telemetry, new ExGamepad(gamepad1), new ExGamepad(gamepad2), Alliance.BLUE, autoEndPose);
-        CommandScheduler.getInstance().registerSubsystem(r);
     }
 
     @Override
