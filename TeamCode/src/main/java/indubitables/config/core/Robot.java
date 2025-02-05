@@ -100,7 +100,7 @@ public class Robot {
         p1.copy(g1);
         p2.copy(g2);
         g1.copy(gamepad1);
-        g1.copy(gamepad1);
+        g2.copy(gamepad2);
 
         if (g1.right_bumper)
             speed = 1;
