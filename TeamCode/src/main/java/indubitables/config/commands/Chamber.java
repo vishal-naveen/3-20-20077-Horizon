@@ -13,7 +13,6 @@ public class Chamber extends CommandBase {
 
     public Chamber(Robot robot) {
         this.robot = robot;
-        addRequirements(robot);
     }
 
     @Override

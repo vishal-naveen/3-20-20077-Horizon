@@ -13,7 +13,6 @@ public class Specimen extends CommandBase {
 
     public Specimen(Robot robot) {
         this.robot = robot;
-        addRequirements(robot);
     }
 
     @Override

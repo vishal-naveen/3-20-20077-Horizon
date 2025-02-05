@@ -23,7 +23,7 @@ import indubitables.config.subsystems.Intake;
 import indubitables.config.subsystems.Lift;
 import indubitables.config.subsystems.Outtake;
 
-public class Robot extends SubsystemBase {
+public class Robot {
     private HardwareMap h;
     private Telemetry t;
     private ExGamepad g1, g2;
@@ -56,8 +56,7 @@ public class Robot extends SubsystemBase {
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
 
-        CommandScheduler.getInstance().registerSubsystem(e,l,i,o);
-        register();
+        CommandScheduler.getInstance().registerSubsystem(e, l, i, o);
     }
 
     public Robot(HardwareMap h, Telemetry t, Alliance a, Pose startPose) {
@@ -76,15 +75,13 @@ public class Robot extends SubsystemBase {
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
 
-        CommandScheduler.getInstance().registerSubsystem(e,l, i ,o);
-        register();
+        CommandScheduler.getInstance().registerSubsystem(e, l, i, o);
     }
 
-    @Override
     public void periodic() {
-        updateControls();
-       // CommandScheduler.getInstance().run();
-
+        if (op == TELEOP)
+            updateControls();
+       
         e.periodic();
         l.periodic();
         i.periodic();

@@ -16,7 +16,6 @@ public class BlueFiveSpec extends OpModeCommand {
     @Override
     public void initialize() {
         r = new Robot(hardwareMap, telemetry, Alliance.BLUE, FiveSpec.startPose);
-        register(r);
     }
 
     @Override

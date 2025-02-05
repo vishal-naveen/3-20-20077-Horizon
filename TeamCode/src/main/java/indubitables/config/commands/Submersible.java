@@ -13,7 +13,6 @@ public class Submersible extends CommandBase {
 
     public Submersible(Robot robot) {
         this.robot = robot;
-        addRequirements(robot);
     }
 
     @Override

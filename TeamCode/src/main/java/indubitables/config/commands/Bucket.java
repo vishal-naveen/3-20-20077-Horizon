@@ -13,7 +13,6 @@ public class Bucket extends CommandBase {
 
     public Bucket(Robot robot) {
         this.robot = robot;
-        addRequirements(robot);
     }
 
     @Override

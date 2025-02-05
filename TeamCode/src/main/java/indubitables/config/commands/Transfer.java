@@ -14,7 +14,6 @@ public class Transfer extends CommandBase {
 
     public Transfer(Robot robot) {
         this.robot = robot;
-        addRequirements(robot);
     }
 
     @Override
