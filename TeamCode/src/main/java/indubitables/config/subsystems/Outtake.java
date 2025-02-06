@@ -15,7 +15,7 @@ import com.pedropathing.util.Timer;
  * @version 2.0 | 1/4/25
  */
 
-public class Outtake extends SubsystemBase {
+public class Outtake {
 
     public enum GrabState {
         CLOSED, OPEN
@@ -206,7 +206,6 @@ public class Outtake extends SubsystemBase {
         telemetry.addData("Outtake Pivot State: ", pivotState);
     }
 
-    @Override
     public void periodic() {
         telemetry();
     }

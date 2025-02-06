@@ -21,7 +21,7 @@ import indubitables.config.core.hardware.CachedMotor;
  * @version 2.0 | 1/4/25
  */
 
-public class Lift extends SubsystemBase {
+public class Lift {
 
     private Telemetry telemetry;
     public CachedMotor rightLift, leftLift;
@@ -46,8 +46,6 @@ public class Lift extends SubsystemBase {
         leftLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         pid = new PIDController(p, i, d);
-
-        register();
     }
 
     public void update() {
@@ -106,7 +104,6 @@ public class Lift extends SubsystemBase {
         telemetry.addData("Lift Target: ", target);
     }
 
-    @Override
     public void periodic() {
         update();
         telemetry();

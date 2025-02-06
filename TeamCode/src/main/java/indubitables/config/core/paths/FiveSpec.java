@@ -10,8 +10,24 @@ import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 
 public class FiveSpec {
-    public static Pose startPose = observationStartPose;
-    public static Pose preloadPose = observationPreloadPose;
+
+    public static Pose observationStartPose = new Pose(7, 66, Math.toRadians(180));
+    public static Pose observationPreloadPose = new Pose(38.5, 75, Math.toRadians(180));
+
+    public static Pose observationSpecimenPickupPose = new Pose(6.5, 35, Math.toRadians(180));
+    public static Pose observationSpecimenPickup2Pose = new Pose(6.5, 35, Math.toRadians(180));
+    public static Pose observationSpecimenPickup3Pose = new Pose(6.5, 35, Math.toRadians(180));
+    public static Pose observationSpecimenPickup4Pose = new Pose(6.5, 35, Math.toRadians(180));
+
+    public static Pose observationSpecimen1Pose = new Pose(38, 74, Math.toRadians(180));
+    public static Pose observationSpecimen2Pose = new Pose(38, 72, Math.toRadians(180));
+    public static Pose observationSpecimen3Pose = new Pose(38, 69, Math.toRadians(180));
+    public static Pose observationSpecimen4Pose = new Pose(38, 66, Math.toRadians(180));
+
+    public static Pose observationParkPose = new Pose(24, 44, Math.toRadians(215));
+    
+    public static Pose startPose = new Pose(7, 66, Math.toRadians(180));
+    public static Pose preloadPose = new Pose(38.5, 75, Math.toRadians(180));
     public static Pose grab1Pose = observationSpecimenPickupPose;
     public static Pose grab2Pose = observationSpecimenPickup2Pose;
     public static Pose grab3Pose = observationSpecimenPickup3Pose;

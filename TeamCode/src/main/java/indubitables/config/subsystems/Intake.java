@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * @version 2.0 | 1/4/25
  */
 
-public class Intake extends SubsystemBase {
+public class Intake {
     public enum GrabState {
         CLOSED, OPEN
     }
@@ -40,8 +40,6 @@ public class Intake extends SubsystemBase {
         rightRotate = hardwareMap.get(Servo.class, "iRR");
         pivot = hardwareMap.get(Servo.class, "iP");
         this.telemetry = telemetry;
-
-        register();
     }
 
     public void setRotateState(RotateState state) {
@@ -193,7 +191,6 @@ public class Intake extends SubsystemBase {
         telemetry.addData("Rotate Degrees: ", rotateDegrees);
     }
 
-    @Override
     public void periodic() {
         telemetry();
     }

@@ -9,7 +9,6 @@ public class ExtendZero extends CommandBase {
 
     public ExtendZero(Robot robot) {
         this.robot = robot;
-
     }
 
     @Override

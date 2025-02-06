@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * @version 2.0 | 1/4/25
  */
 
-public class Extend extends SubsystemBase {
+public class Extend {
     private MultipleTelemetry telemetry;
 
     public Servo left, right;
@@ -26,7 +26,6 @@ public class Extend extends SubsystemBase {
         left = hardwareMap.get(Servo.class, "eL");
         right = hardwareMap.get(Servo.class, "eR");
 
-        register();
     }
 
     public void setTarget(double b) {
@@ -61,7 +60,6 @@ public class Extend extends SubsystemBase {
         telemetry.addData("Extend Pos: ", getPos());
     }
 
-    @Override
     public void periodic() {
         telemetry();
     }
