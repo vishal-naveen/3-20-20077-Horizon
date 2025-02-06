@@ -7,7 +7,7 @@ import com.pedropathing.pathgen.PathBuilder;
 import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 
-public class FiveSpec {
+public class SevenSpec {
 
     public static Pose startPose = new Pose(7, 66, Math.toRadians(180));
     public static Pose preloadPose = new Pose(38.5, 75, Math.toRadians(180));

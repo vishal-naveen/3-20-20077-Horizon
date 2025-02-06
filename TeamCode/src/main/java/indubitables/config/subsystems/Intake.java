@@ -82,8 +82,8 @@ public class Intake {
     }
 
 
-    public void rotateCycle(boolean right) {
-        if (right) {
+    public void rotateCycle(boolean b) {
+        if (b) {
             if (rotateDegrees < 90)
                 rotateDegrees += 45;
         } else {
@@ -177,11 +177,11 @@ public class Intake {
     }
 
     public void rotateCycleLeft() {
-        rotateCycle(false);
+        rotateCycle(true);
     }
 
     public void rotateCycleRight() {
-        rotateCycle(true);
+        rotateCycle(false);
     }
 
     public void telemetry() {

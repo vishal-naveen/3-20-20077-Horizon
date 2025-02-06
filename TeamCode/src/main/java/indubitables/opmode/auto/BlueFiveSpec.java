@@ -16,14 +16,16 @@ public class BlueFiveSpec extends OpModeCommand {
     @Override
     public void initialize() {
         r = new Robot(hardwareMap, telemetry, Alliance.BLUE, FiveSpec.startPose);
+        r.getT().addData("init", true);
+        r.getT().update();
     }
 
     @Override
     public void start() {
         schedule(
                 new SequentialCommandGroup(
-                        new Chamber(r),
-                        new FollowPath(r.getF(), FiveSpec.preload(), true, 1),
+                       // new Chamber(r),
+                        new FollowPath(r.getF(), FiveSpec.preload(), true, 1).alongWith(new InstantCommand(() -> r.getT().addData("f", true))),
                         new FollowPath(r.getF(), FiveSpec.pushSamples(), true, 1)
                                 .alongWith(
                                         new SequentialCommandGroup(
@@ -96,6 +98,12 @@ public class BlueFiveSpec extends OpModeCommand {
                                 )
                 )
         );
+    }
+
+    @Override
+    public void loop() {
+        super.loop();
+        r.periodic();
     }
 
     @Override

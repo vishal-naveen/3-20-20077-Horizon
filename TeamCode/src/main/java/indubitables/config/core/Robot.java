@@ -144,24 +144,24 @@ public class Robot {
         if (g2.dpad_right && !p2.dpad_right)
             specimenScorePos();
 
-        if (g2.b && !p2.b)
-            CommandScheduler.getInstance().schedule(new Transfer(this));
+//        if (g2.b && !p2.b)
+//           CommandScheduler.getInstance().schedule(new Transfer(this));
 
         if (g2.dpad_up && !p2.dpad_up) {
             i.switchGrabState();
         }
 
-        if (g2.dpad_down && !p2.dpad_down) {
-            CommandScheduler.getInstance().schedule(new Submersible(this));
-            o.score();
-        }
+//        if (g2.dpad_down && !p2.dpad_down) {
+//            CommandScheduler.getInstance().schedule(new Submersible(this));
+//            o.score();
+//        }
 
         if (g2.left_bumper && !p2.left_bumper) {
-            i.rotateCycle(true);
+            i.rotateCycleLeft();
         }
 
         if (g2.right_bumper && !p2.right_bumper) {
-            i.rotateCycle(false);
+            i.rotateCycleRight();
         }
 
         if (g2.left_stick_button) {
