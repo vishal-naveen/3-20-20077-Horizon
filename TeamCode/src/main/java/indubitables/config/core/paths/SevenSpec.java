@@ -11,17 +11,30 @@ import com.pedropathing.pathgen.Point;
 
 public class SevenSpec {
 
-    public static Pose startPose = new Pose(7, 66, Math.toRadians(180));
+    public static Pose start = new Pose(7, 66, Math.toRadians(0));
+    public static Pose score1 = new Pose(40, 75, Math.toRadians(0));
+    public static Pose grab2 = new Pose(16, 36, Math.toRadians(0));
+    public static Pose score2 = new Pose(40, 72.5, Math.toRadians(0));
+    public static Pose grab3 = new Pose(16, 36, Math.toRadians(0));
+    public static Pose score3 = new Pose(40, 70, Math.toRadians(0));
+    public static Pose grab4 = new Pose(16, 36, Math.toRadians(0));
+    public static Pose score4 = new Pose(40, 67.5, Math.toRadians(0));
+    public static Pose grab5 = new Pose(8.5, 36, Math.toRadians(180));
+    public static Pose score5 = new Pose(37.5, 65, Math.toRadians(180));
+    public static Pose grab6 = new Pose(8.5, 36, Math.toRadians(180));
+    public static Pose score6 = new Pose(37.5, 62.5, Math.toRadians(180));
+    public static Pose grab7 = new Pose(8.5, 36, Math.toRadians(180));
+    public static Pose score7 = new Pose(37.5, 60, Math.toRadians(180));
 
     public static PathChain score1() {
         return new PathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Point(7.000, 66.000, Point.CARTESIAN),
-                                new Point(40.000, 75.000, Point.CARTESIAN)
+                                new Point(start),
+                                new Point(score1)
                         )
                 )
-                .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
+                .setConstantHeadingInterpolation(start.getHeading())
                 .build();
     }
 
@@ -29,10 +42,10 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Point(40.000, 75.000, Point.CARTESIAN),
+                                new Point(score1),
                                 new Point(20.000, 70.500, Point.CARTESIAN),
                                 new Point(38.500, 35.500, Point.CARTESIAN),
-                                new Point(16.000, 36.000, Point.CARTESIAN)
+                                new Point(grab2)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
@@ -43,10 +56,10 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Point(16.000, 36.000, Point.CARTESIAN),
+                                new Point(grab2),
                                 new Point(38.500, 35.500, Point.CARTESIAN),
                                 new Point(20.000, 70.500, Point.CARTESIAN),
-                                new Point(40.000, 72.500, Point.CARTESIAN)
+                                new Point(score2)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
@@ -57,10 +70,10 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Point(40.000, 72.500, Point.CARTESIAN),
+                                new Point(score2),
                                 new Point(20.000, 70.500, Point.CARTESIAN),
                                 new Point(38.500, 35.500, Point.CARTESIAN),
-                                new Point(16.000, 36.000, Point.CARTESIAN)
+                                new Point(grab3)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
@@ -71,10 +84,10 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Point(16.000, 36.000, Point.CARTESIAN),
+                                new Point(grab3),
                                 new Point(38.500, 35.500, Point.CARTESIAN),
                                 new Point(20.000, 70.500, Point.CARTESIAN),
-                                new Point(40.000, 70.000, Point.CARTESIAN)
+                                new Point(score3)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
@@ -85,10 +98,10 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Point(40.000, 70.000, Point.CARTESIAN),
+                                new Point(score3),
                                 new Point(20.000, 70.500, Point.CARTESIAN),
                                 new Point(38.500, 35.500, Point.CARTESIAN),
-                                new Point(16.000, 36.000, Point.CARTESIAN)
+                                new Point(grab4)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(0))
@@ -99,10 +112,10 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Point(16.000, 36.000, Point.CARTESIAN),
+                                new Point(grab4),
                                 new Point(38.500, 35.500, Point.CARTESIAN),
                                 new Point(20.000, 70.500, Point.CARTESIAN),
-                                new Point(37.500, 67.500, Point.CARTESIAN)
+                                new Point(score4)
                         )
                 )
                 .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(180))
@@ -113,7 +126,7 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Point(40.000, 67.500, Point.CARTESIAN),
+                                new Point(score4),
                                 new Point(28.500, 17.000, Point.CARTESIAN),
                                 new Point(66.500, 44.000, Point.CARTESIAN),
                                 new Point(55.000, 24.000, Point.CARTESIAN)
@@ -153,7 +166,20 @@ public class SevenSpec {
                 .addPath(
                         new BezierLine(
                                 new Point(55.000, 6.500, Point.CARTESIAN),
-                                new Point(8.500, 6.500, Point.CARTESIAN)
+                                new Point(16.000, 6.500, Point.CARTESIAN)
+                        )
+                )
+                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .build();
+    }
+
+    public static PathChain grab5() {
+        return new PathBuilder()
+                .addPath(
+                        new BezierCurve(
+                                new Point(16.000, 6.500, Point.CARTESIAN),
+                                new Point(20, 24, Point.CARTESIAN),
+                                new Point(grab5)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
@@ -164,8 +190,8 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Point(8.500, 6.500, Point.CARTESIAN),
-                                new Point(37.500, 65.000, Point.CARTESIAN)
+                                new Point(grab5),
+                                new Point(score5)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
@@ -176,8 +202,8 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Point(37.500, 65.000, Point.CARTESIAN),
-                                new Point(8.500, 36.000, Point.CARTESIAN)
+                                new Point(score5),
+                                new Point(grab6)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
@@ -188,8 +214,8 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Point(8.500, 36.000, Point.CARTESIAN),
-                                new Point(37.500, 62.500, Point.CARTESIAN)
+                                new Point(grab6),
+                                new Point(score6)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
@@ -200,8 +226,8 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Point(37.500, 62.500, Point.CARTESIAN),
-                                new Point(8.500, 36.000, Point.CARTESIAN)
+                                new Point(score6),
+                                new Point(grab7)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
@@ -212,8 +238,8 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierLine(
-                                new Point(8.500, 36.000, Point.CARTESIAN),
-                                new Point(37.500, 60.000, Point.CARTESIAN)
+                                new Point(grab7),
+                                new Point(score7)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
