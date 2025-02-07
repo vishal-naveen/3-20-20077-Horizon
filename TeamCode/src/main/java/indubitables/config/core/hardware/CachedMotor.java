@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class CachedMotor {
     private double lastPower = 0;
     private final DcMotor motor;
-    private double powerThreshold = 0.0;
+    private double powerThreshold = 0.01;
 
     public CachedMotor(DcMotor motor, double powerThreshold) {
         this.motor = motor;

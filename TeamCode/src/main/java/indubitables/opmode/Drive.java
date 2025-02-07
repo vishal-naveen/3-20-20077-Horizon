@@ -32,6 +32,4 @@ public class Drive extends OpMode {
         r.updateControls(gamepad1, gamepad2);
         r.periodic();
     }
-
-
 }

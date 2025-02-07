@@ -10,6 +10,7 @@ import com.pedropathing.localization.Pose;
 import com.pedropathing.util.Constants;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.configuration.ServoHubConfiguration;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 

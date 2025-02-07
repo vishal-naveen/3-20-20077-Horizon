@@ -24,7 +24,7 @@ public class BlueFiveSpec extends OpModeCommand {
     public void start() {
         schedule(
                 new SequentialCommandGroup(
-                       // new Chamber(r),
+                        new Chamber(r),
                         new FollowPath(r.getF(), FiveSpec.preload(), true, 1).alongWith(new InstantCommand(() -> r.getT().addData("f", true))),
                         new FollowPath(r.getF(), FiveSpec.pushSamples(), true, 1)
                                 .alongWith(
