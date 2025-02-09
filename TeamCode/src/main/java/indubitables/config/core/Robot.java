@@ -97,7 +97,6 @@ public class Robot {
     }
 
     public void updateControls(Gamepad gamepad1, Gamepad gamepad2) {
-
         p1.copy(g1);
         p2.copy(g2);
         g1.copy(gamepad1);
