@@ -104,21 +104,32 @@ public class Robot {
         }
     }
 
-    public void periodic() {
+    public void aPeriodic() {
+        chamber180();
+        specimen180();
+        chamber0();
+        specimen0();
+        submersible();
+        transfer();
 
-        if (op == TELEOP) {
-            updateControls();
-            submersible();
-            transfer();
-        }
+        t.addData("path", f.getCurrentPath());
+        f.telemetryDebug(t);
 
-        if (op == AUTONOMOUS) {
-            chamber180();
-            specimen180();
-            chamber0();
-            specimen0();
-            f.telemetryDebug(FtcDashboard.getInstance().getTelemetry());
-        }
+        e.periodic();
+        l.periodic();
+        i.periodic();
+        o.periodic();
+        f.update();
+        t.update();
+    }
+
+    public void tPeriodic() {
+        updateControls();
+        submersible();
+        transfer();
+
+        t.addData("path", f.getCurrentPath());
+        f.telemetryDebug(t);
 
         e.periodic();
         l.periodic();

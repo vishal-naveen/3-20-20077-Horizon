@@ -28,7 +28,7 @@ public class BlueFiveSpec extends OpModeCommand {
     @Override
     public void start() {
         schedule(
-                new RunCommand(r::periodic),
+                new RunCommand(r::aPeriodic),
                 new SequentialCommandGroup(
                         new Chamber(r),
                         new FollowPath(r.getF(), FiveSpec.preload(), true, 1).alongWith(new InstantCommand(() -> r.getT().addData("f", true))),
@@ -109,7 +109,7 @@ public class BlueFiveSpec extends OpModeCommand {
     @Override
     public void loop() {
         super.loop();
-        r.periodic();
+        r.aPeriodic();
     }
 
     @Override

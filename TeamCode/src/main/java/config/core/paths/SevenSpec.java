@@ -2,6 +2,7 @@ package config.core.paths;
 
 import android.graphics.Path;
 
+import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
 import com.pedropathing.pathgen.BezierLine;
@@ -26,8 +27,8 @@ public class SevenSpec {
     public static Pose grab7 = new Pose(8.5, 36, Math.toRadians(180));
     public static Pose score7 = new Pose(37.5, 60, Math.toRadians(180));
 
-    public static PathChain score1() {
-        return new PathBuilder()
+    public static PathChain score1(Follower f) {
+        return f.pathBuilder()
                 .addPath(
                         new BezierLine(
                                 new Point(start),

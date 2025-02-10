@@ -26,6 +26,6 @@ public class Drive extends OpMode {
     @Override
     public void loop() {
         r.updateControls();
-        r.periodic();
+        r.tPeriodic();
     }
 }
