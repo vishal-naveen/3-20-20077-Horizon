@@ -7,10 +7,13 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
+import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+import java.util.List;
 
 import config.pedro.constants.FConstants;
 import config.pedro.constants.LConstants;
@@ -60,6 +63,16 @@ public class Robot {
 
         tTimer = new Timer();
         sTimer = new Timer();
+        spec0Timer = new Timer();
+        spec180Timer = new Timer();
+        c0Timer = new Timer();
+        c180Timer = new Timer();
+
+        List<LynxModule> allHubs = h.getAll(LynxModule.class);
+
+        for (LynxModule hub : allHubs) {
+            hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
+        }
     }
 
     public Robot(HardwareMap h, Telemetry t, Alliance a, Pose startPose) {
@@ -77,6 +90,18 @@ public class Robot {
         l = new Lift(this.h,this.t);
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
+
+        tTimer = new Timer();
+        sTimer = new Timer();
+        spec0Timer = new Timer();
+        spec180Timer = new Timer();
+        c0Timer = new Timer();
+        c180Timer = new Timer();
+
+        List<LynxModule> allHubs = h.getAll(LynxModule.class);
+        for (LynxModule hub : allHubs) {
+            hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
+        }
     }
 
     public void periodic() {
