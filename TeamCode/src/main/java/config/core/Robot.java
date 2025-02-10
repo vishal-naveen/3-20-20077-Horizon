@@ -179,22 +179,25 @@ public class Robot {
             i.hover();
         }
 
-        if (g2.dpad_left && !p2.dpad_left)
-            specimenGrabPos();
+        if (g2.dpad_left && !p2.dpad_left) {
+            o.startSpecGrab();
+            i.specimen();
+        }
 
-        if (g2.dpad_right && !p2.dpad_right)
-            specimenScorePos();
+        if (g2.dpad_right && !p2.dpad_right) {
+            o.specimenScore180();
+            i.specimen();
+        }
 
         if (g2.b && !p2.b)
            startTransfer();
 
-        if (g2.dpad_up && !p2.dpad_up) {
+        if (g2.dpad_up && !p2.dpad_up)
             i.switchGrabState();
-        }
 
-        if (!g2.dpad_down && p2.dpad_down) {
+        if (!g2.dpad_down && p2.dpad_down)
             startSubmersible();
-        }
+
 
         if (g2.dpad_down && !p2.dpad_down) {
             i.cloud();
@@ -202,13 +205,11 @@ public class Robot {
             o.transfer();
         }
 
-        if (g2.left_bumper && !p2.left_bumper) {
+        if (g2.left_bumper && !p2.left_bumper)
             i.rotateCycleLeft();
-        }
 
-        if (g2.right_bumper && !p2.right_bumper) {
+        if (g2.right_bumper && !p2.right_bumper)
             i.rotateCycleRight();
-        }
 
         if (g2.left_stick_button) {
             o.hang();
@@ -216,9 +217,8 @@ public class Robot {
             e.toZero();
         }
 
-        if (g2.right_stick_button) {
+        if (g2.right_stick_button)
             i.transfer();
-        }
         
         f.setTeleOpMovementVectors(flip * -g1.left_stick_y * speed, flip * -g1.left_stick_x * speed, -g1.right_stick_x * speed * 0.5, true);
     }
@@ -300,15 +300,6 @@ public class Robot {
         flip = 1;
     }
 
-    private void specimenGrabPos() {
-        o.startSpecGrab();
-        i.specimen();
-    }
-
-    private void specimenScorePos() {
-        o.specimenScore180();
-        i.specimen();
-    }
 
     private void transfer() {
         t.addData("Transfer State", tState);

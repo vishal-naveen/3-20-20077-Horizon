@@ -114,7 +114,7 @@ public class BlueFiveSpec extends OpModeCommand {
 
     @Override
     public void stop() {
-        CommandScheduler.getInstance().reset();
+        super.stop();
         r.stop();
     }
 }
