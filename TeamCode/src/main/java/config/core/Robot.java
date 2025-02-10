@@ -192,8 +192,14 @@ public class Robot {
             i.switchGrabState();
         }
 
-        if (g2.dpad_down && !p2.dpad_down) {
+        if (!g2.dpad_down && p2.dpad_down) {
             startSubmersible();
+        }
+
+        if (g2.dpad_down && !p2.dpad_down) {
+            i.cloud();
+            i.open();
+            o.transfer();
         }
 
         if (g2.left_bumper && !p2.left_bumper) {

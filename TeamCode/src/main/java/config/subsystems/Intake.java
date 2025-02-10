@@ -18,11 +18,11 @@ public class Intake {
     }
 
     public enum RotateState {
-        TRANSFER, GROUND, HOVER, SPECIMEN
+        TRANSFER, GROUND, HOVER, CLOUD, SPECIMEN
     }
 
     public enum PivotState {
-        TRANSFER, GROUND, HOVER, SPECIMEN
+        TRANSFER, GROUND, HOVER, CLOUD, SPECIMEN
     }
 
     public Servo grab, leftRotate, rightRotate, pivot;
@@ -54,6 +54,10 @@ public class Intake {
             leftRotate.setPosition(intakeRotateHoverVertical - 0.03 + (rotateDegrees * perDegree));
             rightRotate.setPosition(intakeRotateHoverVertical - (rotateDegrees * perDegree));
             this.rotateState = RotateState.HOVER;
+        } else if (state == RotateState.CLOUD) {
+            leftRotate.setPosition(intakeRotateCloudVertical - 0.03);
+            rightRotate.setPosition(intakeRotateCloudVertical);
+            this.rotateState = RotateState.CLOUD;
         } else if (state == RotateState.SPECIMEN) {
             leftRotate.setPosition(intakeRotateSpecimen - 0.03);
             rightRotate.setPosition(intakeRotateSpecimen);
@@ -123,7 +127,10 @@ public class Intake {
         } else if (pivotState == PivotState.HOVER) {
             pivot.setPosition(intakePivotHover);
             this.pivotState = PivotState.HOVER;
-        } else if (pivotState == PivotState.SPECIMEN) {
+        } else if (pivotState == PivotState.CLOUD) {
+            pivot.setPosition(intakePivotCloud);
+            this.pivotState = PivotState.CLOUD;
+        }else if (pivotState == PivotState.SPECIMEN) {
             pivot.setPosition(intakePivotSpecimen);
             this.pivotState = PivotState.SPECIMEN;
         }
@@ -161,6 +168,12 @@ public class Intake {
         setPivotState(PivotState.SPECIMEN);
         setRotateState(RotateState.SPECIMEN);
         setGrabState(GrabState.OPEN);
+    }
+
+    public void cloud() {
+        setGrabState(GrabState.OPEN);
+        setRotateState(RotateState.CLOUD);
+        setPivotState(PivotState.CLOUD);
     }
 
     public void init() {
