@@ -55,8 +55,8 @@ public class Intake {
             rightRotate.setPosition(intakeRotateHoverVertical - (rotateDegrees * perDegree));
             this.rotateState = RotateState.HOVER;
         } else if (state == RotateState.CLOUD) {
-            leftRotate.setPosition(intakeRotateCloudVertical - 0.03);
-            rightRotate.setPosition(intakeRotateCloudVertical);
+            leftRotate.setPosition(intakeRotateCloudVertical - 0.03 + (rotateDegrees * perDegree));
+            rightRotate.setPosition(intakeRotateCloudVertical - (rotateDegrees * perDegree));
             this.rotateState = RotateState.CLOUD;
         } else if (state == RotateState.SPECIMEN) {
             leftRotate.setPosition(intakeRotateSpecimen - 0.03);
