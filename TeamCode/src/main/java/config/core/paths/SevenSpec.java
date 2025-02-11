@@ -12,7 +12,7 @@ import com.pedropathing.pathgen.Point;
 
 public class SevenSpec {
 
-    public static Pose start = new Pose(7, 66, Math.toRadians(0));
+    public static Pose start = new Pose(8, 66, Math.toRadians(0));
     public static Pose score1 = new Pose(40, 75, Math.toRadians(0));
     public static Pose grab2 = new Pose(16, 36, Math.toRadians(0));
     public static Pose score2 = new Pose(40, 72.5, Math.toRadians(0));
@@ -27,8 +27,8 @@ public class SevenSpec {
     public static Pose grab7 = new Pose(8.5, 36, Math.toRadians(180));
     public static Pose score7 = new Pose(37.5, 60, Math.toRadians(180));
 
-    public static PathChain score1(Follower f) {
-        return f.pathBuilder()
+    public static PathChain score1() {
+        return new PathBuilder()
                 .addPath(
                         new BezierLine(
                                 new Point(start),
@@ -40,6 +40,7 @@ public class SevenSpec {
     }
 
     public static PathChain grab2() {
+
         return new PathBuilder()
                 .addPath(
                         new BezierCurve(
@@ -160,14 +161,14 @@ public class SevenSpec {
                         new BezierCurve(
                                 new Point(16.000, 13.000, Point.CARTESIAN),
                                 new Point(70.000, 24.000, Point.CARTESIAN),
-                                new Point(55.000, 8.00, Point.CARTESIAN)
+                                new Point(55.000, 9, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .addPath(
                         new BezierLine(
-                                new Point(55.000, 8.00, Point.CARTESIAN),
-                                new Point(16.000, 8.00, Point.CARTESIAN)
+                                new Point(55.000, 9, Point.CARTESIAN),
+                                new Point(16.000, 9, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
@@ -178,7 +179,7 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Point(16.000, 8.00, Point.CARTESIAN),
+                                new Point(16.000, 9, Point.CARTESIAN),
                                 new Point(20, 24, Point.CARTESIAN),
                                 new Point(grab5)
                         )
@@ -236,6 +237,7 @@ public class SevenSpec {
     }
 
     public static PathChain score7() {
+
         return new PathBuilder()
                 .addPath(
                         new BezierLine(

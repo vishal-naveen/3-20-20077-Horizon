@@ -17,6 +17,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 @Autonomous(name = "Seven Spec Pathing")
 public class SevenSpecPathing extends OpModeCommand {
     Follower f;
+    public static String currentPath = "";
 
     @Override
     public void initialize() {
@@ -32,24 +33,25 @@ public class SevenSpecPathing extends OpModeCommand {
 
         schedule(
                 new RunCommand(f::update),
-                new RunCommand(() -> f.telemetryDebug(telemetry)),
                 new SequentialCommandGroup(
-                        new FollowPath(f, SevenSpec.score1(f), true, 1),
-                        new FollowPath(f, SevenSpec.grab2(), true, 1),
-                        new FollowPath(f, SevenSpec.score2(), true, 1),
-                        new FollowPath(f, SevenSpec.grab3(), true, 1),
-                        new FollowPath(f, SevenSpec.score3(), true, 1),
-                        new FollowPath(f, SevenSpec.grab4(), true, 1),
-                        new FollowPath(f, SevenSpec.score4(), true, 1),
-                        new FollowPath(f, SevenSpec.push(), true, 1),
-                        new FollowPath(f, SevenSpec.grab5(), true, 1),
-                        new FollowPath(f, SevenSpec.score5(), true, 1),
-                        new FollowPath(f, SevenSpec.grab6(), true, 1),
-                        new FollowPath(f, SevenSpec.score6(), true, 1),
-                        new FollowPath(f, SevenSpec.grab7(), true, 1),
-                        new FollowPath(f, SevenSpec.score7(), true, 1)
+                        new FollowPath(f, SevenSpec.score1(), true, 1).alongWith(new InstantCommand(() -> currentPath = "score1")),
+                        new FollowPath(f, SevenSpec.grab2(), true, 1).alongWith(new InstantCommand(() -> currentPath = "grab2")),
+                        new FollowPath(f, SevenSpec.score2(), true, 1).alongWith(new InstantCommand(() -> currentPath = "score2")),
+                        new FollowPath(f, SevenSpec.grab3(), true, 1).alongWith(new InstantCommand(() -> currentPath = "grab3")),
+                        new FollowPath(f, SevenSpec.score3(), true, 1).alongWith(new InstantCommand(() -> currentPath = "score3")),
+                        new FollowPath(f, SevenSpec.grab4(), true, 1).alongWith(new InstantCommand(() -> currentPath = "grab4")),
+                        new FollowPath(f, SevenSpec.score4(), true, 1).alongWith(new InstantCommand(() -> currentPath = "score4")),
+                        new FollowPath(f, SevenSpec.push(), true, 1).setCompletionThreshold(0.95).alongWith(new InstantCommand(() -> currentPath = "push")),
+                        new FollowPath(f, SevenSpec.grab5(), true, 1).alongWith(new InstantCommand(() -> currentPath = "grab5")),
+                        new FollowPath(f, SevenSpec.score5(), true, 1).alongWith(new InstantCommand(() -> currentPath = "score5")),
+                        new FollowPath(f, SevenSpec.grab6(), true, 1).alongWith(new InstantCommand(() -> currentPath = "grab6")),
+                        new FollowPath(f, SevenSpec.score6(), true, 1).alongWith(new InstantCommand(() -> currentPath = "score6")),
+                        new FollowPath(f, SevenSpec.grab7(), true, 1).alongWith(new InstantCommand(() -> currentPath = "grab7")),
+                        new FollowPath(f, SevenSpec.score7(), true, 1).alongWith(new InstantCommand(() -> currentPath = "score7"))
                 ),
-                new RunCommand(() -> telemetry.addData("Localizer", FollowerConstants.localizers)),
+
+                new RunCommand(() -> telemetry.addData("curr path", currentPath)),
+                new RunCommand(() -> f.telemetryDebug(telemetry)),
                 new RunCommand(() -> telemetry.update())
         );
     }
