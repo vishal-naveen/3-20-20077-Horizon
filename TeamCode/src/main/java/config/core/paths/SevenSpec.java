@@ -160,14 +160,14 @@ public class SevenSpec {
                         new BezierCurve(
                                 new Point(16.000, 13.000, Point.CARTESIAN),
                                 new Point(70.000, 24.000, Point.CARTESIAN),
-                                new Point(55.000, 6.500, Point.CARTESIAN)
+                                new Point(55.000, 8.00, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .addPath(
                         new BezierLine(
-                                new Point(55.000, 6.500, Point.CARTESIAN),
-                                new Point(16.000, 6.500, Point.CARTESIAN)
+                                new Point(55.000, 8.00, Point.CARTESIAN),
+                                new Point(16.000, 8.00, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
@@ -178,7 +178,7 @@ public class SevenSpec {
         return new PathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Point(16.000, 6.500, Point.CARTESIAN),
+                                new Point(16.000, 8.00, Point.CARTESIAN),
                                 new Point(20, 24, Point.CARTESIAN),
                                 new Point(grab5)
                         )
