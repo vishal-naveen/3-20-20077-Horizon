@@ -188,7 +188,7 @@ public class Robot {
         }
 
         if (g2.dpad_left && !p2.dpad_left) {
-            o.startSpecGrab();
+            o.specimenGrab180();
             i.specimen();
         }
 

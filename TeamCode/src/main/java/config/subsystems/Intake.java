@@ -43,23 +43,23 @@ public class Intake {
 
     public void setRotateState(RotateState state) {
         if (state == RotateState.TRANSFER) {
-            leftRotate.setPosition(intakeRotateTransfer-0.03);
+            leftRotate.setPosition(intakeRotateTransfer);
             rightRotate.setPosition(intakeRotateTransfer);
             this.rotateState = RotateState.TRANSFER;
         } else if (state == RotateState.GROUND) {
-            leftRotate.setPosition(intakeRotateGroundVertical - 0.03 + (rotateDegrees * perDegree));
+            leftRotate.setPosition(intakeRotateGroundVertical + (rotateDegrees * perDegree));
             rightRotate.setPosition(intakeRotateGroundVertical - (rotateDegrees * perDegree));
             this.rotateState = RotateState.GROUND;
         } else if (state == RotateState.HOVER) {
-            leftRotate.setPosition(intakeRotateHoverVertical - 0.03 + (rotateDegrees * perDegree));
+            leftRotate.setPosition(intakeRotateHoverVertical + (rotateDegrees * perDegree));
             rightRotate.setPosition(intakeRotateHoverVertical - (rotateDegrees * perDegree));
             this.rotateState = RotateState.HOVER;
         } else if (state == RotateState.CLOUD) {
-            leftRotate.setPosition(intakeRotateCloudVertical - 0.03 + (rotateDegrees * perDegree));
+            leftRotate.setPosition(intakeRotateCloudVertical + (rotateDegrees * perDegree));
             rightRotate.setPosition(intakeRotateCloudVertical - (rotateDegrees * perDegree));
             this.rotateState = RotateState.CLOUD;
         } else if (state == RotateState.SPECIMEN) {
-            leftRotate.setPosition(intakeRotateSpecimen - 0.03);
+            leftRotate.setPosition(intakeRotateSpecimen);
             rightRotate.setPosition(intakeRotateSpecimen);
         }
     }
@@ -79,8 +79,8 @@ public class Intake {
 
         this.rotateDegrees = degrees;
 
-        setPivotState(PivotState.HOVER);
-        setRotateState(RotateState.HOVER);
+        setPivotState(PivotState.CLOUD);
+        setRotateState(RotateState.CLOUD);
         setGrabState(GrabState.OPEN);
     }
 
@@ -94,8 +94,8 @@ public class Intake {
                 rotateDegrees -= 45;
         }
 
-        setPivotState(PivotState.HOVER);
-        setRotateState(RotateState.HOVER);
+        setPivotState(PivotState.CLOUD);
+        setRotateState(RotateState.CLOUD);
         setGrabState(GrabState.OPEN);
     }
 
@@ -167,7 +167,7 @@ public class Intake {
         rotateDegrees = 0;
         setPivotState(PivotState.SPECIMEN);
         setRotateState(RotateState.SPECIMEN);
-        setGrabState(GrabState.OPEN);
+        setGrabState(GrabState.CLOSED);
     }
 
     public void cloud() {
@@ -189,11 +189,11 @@ public class Intake {
     }
 
     public void rotateCycleLeft() {
-        rotateCycle(true);
+        rotateCycle(false);
     }
 
     public void rotateCycleRight() {
-        rotateCycle(false);
+        rotateCycle(true);
     }
 
     public void telemetry() {
