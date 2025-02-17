@@ -128,9 +128,6 @@ public class Robot {
         submersible();
         transfer();
 
-        t.addData("path", f.getCurrentPath());
-        f.telemetryDebug(t);
-
         e.periodic();
         l.periodic();
         i.periodic();
