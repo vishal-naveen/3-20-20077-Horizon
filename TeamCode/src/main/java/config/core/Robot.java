@@ -380,13 +380,13 @@ public class Robot {
                 setSubmersibleState(1);
                 break;
             case 1:
-                if(sTimer.getElapsedTimeSeconds() > 0.3) {
+                if(sTimer.getElapsedTimeSeconds() > 0.1) {
                     i.close();
                     setSubmersibleState(2);
                 }
                 break;
             case 2:
-                if (sTimer.getElapsedTimeSeconds() > 0.25) {
+                if (sTimer.getElapsedTimeSeconds() > 0.15) {
                     i.hover();
                     setSubmersibleState(-1);
                 }
