@@ -46,9 +46,7 @@ public class Robot {
         this.g2a = g2a;
         this.a = a;
 
-        Constants.setConstants(FConstants.class, LConstants.class);
-
-        f = new Follower(this.h);
+        f = new Follower(this.h, FConstants.class, LConstants.class);
         f.setStartingPose(startPose);
 
         e = new Extend(this.h,this.t);
@@ -81,9 +79,7 @@ public class Robot {
         this.t = t;
         this.a = a;
 
-        Constants.setConstants(FConstants.class, LConstants.class);
-
-        f = new Follower(this.h);
+        f = new Follower(this.h, FConstants.class, LConstants.class);
         f.setStartingPose(startPose);
 
         e = new Extend(this.h,this.t);

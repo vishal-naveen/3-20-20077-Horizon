@@ -176,4 +176,19 @@ public class Vision {
         return scoredDetections.get(0);
     }
 
+    public double getBestDetectionAngle() {
+        if (scoredDetections.isEmpty()) {
+            return Double.NaN;
+        }
+
+        LLResultTypes.DetectorResult bestDetection = scoredDetections.get(0).getDetection();
+        List<List<Double>> corners = bestDetection.getTargetCorners();
+        if (corners == null || corners.size() < 4) {
+            return Double.NaN;
+        }
+
+        double dx = corners.get(1).get(0) - corners.get(0).get(0);
+        double dy = corners.get(1).get(1) - corners.get(0).get(1);
+        return Math.toDegrees(Math.atan2(dy, dx));
+    }
 }
