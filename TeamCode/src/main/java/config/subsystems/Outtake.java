@@ -47,11 +47,11 @@ public class Outtake {
 
     public void setRotateState(RotateState state) {
         if (state == RotateState.TRANSFER) {
-            leftRotate.setPosition(outtakeRotateTransfer);
+            leftRotate.setPosition(outtakeRotateTransfer+0.045);
             rightRotate.setPosition(outtakeRotateTransfer);
             this.rotateState = RotateState.TRANSFER;
         } else if (state == RotateState.SCORE) {
-            leftRotate.setPosition(outtakeRotateLeftScore);
+            leftRotate.setPosition(outtakeRotateLeftScore+0.045);
             rightRotate.setPosition(outtakeRotateRightScore);
             this.rotateState = RotateState.SCORE;
         } else if (state == RotateState.SPECIMENGRAB180) {

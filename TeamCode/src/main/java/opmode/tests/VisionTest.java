@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import config.pedro.constants.FConstants;
+import config.pedro.constants.LConstants;
 import config.vision.limelight.Vision;
 
 @TeleOp(group = "TeleOp", name = "Vision Test")
@@ -19,7 +21,7 @@ public class VisionTest extends OpMode {
     @Override
     public void init() {
         v = new Vision(hardwareMap, telemetry, new int[]{1});
-        f = new Follower(hardwareMap);
+        f = new Follower(hardwareMap, FConstants.class, LConstants.class);
         eL = hardwareMap.get(Servo.class,"eL");
         eR = hardwareMap.get(Servo.class, "eR");
     }

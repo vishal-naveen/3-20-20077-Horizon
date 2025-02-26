@@ -3,11 +3,11 @@ package opmode.auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import config.core.SubmersibleVisualization;
+import config.core.SubVis;
 @Autonomous
 public class SubVisualizerTest extends OpMode {
 
-    SubmersibleVisualization sub = new SubmersibleVisualization(telemetry);
+    SubVis sub = new SubVis(telemetry);
     @Override
     public void init() {
 

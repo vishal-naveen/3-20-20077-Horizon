@@ -31,7 +31,6 @@ public class Intake {
     public PivotState pivotState;
     private Telemetry telemetry;
     private double rotateDegrees = 0;
-    private static final double perDegree = 0.00122222222;
 
     public Intake(HardwareMap hardwareMap, Telemetry telemetry) {
         grab = hardwareMap.get(Servo.class, "iG");
@@ -47,16 +46,16 @@ public class Intake {
             rightRotate.setPosition(intakeRotateTransfer);
             this.rotateState = RotateState.TRANSFER;
         } else if (state == RotateState.GROUND) {
-            leftRotate.setPosition(intakeRotateGroundVertical + (rotateDegrees * perDegree));
-            rightRotate.setPosition(intakeRotateGroundVertical - (rotateDegrees * perDegree));
+            leftRotate.setPosition(intakeRotateGroundVertical + (rotateDegrees * intakeRotatePerDegree));
+            rightRotate.setPosition(intakeRotateGroundVertical - (rotateDegrees * intakeRotatePerDegree));
             this.rotateState = RotateState.GROUND;
         } else if (state == RotateState.HOVER) {
-            leftRotate.setPosition(intakeRotateHoverVertical + (rotateDegrees * perDegree));
-            rightRotate.setPosition(intakeRotateHoverVertical - (rotateDegrees * perDegree));
+            leftRotate.setPosition(intakeRotateHoverVertical + (rotateDegrees * intakeRotatePerDegree));
+            rightRotate.setPosition(intakeRotateHoverVertical - (rotateDegrees * intakeRotatePerDegree));
             this.rotateState = RotateState.HOVER;
         } else if (state == RotateState.CLOUD) {
-            leftRotate.setPosition(intakeRotateCloudVertical + (rotateDegrees * perDegree));
-            rightRotate.setPosition(intakeRotateCloudVertical - (rotateDegrees * perDegree));
+            leftRotate.setPosition(intakeRotateCloudVertical + (rotateDegrees * intakeRotatePerDegree));
+            rightRotate.setPosition(intakeRotateCloudVertical - (rotateDegrees * intakeRotatePerDegree));
             this.rotateState = RotateState.CLOUD;
         } else if (state == RotateState.SPECIMEN) {
             leftRotate.setPosition(intakeRotateSpecimen);
