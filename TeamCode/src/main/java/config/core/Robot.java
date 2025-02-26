@@ -65,12 +65,6 @@ public class Robot {
         spec180Timer = new Timer();
         c0Timer = new Timer();
         c180Timer = new Timer();
-
-        List<LynxModule> allHubs = h.getAll(LynxModule.class);
-
-        for (LynxModule hub : allHubs) {
-            hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
-        }
     }
 
     public Robot(HardwareMap h, Telemetry t, Alliance a, Pose startPose) {
@@ -93,11 +87,6 @@ public class Robot {
         spec180Timer = new Timer();
         c0Timer = new Timer();
         c180Timer = new Timer();
-
-        List<LynxModule> allHubs = h.getAll(LynxModule.class);
-        for (LynxModule hub : allHubs) {
-            hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
-        }
     }
 
     public void aPeriodic() {
