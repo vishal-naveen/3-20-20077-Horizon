@@ -16,7 +16,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 @Autonomous(name = "Seven Spec Pathing")
 public class SevenSpecPathing extends OpModeCommand {
-//    Follower f;
     Robot r;
     public static String currentPath = "";
 
@@ -26,11 +25,6 @@ public class SevenSpecPathing extends OpModeCommand {
         r = new Robot(hardwareMap, telemetry, Alliance.BLUE, SevenSpec.start);
         r.getT().addData("init", true);
         r.getT().update();
-
-//        Constants.setConstants(FConstants.class, LConstants.class);
-//
-//        f = new Follower(hardwareMap);
-//        f.setStartingPose(SevenSpec.start);
 
         schedule(
                 new RunCommand(r::aPeriodic),

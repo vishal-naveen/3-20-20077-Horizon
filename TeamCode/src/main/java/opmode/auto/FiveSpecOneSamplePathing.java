@@ -21,11 +21,6 @@ public class FiveSpecOneSamplePathing extends OpModeCommand {
         r.getT().addData("init", true);
         r.getT().update();
 
-//        Constants.setConstants(FConstants.class, LConstants.class);
-//
-//        f = new Follower(hardwareMap);
-//        f.setStartingPose(FiveSpecOneSamp.start);
-
         schedule(
                 new RunCommand(r::aPeriodic),
                 new SequentialCommandGroup(
