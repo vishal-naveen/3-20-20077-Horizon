@@ -48,13 +48,13 @@ public class FiveSpecOneSample {
                 .addPath(
                         new BezierLine(
                                 new Point(55.000, 24.000, Point.CARTESIAN),
-                                new Point(16.000, 24.000, Point.CARTESIAN)
+                                new Point(18.000, 24.000, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .addPath(
                         new BezierCurve(
-                                new Point(16.000, 24.000, Point.CARTESIAN),
+                                new Point(18.000, 24.000, Point.CARTESIAN),
                                 new Point(70.000, 24.000, Point.CARTESIAN),
                                 new Point(55.000, 13.000, Point.CARTESIAN)
                         )
@@ -63,13 +63,13 @@ public class FiveSpecOneSample {
                 .addPath(
                         new BezierLine(
                                 new Point(55.000, 13.000, Point.CARTESIAN),
-                                new Point(16.000, 13.000, Point.CARTESIAN)
+                                new Point(18.000, 13.000, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .addPath(
                         new BezierCurve(
-                                new Point(16.000, 13.000, Point.CARTESIAN),
+                                new Point(18.000, 13.000, Point.CARTESIAN),
                                 new Point(70.000, 24.000, Point.CARTESIAN),
                                 new Point(55.000, 9, Point.CARTESIAN)
                         )
@@ -78,7 +78,7 @@ public class FiveSpecOneSample {
                 .addPath(
                         new BezierLine(
                                 new Point(55.000, 9, Point.CARTESIAN),
-                                new Point(16.000, 9, Point.CARTESIAN)
+                                new Point(18.000, 9, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))

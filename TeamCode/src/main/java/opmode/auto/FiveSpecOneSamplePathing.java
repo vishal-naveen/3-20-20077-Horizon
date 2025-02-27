@@ -1,5 +1,6 @@
 package opmode.auto;
 
+import config.commands.Chamber;
 import config.core.Alliance;
 import config.core.OpModeCommand;
 import config.core.paths.FiveSpecOneSample;
@@ -24,7 +25,7 @@ public class FiveSpecOneSamplePathing extends OpModeCommand {
         schedule(
                 new RunCommand(r::aPeriodic),
                 new SequentialCommandGroup(
-                        new FollowPath(r.getF(), FiveSpecOneSample.score1(), true, 1),
+                        new FollowPath(r.getF(), FiveSpecOneSample.score1(), true, 1).alongWith(new Chamber(r)),
                         new FollowPath(r.getF(), FiveSpecOneSample.push(), true, 1).setCompletionThreshold(0.95),
                         new FollowPath(r.getF(), FiveSpecOneSample.grab2(), true, 1),
                         new FollowPath(r.getF(), FiveSpecOneSample.score2(), true, 1),
