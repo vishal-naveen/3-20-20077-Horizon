@@ -39,7 +39,7 @@ public class FiveSpecOneSample {
                 .addPath(
                         new BezierCurve(
                                 new Point(score1),
-                                new Point(28.500, 17.000, Point.CARTESIAN),
+                                new Point(25.500, 17.000, Point.CARTESIAN),
                                 new Point(66.500, 44.000, Point.CARTESIAN),
                                 new Point(55.000, 24.000, Point.CARTESIAN)
                         )

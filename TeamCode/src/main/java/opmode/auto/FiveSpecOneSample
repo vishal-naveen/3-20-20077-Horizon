@@ -1,3 +1,4 @@
+
 package opmode.auto;
 
 import config.commands.Chamber;
@@ -10,8 +11,8 @@ import com.arcrobotics.ftclib.command.*;
 import com.pedropathing.commands.FollowPath;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "5+1 Pathing")
-public class FiveSpecOneSamplePathing extends OpModeCommand {
+@Autonomous(name = "5+1")
+public class FiveSpecOneSample extends OpModeCommand {
     Robot r;
 
     @Override
