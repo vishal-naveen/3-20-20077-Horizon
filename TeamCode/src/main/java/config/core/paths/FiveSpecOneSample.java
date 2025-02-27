@@ -221,6 +221,7 @@ public class FiveSpecOneSample {
                         )
                 )
                 .setTangentHeadingInterpolation()
+                .setZeroPowerAccelerationMultiplier(7)
                 .build();
     }
 }
