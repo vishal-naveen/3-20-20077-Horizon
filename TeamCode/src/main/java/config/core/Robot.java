@@ -33,10 +33,13 @@ public class Robot {
     private Lift l;
     private Outtake o;
     private Opmode op = TELEOP;
-    public static Pose autoEndPose = new Pose(0,0,0);
+    public static Pose autoEndPose = new Pose();
+
+    public Pose s = new Pose();
     public double speed = 0.75;
-    public Timer tTimer, sTimer, spec0Timer, spec180Timer, c0Timer, c180Timer;
+    public Timer tTimer, sTimer, spec0Timer, spec180Timer, c0Timer, c180Timer, aInitLoopTimer;
     public int flip = 1, tState = -1, sState = -1, spec0State = -1, spec180State = -1, c0State = -1, c180State = -1;
+    private boolean aInitLoop;
 
     public Robot(HardwareMap h, Telemetry t, Gamepad g1a, Gamepad g2a, Alliance a, Pose startPose) {
         this.op = TELEOP;
@@ -72,14 +75,18 @@ public class Robot {
         this.h = h;
         this.t = t;
         this.a = a;
+        this.s = startPose.copy();
 
         f = new Follower(this.h, FConstants.class, LConstants.class);
         f.setStartingPose(startPose);
-
+        
         e = new Extend(this.h,this.t);
         l = new Lift(this.h,this.t);
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
+
+        this.g2 = new Gamepad();
+        this.p2 = new Gamepad();
 
         tTimer = new Timer();
         sTimer = new Timer();
@@ -87,6 +94,13 @@ public class Robot {
         spec180Timer = new Timer();
         c0Timer = new Timer();
         c180Timer = new Timer();
+        aInitLoopTimer = new Timer();
+
+        aInitLoopTimer.resetTimer();
+        aInitLoop = false;
+        i.specimen();
+        t.addData("s", s);
+        t.addData("status", "not ready");
     }
 
     public void aPeriodic() {
@@ -105,6 +119,25 @@ public class Robot {
         i.periodic();
         o.periodic();
         f.update();
+        t.update();
+    }
+
+    public void aInitLoop(Gamepad g2a) {
+        if (!aInitLoop) {
+            if (aInitLoopTimer.getElapsedTimeSeconds() > 2) {
+                o.init();
+                t.addData("status", "ready to verify");
+                aInitLoop = true;
+            }
+        }
+
+        p2.copy(g2);
+        g2.copy(g2a);
+
+        if (g2.a && !p2.a) {
+            t.addData("status", "all ready!");
+        }
+
         t.update();
     }
 

@@ -9,15 +9,15 @@ import com.pedropathing.pathgen.Point;
 
 public class FiveSpecOneSample {
     public static Pose start = new Pose(7, 78, Math.toRadians(180));
-    public static Pose score1 = new Pose(40, 78, Math.toRadians(180));
+    public static Pose score1 = new Pose(42, 78, Math.toRadians(180));
     public static Pose grab2 = new Pose(8, 36, Math.toRadians(180));
-    public static Pose score2 = new Pose(40, 75, Math.toRadians(180));
+    public static Pose score2 = new Pose(42, 75, Math.toRadians(180));
     public static Pose grab3 = new Pose(8, 36, Math.toRadians(180));
-    public static Pose score3 = new Pose(40, 72, Math.toRadians(180));
+    public static Pose score3 = new Pose(42, 72, Math.toRadians(180));
     public static Pose grab4 = new Pose(8, 36, Math.toRadians(180));
-    public static Pose score4 = new Pose(40, 69, Math.toRadians(180));
+    public static Pose score4 = new Pose(42, 69, Math.toRadians(180));
     public static Pose grab5 = new Pose(8, 36, Math.toRadians(180));
-    public static Pose score5 = new Pose(40, 66, Math.toRadians(180));
+    public static Pose score5 = new Pose(42, 66, Math.toRadians(180));
     public static Pose grab6 = new Pose(8, 36, Math.toRadians(180));
     public static Pose score6 = new Pose(8, 123, Math.toRadians(270));
     public static Pose park = new Pose(9, 40, Math.toRadians(270));
@@ -39,7 +39,7 @@ public class FiveSpecOneSample {
                 .addPath(
                         new BezierCurve(
                                 new Point(score1),
-                                new Point(25.500, 17.000, Point.CARTESIAN),
+                                new Point(20.000, 17.000, Point.CARTESIAN),
                                 new Point(66.500, 44.000, Point.CARTESIAN),
                                 new Point(55.000, 24.000, Point.CARTESIAN)
                         )
@@ -78,7 +78,7 @@ public class FiveSpecOneSample {
                 .addPath(
                         new BezierLine(
                                 new Point(55.000, 9, Point.CARTESIAN),
-                                new Point(25.000, 9, Point.CARTESIAN)
+                                new Point(20, 9, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
@@ -89,12 +89,13 @@ public class FiveSpecOneSample {
         return new PathBuilder()
                 .addPath(
                         new BezierCurve(
-                                new Point(16, 9, Point.CARTESIAN),
+                                new Point(20, 9, Point.CARTESIAN),
                                 new Point(36, 36, Point.CARTESIAN),
                                 new Point(grab2)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setZeroPowerAccelerationMultiplier(2)
                 .build();
     }
 
@@ -119,6 +120,7 @@ public class FiveSpecOneSample {
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setZeroPowerAccelerationMultiplier(2)
                 .build();
     }
 
@@ -143,6 +145,7 @@ public class FiveSpecOneSample {
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setZeroPowerAccelerationMultiplier(2)
                 .build();
     }
 
@@ -167,6 +170,7 @@ public class FiveSpecOneSample {
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setZeroPowerAccelerationMultiplier(2)
                 .build();
     }
 
@@ -191,6 +195,7 @@ public class FiveSpecOneSample {
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setZeroPowerAccelerationMultiplier(2)
                 .build();
     }
 

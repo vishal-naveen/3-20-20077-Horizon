@@ -42,7 +42,7 @@ public class Chamber extends CommandBase {
                 }
                 break;
             case 4:
-                if(timer.getElapsedTimeSeconds() > 1) {
+                if(timer.getElapsedTimeSeconds() > 0.25) {
                     robot.getO().specimenGrab180();
                     setState(-1);
                 }

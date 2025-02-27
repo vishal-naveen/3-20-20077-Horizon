@@ -175,11 +175,6 @@ public class Intake {
         setPivotState(PivotState.CLOUD);
     }
 
-    public void init() {
-        rotateDegrees = 0;
-        specimen();
-    }
-
     public void start() {
         rotateDegrees = 0;
         setPivotState(PivotState.HOVER);

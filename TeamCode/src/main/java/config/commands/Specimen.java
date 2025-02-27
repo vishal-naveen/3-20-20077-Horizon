@@ -23,7 +23,7 @@ public class Specimen extends CommandBase {
     @Override
     public void execute() {
         if (state == 1) {
-            robot.getO().specimenScore0();
+            robot.getO().specimenGrab180();
             robot.getE().toZero();
             setState(-1);
         }

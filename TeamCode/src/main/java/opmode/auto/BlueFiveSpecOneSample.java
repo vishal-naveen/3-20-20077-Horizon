@@ -1,6 +1,8 @@
 
 package opmode.auto;
 
+import static java.lang.Thread.sleep;
+
 import config.commands.Chamber;
 import config.commands.Specimen;
 import config.core.Alliance;
@@ -18,14 +20,7 @@ public class BlueFiveSpecOneSample extends OpModeCommand {
 
     @Override
     public void initialize() {
-
         r = new Robot(hardwareMap, telemetry, Alliance.BLUE, FiveSpecOneSample.start);
-        r.getO().specimenGrab180();
-        r.getO().close();
-        r.getI().specimen();
-        r.getE().toZero();
-        r.getT().addData("init", true);
-        r.getT().update();
 
         schedule(
                 new RunCommand(r::aPeriodic),
@@ -40,16 +35,29 @@ public class BlueFiveSpecOneSample extends OpModeCommand {
                                 .alongWith(new Specimen(r)),
                         new FollowPath(r.getF(), FiveSpecOneSample.score2(), true, 1)
                                 .alongWith(new Chamber(r)),
-                        new FollowPath(r.getF(), FiveSpecOneSample.grab3(), true, 1),
-                        new FollowPath(r.getF(), FiveSpecOneSample.score3(), true, 1),
-                        new FollowPath(r.getF(), FiveSpecOneSample.grab4(), true, 1),
-                        new FollowPath(r.getF(), FiveSpecOneSample.score4(), true, 1),
-                        new FollowPath(r.getF(), FiveSpecOneSample.grab5(), true, 1),
-                        new FollowPath(r.getF(), FiveSpecOneSample.score5(), true, 1),
-                        new FollowPath(r.getF(), FiveSpecOneSample.grab6(), true, 1),
+                        new FollowPath(r.getF(), FiveSpecOneSample.grab3(), true, 1)
+                                .alongWith(new Specimen(r)),
+                        new FollowPath(r.getF(), FiveSpecOneSample.score3(), true, 1)
+                                .alongWith(new Chamber(r)),
+                        new FollowPath(r.getF(), FiveSpecOneSample.grab4(), true, 1)
+                                .alongWith(new Specimen(r)),
+                        new FollowPath(r.getF(), FiveSpecOneSample.score4(), true, 1)
+                                .alongWith(new Chamber(r)),
+                        new FollowPath(r.getF(), FiveSpecOneSample.grab5(), true, 1)
+                                .alongWith(new Specimen(r)),
+                        new FollowPath(r.getF(), FiveSpecOneSample.score5(), true, 1)
+                                .alongWith(new Chamber(r)),
+                        new FollowPath(r.getF(), FiveSpecOneSample.grab6(), true, 1)
+                                .alongWith(new Specimen(r)),
                         new FollowPath(r.getF(), FiveSpecOneSample.score6(), true, 1),
                         new FollowPath(r.getF(), FiveSpecOneSample.park(), true, 1)
                 )
         );
+    }
+
+    @Override
+    public void init_loop() {
+        super.init_loop();
+        r.aInitLoop(gamepad2);
     }
 }

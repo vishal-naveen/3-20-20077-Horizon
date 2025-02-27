@@ -49,7 +49,7 @@ public class RobotConstants {
     public static int liftToPark = 0;
 
     // Extend Positions
-    public static double extendZero = 0.515;
+    public static double extendZero = 0.5375;
     public static double extendFull = .3;
 
 }
