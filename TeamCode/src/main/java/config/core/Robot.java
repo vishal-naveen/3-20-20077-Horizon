@@ -206,7 +206,7 @@ public class Robot {
         }
 
         if (g2.dpad_left && !p2.dpad_left) {
-            o.specimenGrab180();
+            o.startSpecGrab();
             i.specimen();
         }
 
