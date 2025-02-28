@@ -219,6 +219,7 @@ public class Outtake {
     }
 
     public void periodic() {
+        specGrab();
         telemetry();
     }
 }
