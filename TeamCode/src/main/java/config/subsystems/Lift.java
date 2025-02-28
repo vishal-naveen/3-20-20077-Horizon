@@ -67,6 +67,7 @@ public class Lift {
     }
 
     public void manual(double left, double right) {
+        pidOff();
         leftLift.setPower(right - left);
         rightLift.setPower(right - left);
     }
@@ -107,6 +108,14 @@ public class Lift {
 
     public boolean roughlyAtTarget() {
         return Math.abs(getPos() - target) < 50;
+    }
+
+    public void pidOn() {
+        pidOn = true;
+    }
+
+    public void pidOff() {
+        pidOn = false;
     }
 
     public void telemetry() {

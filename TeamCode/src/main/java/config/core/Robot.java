@@ -99,6 +99,7 @@ public class Robot {
         aInitLoopTimer.resetTimer();
         aInitLoop = false;
         i.specimen();
+        o.close();
         t.addData("s", s);
         t.addData("status", "not ready");
     }
@@ -112,7 +113,6 @@ public class Robot {
         transfer();
 
         t.addData("path", f.getCurrentPath());
-        f.telemetryDebug(t);
 
         e.periodic();
         l.periodic();

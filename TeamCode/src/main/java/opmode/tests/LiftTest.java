@@ -1,42 +1,41 @@
 package opmode.tests;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(group = "TeleOp", name = "Hang Test")
-public class LiftTest extends OpMode {
+import config.subsystems.Lift;
+import config.subsystems.Outtake;
 
-    DcMotor rightL = null;
-    DcMotor leftL = null;
+@Config
+@TeleOp(group = "TeleOp", name = "Lift Test")
+public class LiftTest extends OpMode {
+    public static int target = 0;
+
+    Lift l;
+    Outtake o;
+
     @Override
     public void init() {
-        rightL = hardwareMap.get(DcMotor.class, "rightLift");
-        leftL = hardwareMap.get(DcMotor.class, "leftLift");
+        l = new Lift(hardwareMap, telemetry);
+        o = new Outtake(hardwareMap, telemetry);
 
-        rightL.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftL.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        leftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
-
-
-        telemetry.addData("Init Complete", true);
-        telemetry.update();
+        o.score();
     }
 
     @Override
     public void loop() {
+        if (gamepad1.a)
+            l.setTarget(target);
+        else {
+            l.manual(gamepad1.left_trigger, gamepad1.right_trigger);
+        }
 
-        leftL.setPower(gamepad2.left_stick_y);
-        rightL.setPower(gamepad2.left_stick_y);
-        leftL.setPower(gamepad1.right_trigger-gamepad1.left_trigger);
-        rightL.setPower(gamepad1.right_trigger-gamepad1.left_trigger);
+        o.score();
 
-        telemetry.addData("Right Lift Position: ", rightL.getCurrentPosition());
+        l.periodic();
         telemetry.update();
     }
 }

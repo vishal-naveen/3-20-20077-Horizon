@@ -189,9 +189,11 @@ public class Outtake {
 
     public void init() {
         setPivotState(PivotState.SPECIMENGRAB180);
-        setRotateState(RotateState.SPECIMENGRAB180);
-        leftRotate.setPosition(0.8+0.045);
-        rightRotate.setPosition(0.8);
+        leftPivot.setPosition(outtakePivotSpecimenGrab180-0.1);
+        rightPivot.setPosition(outtakePivotSpecimenGrab180-0.1);
+        setRotateState(RotateState.SPECIMENSCORE180);
+        leftRotate.setPosition(0.74+0.045+0.2);
+        rightRotate.setPosition(0.32+0.2);
         setGrabState(GrabState.CLOSED);
     }
 

@@ -7,7 +7,7 @@ public class RobotConstants {
 
     // Outtake
     public static double outtakeGrabClose = 0.04;
-    public static double outtakeGrabOpen = 0.225;
+    public static double outtakeGrabOpen = 0.3;
     public static double outtakeRotateTransfer = 0.265; //.775
     public static double outtakeRotateSpecimenGrab180 = 0.61;
     public static double outtakeRotateSpecimenGrab0 = 0.56;
@@ -44,7 +44,7 @@ public class RobotConstants {
     public static int liftToZero = 0;
     public static int liftToHumanPlayer = 200;
     public static int liftToHighChamber = 200;
-    public static int liftToHighBucket = 1750;
+    public static int liftToHighBucket = 2000;
     public static int liftToTransfer = 200;
     public static int liftToPark = 0;
 

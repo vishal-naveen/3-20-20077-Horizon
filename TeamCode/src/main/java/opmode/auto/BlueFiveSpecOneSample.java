@@ -4,6 +4,7 @@ package opmode.auto;
 import static java.lang.Thread.sleep;
 
 import config.commands.Chamber;
+import config.commands.Preload;
 import config.commands.Specimen;
 import config.core.Alliance;
 import config.core.OpModeCommand;
@@ -25,32 +26,78 @@ public class BlueFiveSpecOneSample extends OpModeCommand {
         schedule(
                 new RunCommand(r::aPeriodic),
                 new SequentialCommandGroup(
-                        new ParallelCommandGroup(
-                                new Chamber(r),
-                                new FollowPath(r.getF(), FiveSpecOneSample.score1(), true, 1)
+                        new Preload(r).alongWith(
+                                new WaitCommand(500)
                                         .andThen(
-                                                new FollowPath(r.getF(), FiveSpecOneSample.push(), true, 1).setCompletionThreshold(0.95))
+                                                new FollowPath(r.getF(), FiveSpecOneSample.score1(), true, 1),
+                                                new InstantCommand(() -> r.getO().open()),
+                                                new FollowPath(r.getF(), FiveSpecOneSample.push(), true, 1).setCompletionThreshold(0.95)
+                                                        .alongWith(
+                                                                new WaitCommand(500)
+                                                                        .andThen(
+                                                                                new Specimen(r)
+                                                                        )
+                                                        )
+                                        )
+
                         ),
-                        new FollowPath(r.getF(), FiveSpecOneSample.grab2(), true, 1)
-                                .alongWith(new Specimen(r)),
-                        new FollowPath(r.getF(), FiveSpecOneSample.score2(), true, 1)
-                                .alongWith(new Chamber(r)),
+                        new FollowPath(r.getF(), FiveSpecOneSample.grab2(), true, 1),
+                        new Chamber(r).alongWith(
+                                new WaitCommand(450)
+                                        .andThen(
+                                                new FollowPath(r.getF(), FiveSpecOneSample.score2(), true, 1).setCompletionThreshold(0.975)
+                                        )
+                        ),
                         new FollowPath(r.getF(), FiveSpecOneSample.grab3(), true, 1)
                                 .alongWith(new Specimen(r)),
-                        new FollowPath(r.getF(), FiveSpecOneSample.score3(), true, 1)
-                                .alongWith(new Chamber(r)),
+                        new Chamber(r).alongWith(
+                                new WaitCommand(250)
+                                        .andThen(
+                                                new FollowPath(r.getF(), FiveSpecOneSample.score3(), true, 1).setCompletionThreshold(0.975)
+                                        )
+                        ),
                         new FollowPath(r.getF(), FiveSpecOneSample.grab4(), true, 1)
                                 .alongWith(new Specimen(r)),
-                        new FollowPath(r.getF(), FiveSpecOneSample.score4(), true, 1)
-                                .alongWith(new Chamber(r)),
+                        new Chamber(r).alongWith(
+                                new WaitCommand(250)
+                                        .andThen(
+                                                new FollowPath(r.getF(), FiveSpecOneSample.score4(), true, 1).setCompletionThreshold(0.975)
+                                        )
+                        ),
                         new FollowPath(r.getF(), FiveSpecOneSample.grab5(), true, 1)
                                 .alongWith(new Specimen(r)),
-                        new FollowPath(r.getF(), FiveSpecOneSample.score5(), true, 1)
-                                .alongWith(new Chamber(r)),
+                        new Chamber(r).alongWith(
+                                new WaitCommand(250)
+                                        .andThen(
+                                                new FollowPath(r.getF(), FiveSpecOneSample.score5(), true, 1).setCompletionThreshold(0.975)
+                                        )
+                        ),
                         new FollowPath(r.getF(), FiveSpecOneSample.grab6(), true, 1)
                                 .alongWith(new Specimen(r)),
-                        new FollowPath(r.getF(), FiveSpecOneSample.score6(), true, 1),
-                        new FollowPath(r.getF(), FiveSpecOneSample.park(), true, 1)
+                        new InstantCommand(() -> r.getO().close())
+                                .andThen(
+                                        new WaitCommand(250),
+                                        new FollowPath(r.getF(), FiveSpecOneSample.score6(), true, 1).setCompletionThreshold(0.975)
+                                                .alongWith(
+                                                        new InstantCommand(() -> r.getO().score()),
+                                                        new WaitCommand(250)
+                                                                .andThen(
+                                                                        new InstantCommand(() -> r.getI().cloud()),
+                                                                        new InstantCommand(() -> r.getO().score()),
+                                                                        new InstantCommand(() -> r.getL().toHighBucket())
+                                                                )
+                                                ),
+                                        new InstantCommand(() -> r.getO().open())
+                                                .andThen(
+                                                        new WaitCommand(450),
+                                                        new InstantCommand(() -> r.getL().pidOff())
+                                                                .alongWith(
+                                                                        new FollowPath(r.getF(), FiveSpecOneSample.park(), true, 1),
+                                                                        new InstantCommand(() -> r.getI().hover()),
+                                                                        new InstantCommand(() -> r.getE().toFull())
+                                                                )
+                                                )
+                                )
                 )
         );
     }
