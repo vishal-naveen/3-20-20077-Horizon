@@ -141,7 +141,6 @@ public class Outtake {
             case 0:
                 if(pivotState == PivotState.SPECIMENSCORE180) {
                     hang();
-                    setGrabState(GrabState.OPEN);
                     setSpecGrabState(1);
                 } else {
                     setRotateState(RotateState.SPECIMENGRAB180);
@@ -151,12 +150,18 @@ public class Outtake {
                 }
                 break;
             case 1:
-                if(specScoreTimer.getElapsedTimeSeconds() > 0.65) {
+                if(specScoreTimer.getElapsedTimeSeconds() > 0.2) {
+                    setGrabState(GrabState.OPEN);
+                    setSpecGrabState(2);
+                }
+                break;
+            case 2:
+                if(specScoreTimer.getElapsedTimeSeconds() > 0.45) {
                     setRotateState(RotateState.SPECIMENGRAB180);
                     setPivotState(PivotState.SPECIMENGRAB180);
-                    setGrabState(GrabState.OPEN);
                     setSpecGrabState(-1);
                 }
+                break;
         }
     }
 
@@ -168,6 +173,15 @@ public class Outtake {
     public void startSpecGrab() {
         setSpecGrabState(0);
     }
+
+    public void preload() {
+        setRotateState(RotateState.SPECIMENSCORE180);
+        setPivotState(PivotState.SPECIMENSCORE180);
+        leftPivot.setPosition(.37);
+        rightPivot.setPosition(.37);
+        setGrabState(GrabState.CLOSED);
+    }
+
 
     public void specimenScore180() {
         setRotateState(RotateState.SPECIMENSCORE180);
@@ -189,11 +203,11 @@ public class Outtake {
 
     public void init() {
         setPivotState(PivotState.SPECIMENGRAB180);
-        leftPivot.setPosition(outtakePivotSpecimenGrab180-0.1);
-        rightPivot.setPosition(outtakePivotSpecimenGrab180-0.1);
+        leftPivot.setPosition(outtakePivotSpecimenGrab180-0.11);
+        rightPivot.setPosition(outtakePivotSpecimenGrab180-0.11);
         setRotateState(RotateState.SPECIMENSCORE180);
-        leftRotate.setPosition(0.74+0.045+0.2);
-        rightRotate.setPosition(0.32+0.2);
+        leftRotate.setPosition(0.74+0.21);
+        rightRotate.setPosition(0.32+0.21);
         setGrabState(GrabState.CLOSED);
     }
 
@@ -209,10 +223,12 @@ public class Outtake {
 
     public void hang() {
         setRotateState(RotateState.SPECIMENSCORE180);
-        leftPivot.setPosition(0.275);
-        rightPivot.setPosition(0.275);
+        leftPivot.setPosition(0.15);
+        rightPivot.setPosition(0.15);
         setGrabState(GrabState.CLOSED);
     }
+
+
 
     public void telemetry() {
         telemetry.addData("Outtake Grab State: ", grabState);

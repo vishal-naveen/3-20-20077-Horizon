@@ -6,21 +6,21 @@ import com.acmerobotics.dashboard.config.Config;
 public class RobotConstants {
 
     // Outtake
-    public static double outtakeGrabClose = 0.04;
+    public static double outtakeGrabClose = 0;
     public static double outtakeGrabOpen = 0.3;
     public static double outtakeRotateTransfer = 0.265; //.775
     public static double outtakeRotateSpecimenGrab180 = 0.61;
     public static double outtakeRotateSpecimenGrab0 = 0.56;
     public static double outtakeRotateLeftScore = 0.9;
     public static double outtakeRotateRightScore = 0.5;
-    public static double outtakeRotateLeftSpecimenScore180 = 0.74;
-    public static double outtakeRotateRightSpecimenScore180 = 0.32;
+    public static double outtakeRotateLeftSpecimenScore180 = 0.77;
+    public static double outtakeRotateRightSpecimenScore180 = 0.35;
     public static double outtakeRotateLeftSpecimenScore0 = 0.68;
     public static double outtakeRotateRightSpecimenScore0 = .2;
     public static double outtakePivotTransfer= 0.8; //0
     public static double outtakePivotScore = 0.4;
-    public static double outtakePivotSpecimenGrab180 = 0.86;
-    public static double outtakePivotSpecimenScore180 = 0.34;
+    public static double outtakePivotSpecimenGrab180 = 0.87;
+    public static double outtakePivotSpecimenScore180 = 0.375;
 
     public static double outtakePivotSpecimenGrab0 = 0.97;
     public static double outtakePivotSpecimenScore0 = 0.41;

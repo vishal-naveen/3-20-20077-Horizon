@@ -24,13 +24,12 @@ public class Preload extends CommandBase {
     public void execute() {
         switch (state) {
             case 0:
-                robot.getO().specimenScore180();
+                robot.getO().preload();
                 robot.getE().toZero();
                 setState(1);
                 break;
             case 1:
-                if (timer.getElapsedTimeSeconds() > 1.25) {
-                    robot.getO().open();
+                if (timer.getElapsedTimeSeconds() > 1.4) {
                     robot.getO().hang();
                     setState(2);
                 }

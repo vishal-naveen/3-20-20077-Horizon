@@ -160,6 +160,9 @@ public class Robot {
     }
 
     public void stop() {
+        o.score();
+        o.open();
+        i.cloud();
         autoEndPose = f.getPose();
     }
 
@@ -239,7 +242,7 @@ public class Robot {
 
         if (g2.left_stick_button) {
             o.hang();
-            i.transfer();
+            i.specimen();
             e.toZero();
         }
 

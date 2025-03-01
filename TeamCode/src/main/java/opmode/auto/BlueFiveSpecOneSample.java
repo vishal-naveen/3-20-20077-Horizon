@@ -29,18 +29,13 @@ public class BlueFiveSpecOneSample extends OpModeCommand {
                         new Preload(r).alongWith(
                                 new WaitCommand(500)
                                         .andThen(
-                                                new FollowPath(r.getF(), FiveSpecOneSample.score1(), true, 1),
+                                                new FollowPath(r.getF(), FiveSpecOneSample.score1(), true, 0.9),
                                                 new InstantCommand(() -> r.getO().open()),
                                                 new FollowPath(r.getF(), FiveSpecOneSample.push(), true, 1).setCompletionThreshold(0.95)
-                                                        .alongWith(
-                                                                new WaitCommand(500)
-                                                                        .andThen(
-                                                                                new Specimen(r)
-                                                                        )
-                                                        )
                                         )
 
                         ),
+                        new InstantCommand(() -> r.getO().specimenGrab180()),
                         new FollowPath(r.getF(), FiveSpecOneSample.grab2(), true, 1),
                         new Chamber(r).alongWith(
                                 new WaitCommand(450)
@@ -89,11 +84,12 @@ public class BlueFiveSpecOneSample extends OpModeCommand {
                                                 ),
                                         new InstantCommand(() -> r.getO().open())
                                                 .andThen(
-                                                        new WaitCommand(450),
+                                                        new WaitCommand(250),
                                                         new InstantCommand(() -> r.getL().pidOff())
                                                                 .alongWith(
                                                                         new FollowPath(r.getF(), FiveSpecOneSample.park(), true, 1),
                                                                         new InstantCommand(() -> r.getI().hover()),
+                                                                        new InstantCommand(() -> r.getO().specimenGrab180()),
                                                                         new InstantCommand(() -> r.getE().toFull())
                                                                 )
                                                 )

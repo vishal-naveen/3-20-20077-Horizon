@@ -38,13 +38,13 @@ public class Chamber extends CommandBase {
                 break;
             case 2:
                 if (!robot.getF().isBusy()) {
-                    robot.getO().open();
+                    robot.getO().close();
+                    robot.getO().hang();
                     setState(3);
                 }
                 break;
             case 3:
-                if (timer.getElapsedTimeSeconds() > 0) {
-                    robot.getO().hang();
+                if (timer.getElapsedTimeSeconds() > 0.2) {
                     robot.getO().open();
                     setState(4);
                 }

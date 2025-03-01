@@ -11,14 +11,14 @@ public class FiveSpecOneSample {
     public static Pose start = new Pose(7, 78, Math.toRadians(180));
     public static Pose score1 = new Pose(43, 76, Math.toRadians(180));
     public static Pose grab2 = new Pose(7, 36, Math.toRadians(180));
-    public static Pose score2 = new Pose(43, 76, Math.toRadians(180));
+    public static Pose score2 = new Pose(42.25, 76, Math.toRadians(180));
     public static Pose grab3 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score3 = new Pose(43, 75, Math.toRadians(180));
+    public static Pose score3 = new Pose(42.25, 75, Math.toRadians(180));
     public static Pose grab4 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score4 = new Pose(43, 73, Math.toRadians(180));
+    public static Pose score4 = new Pose(42.25, 73, Math.toRadians(180));
     public static Pose grab5 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score5 = new Pose(43, 71, Math.toRadians(180));
-    public static Pose grab6 = new Pose(7.75, 36, Math.toRadians(180));
+    public static Pose score5 = new Pose(42.5, 71, Math.toRadians(180));
+    public static Pose grab6 = new Pose(8, 36, Math.toRadians(180));
     public static Pose score6 = new Pose(7.5, 123, Math.toRadians(270));
     public static Pose park = new Pose(9, 40, Math.toRadians(270));
 
@@ -42,13 +42,13 @@ public class FiveSpecOneSample {
                                 new Point(score1),
                                 new Point(20.000, 17.000, Point.CARTESIAN),
                                 new Point(66.500, 44.000, Point.CARTESIAN),
-                                new Point(55.000, 24.000, Point.CARTESIAN)
+                                new Point(52.5, 24.000, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .addPath(
                         new BezierLine(
-                                new Point(55.000, 24.000, Point.CARTESIAN),
+                                new Point(52.5, 24.000, Point.CARTESIAN),
                                 new Point(28.000, 24.000, Point.CARTESIAN)
                         )
                 )
@@ -57,28 +57,28 @@ public class FiveSpecOneSample {
                         new BezierCurve(
                                 new Point(28.000, 24.000, Point.CARTESIAN),
                                 new Point(70.000, 24.000, Point.CARTESIAN),
-                                new Point(55.000, 13.000, Point.CARTESIAN)
+                                new Point(52.5, 15.000, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .addPath(
                         new BezierLine(
-                                new Point(55.000, 13.000, Point.CARTESIAN),
-                                new Point(28.000, 13.000, Point.CARTESIAN)
+                                new Point(52.5, 14.000, Point.CARTESIAN),
+                                new Point(28.000, 15.000, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .addPath(
                         new BezierCurve(
-                                new Point(28.000, 13.000, Point.CARTESIAN),
+                                new Point(28.000, 15.000, Point.CARTESIAN),
                                 new Point(65.000, 21.000, Point.CARTESIAN),
-                                new Point(55.000, 9.5, Point.CARTESIAN)
+                                new Point(52.5, 9.5, Point.CARTESIAN)
                         )
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .addPath(
                         new BezierLine(
-                                new Point(55.000, 9.5, Point.CARTESIAN),
+                                new Point(52.5, 9.5, Point.CARTESIAN),
                                 new Point(20, 9.5, Point.CARTESIAN)
                         )
                 )
@@ -210,7 +210,7 @@ public class FiveSpecOneSample {
                                 score6
                         )
                 )
-                .setZeroPowerAccelerationMultiplier(6)
+                .setZeroPowerAccelerationMultiplier(4)
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(270), 0.3)
                 .build();
     }
