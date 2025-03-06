@@ -20,6 +20,7 @@ import config.pedro.constants.LConstants;
 import config.subsystems.Extend;
 import config.subsystems.Intake;
 import config.subsystems.Lift;
+import config.subsystems.Light;
 import config.subsystems.Outtake;
 
 public class Robot {
@@ -32,6 +33,7 @@ public class Robot {
     private Intake i;
     private Lift l;
     private Outtake o;
+    private Light j;
     private Opmode op = TELEOP;
     public static Pose autoEndPose = new Pose();
 
@@ -56,6 +58,7 @@ public class Robot {
         l = new Lift(this.h,this.t);
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
+        j = new Light(this.h, this.t);
 
         this.g1 = new Gamepad();
         this.g2 = new Gamepad();
@@ -180,6 +183,9 @@ public class Robot {
             speed = 0.75;
 
         l.manual(g2.left_trigger, g2.right_trigger);
+
+        if (g1.a && !p1.a)
+            j.switchI();
 
         if (g1.x) {
             flip = -1;

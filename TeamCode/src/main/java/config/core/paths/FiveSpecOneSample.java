@@ -9,15 +9,15 @@ import com.pedropathing.pathgen.Point;
 
 public class FiveSpecOneSample {
     public static Pose start = new Pose(7, 78, Math.toRadians(180));
-    public static Pose score1 = new Pose(43, 76, Math.toRadians(180));
+    public static Pose score1 = new Pose(42, 76, Math.toRadians(180));
     public static Pose grab2 = new Pose(7, 36, Math.toRadians(180));
-    public static Pose score2 = new Pose(42.25, 76, Math.toRadians(180));
+    public static Pose score2 = new Pose(42, 76, Math.toRadians(180));
     public static Pose grab3 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score3 = new Pose(42.25, 75, Math.toRadians(180));
+    public static Pose score3 = new Pose(42, 75, Math.toRadians(180));
     public static Pose grab4 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score4 = new Pose(42.25, 73, Math.toRadians(180));
+    public static Pose score4 = new Pose(42, 73, Math.toRadians(180));
     public static Pose grab5 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score5 = new Pose(42.5, 71, Math.toRadians(180));
+    public static Pose score5 = new Pose(42, 71, Math.toRadians(180));
     public static Pose grab6 = new Pose(8, 36, Math.toRadians(180));
     public static Pose score6 = new Pose(7.5, 123, Math.toRadians(270));
     public static Pose park = new Pose(9, 40, Math.toRadians(270));
