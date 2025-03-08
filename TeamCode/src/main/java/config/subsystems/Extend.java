@@ -14,9 +14,15 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  */
 
 public class Extend {
+
+    public enum ExtendState {
+        ZERO, QUARTER, HALF, FULL, TRANSFER
+    }
+
     private MultipleTelemetry telemetry;
 
     public Servo left, right;
+    private ExtendState state = ExtendState.ZERO;
     private double pos = 0;
 
     public Extend(HardwareMap hardwareMap, Telemetry telemetry) {
@@ -35,23 +41,36 @@ public class Extend {
 
     public void toZero() {
         setTarget(extendZero);
+        state = ExtendState.ZERO;
     }
 
     public void toQuarter() {
         setTarget(extendFull/4);
+        state = ExtendState.QUARTER;
     }
 
     public void toHalf() {
         setTarget(extendFull/2);
+        state = ExtendState.HALF;
     }
 
     public void toFull() {
         setTarget(extendFull);
+        state = ExtendState.FULL;
+    }
+
+    public void toTransfer() {
+        setTarget(extendTransfer);
+        state = ExtendState.TRANSFER;
     }
 
     public double getPos() {
         pos = right.getPosition();
         return pos;
+    }
+
+    public ExtendState getState() {
+        return state;
     }
 
 

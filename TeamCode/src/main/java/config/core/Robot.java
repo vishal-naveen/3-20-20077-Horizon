@@ -341,7 +341,6 @@ public class Robot {
 
         switch (tState) {
             case 1:
-                i.close();
                 //     transferSampleDetected = (intake.getColor() == IntakeColor.BLUE || intake.getColor() == IntakeColor.RED || intake.getColor() == IntakeColor.YELLOW);
                 o.transfer();
                 i.transfer();
@@ -349,41 +348,32 @@ public class Robot {
                 break;
             case 2:
                 if (tTimer.getElapsedTimeSeconds() > 0.1) {
-                    o.setRotateState(Outtake.RotateState.TRANSFER);
-                    e.toZero();
+                    e.toTransfer();
                     setTransferState(3);
                 }
                 break;
             case 3:
-                if (tTimer.getElapsedTimeSeconds() > 0.15) {
-                    o.transfer();
+                int temp;
+
+                if (e.getState() == Extend.ExtendState.FULL)
+                    temp = 1;
+                else
+                    temp = 0;
+
+                if (tTimer.getElapsedTimeSeconds() > 0.4 && temp == 0) {
+                    o.close();
+                    setTransferState(4);
+                } else if (tTimer.getElapsedTimeSeconds() > 0.65 && temp == 1) {
+                    o.close();
                     setTransferState(4);
                 }
                 break;
             case 4:
-                if (tTimer.getElapsedTimeSeconds() > 0) {
-                    o.close();
-                    setTransferState(5);
-                }
-                break;
-            case 5:
-                if (tTimer.getElapsedTimeSeconds() > 0.5) {
-                    o.score();
-                    setTransferState(6);
-                }
-                break;
-            case 6:
-                if (tTimer.getElapsedTimeSeconds() > 0) {
+                if (tTimer.getElapsedTimeSeconds() > 0.2) {
                     i.open();
-                    setTransferState(7);
-                }
-                break;
-            case 7:
-                if (tTimer.getElapsedTimeSeconds() > 0.25) {
-                    i.hover();
+                    o.score();
                     setTransferState(-1);
                 }
-                break;
         }
     }
 

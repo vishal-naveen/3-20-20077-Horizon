@@ -89,8 +89,8 @@ public class IntakeTest extends OpMode {
 
 
         if(gamepad1.a) {
-            iLR.setPosition(intakeRotateHoverVertical);
-            iRR.setPosition(intakeRotateHoverVertical);
+            iLR.setPosition(intakeRotateGroundVertical);
+            iRR.setPosition(intakeRotateGroundVertical);
             telemetry.addData("intake r", true);
         }
 
