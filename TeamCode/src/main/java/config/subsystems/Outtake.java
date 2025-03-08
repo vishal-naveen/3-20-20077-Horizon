@@ -62,6 +62,14 @@ public class Outtake {
             leftRotate.setPosition(outtakeRotateLeftSpecimenScore180);
             rightRotate.setPosition(outtakeRotateRightSpecimenScore180);
             this.rotateState = RotateState.SPECIMENSCORE180;
+        } else if (state == RotateState.SPECIMENGRAB0) {
+            leftRotate.setPosition(outtakeRotateSpecimenGrab0+0.045);
+            rightRotate.setPosition(outtakeRotateSpecimenGrab0);
+            this.rotateState = RotateState.SPECIMENGRAB0;
+        } else if (state == RotateState.SPECIMENSCORE0) {
+            leftRotate.setPosition(outtakeRotateLeftSpecimenScore0);
+            rightRotate.setPosition(outtakeRotateRightSpecimenScore0);
+            this.rotateState = RotateState.SPECIMENSCORE0;
         }
 
 
@@ -102,6 +110,14 @@ public class Outtake {
             leftPivot.setPosition(outtakePivotSpecimenScore180);
             rightPivot.setPosition(outtakePivotSpecimenScore180);
             this.pivotState = PivotState.SPECIMENSCORE180;
+        } else if (pivotState == PivotState.SPECIMENGRAB0) {
+            leftPivot.setPosition(outtakePivotSpecimenGrab0);
+            rightPivot.setPosition(outtakePivotSpecimenGrab0);
+            this.pivotState = PivotState.SPECIMENGRAB0;
+        } else if (pivotState == PivotState.SPECIMENSCORE0) {
+            leftPivot.setPosition(outtakePivotSpecimenScore0);
+            rightPivot.setPosition(outtakePivotSpecimenScore0);
+            this.pivotState = PivotState.SPECIMENSCORE0;
         }
     }
 

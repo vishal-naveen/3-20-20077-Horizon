@@ -64,6 +64,16 @@ public class Extend {
         state = ExtendState.TRANSFER;
     }
 
+    public void extendInches(double inches) {
+        double temp = extendZero - (inches * extendInchesPer);
+
+        if(temp < extendFull) {
+            temp = extendFull;
+        }
+
+        setTarget(temp);
+    }
+
     public double getPos() {
         pos = right.getPosition();
         return pos;

@@ -22,7 +22,7 @@ public class BlueFiveSpecOneSample extends OpModeCommand {
     @Override
     public void initialize() {
         r = new Robot(hardwareMap, telemetry, Alliance.BLUE, FiveSpecOneSample.start);
-
+        r.getI().specimen();
         schedule(
                 new RunCommand(r::aPeriodic),
                 new SequentialCommandGroup(

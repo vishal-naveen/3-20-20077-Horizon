@@ -1,5 +1,6 @@
 package config.subsystems;
 
+import static config.core.RobotConstants.liftAfterHighChamber;
 import static config.core.RobotConstants.liftToHighBucket;
 import static config.core.RobotConstants.liftToHighChamber;
 import static config.core.RobotConstants.liftToZero;
@@ -103,7 +104,7 @@ public class Lift {
     }
 
     public void toChamberScore() {
-        setTarget(liftToHighChamber - 50);
+        setTarget(liftAfterHighChamber);
     }
 
     public boolean roughlyAtTarget() {

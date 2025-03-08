@@ -21,6 +21,7 @@ public class BlueFiveSpec extends OpModeCommand {
     @Override
     public void initialize() {
         r = new Robot(hardwareMap, telemetry, Alliance.BLUE, FiveSpec.startPose);
+        r.getI().specimen();
         r.getT().addData("init", true);
         r.getT().update();
     }

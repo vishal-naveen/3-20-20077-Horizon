@@ -22,6 +22,7 @@ import config.subsystems.Intake;
 import config.subsystems.Lift;
 import config.subsystems.Light;
 import config.subsystems.Outtake;
+import config.vision.limelight.Vision;
 
 public class Robot {
     private HardwareMap h;
@@ -34,6 +35,7 @@ public class Robot {
     private Lift l;
     private Outtake o;
     private Light j;
+    private Vision v;
     private Opmode op = TELEOP;
     public static Pose autoEndPose = new Pose();
 
@@ -87,6 +89,7 @@ public class Robot {
         l = new Lift(this.h,this.t);
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
+        v = new Vision(this.h, this.t, a == Alliance.BLUE ? new int[]{1,2} : new int[]{0,2});
 
         this.g2 = new Gamepad();
         this.p2 = new Gamepad();
@@ -101,22 +104,15 @@ public class Robot {
 
         aInitLoopTimer.resetTimer();
         aInitLoop = false;
-        i.specimen();
         o.close();
         t.addData("s", s);
         t.addData("status", "not ready");
     }
 
     public void aPeriodic() {
-        chamber180();
-        specimen180();
-        chamber0();
-        specimen0();
-        submersible();
-        transfer();
-
         t.addData("path", f.getCurrentPath());
 
+        v.periodic();
         e.periodic();
         l.periodic();
         i.periodic();
@@ -166,6 +162,7 @@ public class Robot {
         o.score();
         o.open();
         i.cloud();
+        v.off();
         autoEndPose = f.getPose();
     }
 
@@ -315,6 +312,14 @@ public class Robot {
         return o;
     }
 
+    public Light getJ() {
+        return j;
+    }
+
+    public Vision getV() {
+        return v;
+    }
+
     public void slowDrive() {
         speed = 0.25;
     }
@@ -371,6 +376,11 @@ public class Robot {
             case 4:
                 if (tTimer.getElapsedTimeSeconds() > 0.2) {
                     i.open();
+                    setTransferState(5);
+                }
+                break;
+            case 5:
+                if (tTimer.getElapsedTimeSeconds() > 0.2) {
                     o.score();
                     setTransferState(-1);
                 }

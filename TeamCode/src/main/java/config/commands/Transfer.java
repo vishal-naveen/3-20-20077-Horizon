@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
 
 import config.core.Robot;
+import config.subsystems.Extend;
 import config.subsystems.Outtake;
 
 public class Transfer extends CommandBase {
@@ -25,48 +26,44 @@ public class Transfer extends CommandBase {
     public void execute() {
         switch (state) {
             case 1:
-                robot.getI().close();
-                robot.getO().transferHigh();
+                //     transferSampleDetected = (intake.getColor() == IntakeColor.BLUE || intake.getColor() == IntakeColor.RED || intake.getColor() == IntakeColor.YELLOW);
+                robot.getO().transfer();
                 robot.getI().transfer();
                 setState(2);
                 break;
             case 2:
                 if (timer.getElapsedTimeSeconds() > 0.1) {
-                    robot.getO().setRotateState(Outtake.RotateState.TRANSFER);
-                    robot.getE().toZero();
+                    robot.getE().toTransfer();
                     setState(3);
                 }
                 break;
             case 3:
-                if (timer.getElapsedTimeSeconds() > 0.2) {
-                    robot.getO().transfer();
+                int temp;
+
+                if (robot.getE().getState() == Extend.ExtendState.FULL)
+                    temp = 1;
+                else
+                    temp = 0;
+
+                if (timer.getElapsedTimeSeconds() > 0.4 && temp == 0) {
+                    robot.getO().close();
+                    setState(4);
+                } else if (timer.getElapsedTimeSeconds() > 0.65 && temp == 1) {
+                    robot.getO().close();
                     setState(4);
                 }
                 break;
             case 4:
-                if (timer.getElapsedTimeSeconds() > 0.25) {
-                    robot.getO().close();
+                if (timer.getElapsedTimeSeconds() > 0.2) {
+                    robot.getI().open();
                     setState(5);
                 }
                 break;
             case 5:
-                if (timer.getElapsedTimeSeconds() > 0.5) {
+                if (timer.getElapsedTimeSeconds() > 0.2) {
                     robot.getO().score();
-                    setState(6);
-                }
-                break;
-            case 6:
-                if (timer.getElapsedTimeSeconds() > 0) {
-                    robot.getI().open();
-                    setState(7);
-                }
-                break;
-            case 7:
-                if (timer.getElapsedTimeSeconds() > 0.25) {
-                    robot.getI().hover();
                     setState(-1);
                 }
-                break;
         }
     }
 

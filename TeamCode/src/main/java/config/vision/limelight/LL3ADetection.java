@@ -2,14 +2,14 @@ package config.vision.limelight;
 
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
 
-public class ScoredDetection {
+public class LL3ADetection {
     private final LLResultTypes.DetectorResult detection;
     private final double score;
     private final double yDistance;
     private final double rotationScore;
     private final double xDistance;
 
-    public ScoredDetection(LLResultTypes.DetectorResult detection, double score, double yDistance, double xDistance, double rotationScore) {
+    public LL3ADetection(LLResultTypes.DetectorResult detection, double score, double yDistance, double xDistance, double rotationScore) {
         this.detection = detection;
         this.score = score;
         this.yDistance = yDistance;
