@@ -1,5 +1,6 @@
 package opmode.auto;
 
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -39,13 +40,19 @@ public class BlueSixSpec extends OpModeCommand {
                                                     new FollowPath(r.getF(), SixSpec.score1())
                                                 )
                                 ),
-                        new Align(r)
-                                .andThen(
-                                    new Submersible(r)
-                                            .andThen(
-                                                    new Transfer(r)
-                                            )
+                     //   new Align(r)
+                       //         .andThen(
+                                    new Submersible(r),
+                      //          ),
+                        new FollowPath(r.getF(),SixSpec.deposit2())
+                                .alongWith(
+                                    new WaitCommand(500)
+                                        .andThen(
+                                                new InstantCommand(() -> r.getE().toFull())
+                                        )
                                 )
+                                .andThen(new InstantCommand(() -> r.getI().open())),
+                        new FollowPath(r.getF(), SixSpec.push())
                 )
         );
     }

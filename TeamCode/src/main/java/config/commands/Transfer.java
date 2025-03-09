@@ -24,6 +24,8 @@ public class Transfer extends CommandBase {
 
     @Override
     public void execute() {
+        robot.getT().addData("t state", state);
+        robot.getT().update();
         switch (state) {
             case 1:
                 //     transferSampleDetected = (intake.getColor() == IntakeColor.BLUE || intake.getColor() == IntakeColor.RED || intake.getColor() == IntakeColor.YELLOW);
@@ -64,6 +66,7 @@ public class Transfer extends CommandBase {
                     robot.getO().score();
                     setState(-1);
                 }
+                break;
         }
     }
 

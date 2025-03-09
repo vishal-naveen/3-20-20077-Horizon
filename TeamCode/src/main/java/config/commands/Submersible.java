@@ -22,6 +22,8 @@ public class Submersible extends CommandBase {
 
     @Override
     public void execute() {
+        robot.getT().addData("s state", state);
+        robot.getT().update();
         switch (state) {
             case 1:
                 robot.getI().ground();
@@ -46,6 +48,7 @@ public class Submersible extends CommandBase {
                     robot.getE().toZero();
                     setState(-1);
                 }
+                break;
         }
     }
 

@@ -89,7 +89,7 @@ public class Robot {
         l = new Lift(this.h,this.t);
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
-        v = new Vision(this.h, this.t, a == Alliance.BLUE ? new int[]{1,2} : new int[]{0,2});
+     //   v = new Vision(this.h, this.t, a == Alliance.BLUE ? new int[]{1,2} : new int[]{0,2});
 
         this.g2 = new Gamepad();
         this.p2 = new Gamepad();
@@ -112,7 +112,7 @@ public class Robot {
     public void aPeriodic() {
         t.addData("path", f.getCurrentPath());
 
-        v.periodic();
+     //   v.periodic();
         e.periodic();
         l.periodic();
         i.periodic();
@@ -162,7 +162,7 @@ public class Robot {
         o.score();
         o.open();
         i.cloud();
-        v.off();
+      //  v.off();
         autoEndPose = f.getPose();
     }
 

@@ -25,18 +25,24 @@ public class Align extends CommandBase {
 
     @Override
     public void execute() {
+        robot.getT().addData("a state", state);
+        robot.getT().update();
         switch (state) {
             case 1:
-                robot.getI().rotateDegrees(robot.getV().getBestDetectionAngle());
+                robot.getI().rotateDegrees(0);//robot.getV().getBestDetectionAngle());
                 robot.getE().toFull();
-                temp = robot.getV().getPose(robot.getF().getPose());
-                SixSpec.sub1(temp);
-                robot.getF().holdPoint(temp);
+                robot.getF().followPath(SixSpec.sub2());
+              //  temp = robot.getV().getPose(robot.getF().getPose());
+               // robot.getF().holdPoint(SixSpec.sub1);
                 setState(2);
+                break;
             case 2:
-                if(robot.getF().getPose().roughlyEquals(temp, 0.25)) {
-                    setState(-1);
-                }
+             //   if(robot.getF().getPose().roughlyEquals(SixSpec.sub1, 0.25)) {
+                    if(!robot.getF().isBusy()) {
+                        setState(-1);
+                    }
+             //   }
+                break;
         }
     }
 
