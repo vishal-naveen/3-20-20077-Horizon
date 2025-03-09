@@ -29,7 +29,7 @@ public class Align extends CommandBase {
             case 1:
                 robot.getI().rotateDegrees(robot.getV().getBestDetectionAngle());
                 robot.getE().toFull();
-                temp = robot.getV().getAlignedPose(robot.getF().getPose());
+                temp = robot.getV().getPose(robot.getF().getPose());
                 SixSpec.sub1(temp);
                 robot.getF().holdPoint(temp);
                 setState(2);

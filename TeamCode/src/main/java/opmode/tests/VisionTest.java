@@ -1,20 +1,17 @@
 package opmode.tests;
 
-import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import config.core.paths.SixSpec;
 import config.pedro.constants.FConstants;
 import config.pedro.constants.LConstants;
 import config.subsystems.Extend;
 import config.subsystems.Intake;
-import config.subsystems.Lift;
 import config.subsystems.Light;
 import config.subsystems.Outtake;
 import config.vision.limelight.Vision;
@@ -65,7 +62,7 @@ public class VisionTest extends OpMode {
             i.rotateDegrees(v.getBestDetectionAngle());
             e.toFull();
             Pose c = f.getPose();
-            f.holdPoint(v.getAlignedPose(c));
+            f.holdPoint(v.getPose(c));
         }
 
         if (g1.dpad_up && !p1.dpad_up)
@@ -76,7 +73,7 @@ public class VisionTest extends OpMode {
 
         if(g1.right_bumper && !p1.right_bumper) {
             Pose c = f.getPose();
-            f.holdPoint(v.getAlignedPose(c));
+            f.holdPoint(v.getPose(c));
         }
 
         if(g1.left_bumper && !p1.left_bumper) {

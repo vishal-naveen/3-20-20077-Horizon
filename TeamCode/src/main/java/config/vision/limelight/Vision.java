@@ -1,7 +1,5 @@
 package config.vision.limelight;
 
-import android.annotation.SuppressLint;
-
 import com.acmerobotics.dashboard.config.Config;
 import com.pedropathing.localization.Pose;
 import com.qualcomm.hardware.limelightvision.LLResult;
@@ -12,7 +10,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -20,34 +17,33 @@ import java.util.List;
 public class Vision {
     // Configurable parameters for sample and camera setup
     public static double idealAspectRatio = 1.5 / 3.5; // Expected width:height ratio for a properly aligned sample
-    public static double angleWeight = 5.0; // Weight for scoring based on rotation
+    public static double angleWeight = 2.0; // Weight for scoring based on rotation
     public static double minDistance = 3; // Minimum allowable distance (adjust as needed)
     public static double maxDistance = 20;
     public static double limelightHeight = 9.5; //how high up the limelight is in inches;
     public static double limelightAngle = 60; //angle of the limelight, camera facing straight down would be 0
     //and camera facing straight forwards would be 90
 
-    public static double limelightRotationOffset = 0.0; // Rotation of the camera in degrees
-
-    public static double clawDistance = -1; // Distance of the claw in front of the Limelight in inches
+    public static double clawDistance = 0; // Distance of the claw in front of the Limelight in inches
     public static double clawLateralOffset = 0; // Distance of the claw to the right of the Limelight in inches
-
 
     private double yDistance;
     private double xDistance;
 
-    public static double forwardOffset = -5;
-    public static double lateralOffset = 6;
+    public static double forwardOffset = 0;
+    public static double lateralOffset = 0;
     public static double angleOffset = -0.349;
     // 0 is Blue, Red is 1, Yellow is 2
     public static int[] unwantedSamples;
 
     private List<LL3ADetection> LL3ADetections;
 
-    private double sampleAngle = 0 ;
+    private double sampleAngle = 0;
     private double dx = 0;
     private double dy = 0;
     private List<List<Double>> corner;
+    private Pose sample = new Pose(), claw = new Pose();
+    private double x, y;
 
     Limelight3A limelight;
     LLResult result;
@@ -73,20 +69,22 @@ public class Vision {
         List<LLResultTypes.DetectorResult> detections = result.getDetectorResults();
 
         // List to hold scored detections
-        LL3ADetections = new ArrayList<>();
+        List<LL3ADetection> scoredDetections = new ArrayList<>();
 
         for (LLResultTypes.DetectorResult detection : detections) {
             int color = detection.getClassId(); // Detected class (color)
 
             boolean colorRight = true;
-            for (int e: unwantedSamples) {
+
+            for (int e : unwantedSamples) {
                 if (color == e) {
                     colorRight = false;
                     break;
                 }
             }
 
-            if(colorRight) {
+            if (colorRight) {
+
                 // Calculate bounding box dimensions
                 List<List<Double>> corners = detection.getTargetCorners();
                 if (corners == null || corners.size() < 4) {
@@ -102,53 +100,40 @@ public class Vision {
 
                 // Calculate distance (approximation based on angles)
                 double actualYAngle = limelightAngle - detection.getTargetYDegrees();
-                double yDistance = limelightHeight * Math.atan(Math.toRadians(actualYAngle));
-                double xDistance = Math.atan(Math.toRadians(detection.getTargetXDegrees())) * yDistance;
+                double yDistance = ((limelightHeight * Math.tan(Math.toRadians(actualYAngle))) - 16) / 3.3125;
+                double xDistance = Math.tan(Math.toRadians(detection.getTargetXDegrees())) * yDistance;
 
                 // Calculate a final score
                 double score = calculateScore(color, yDistance, xDistance, rotationScore, angleWeight, detections);
 
-                if (LL3ADetections.isEmpty()) {
-                    sampleAngle = Double.NaN;
-                }
-
-                if (corners == null || corners.size() < 4) {
-                    sampleAngle = Double.NaN;
-                }
-
-                this.corner = corners;
-
-                dx = Math.toRadians(corners.get(1).get(0) - corners.get(0).get(0));
-                dy = Math.toRadians(corners.get(2).get(1) - corners.get(0).get(1));
-                sampleAngle = ((Math.atan2(dy, dx) - angleOffset) * 4.5);
-
                 // Add the scored detection to the list
-                LL3ADetections.add(new LL3ADetection(detection, score, yDistance, xDistance, rotationScore));
+                scoredDetections.add(new LL3ADetection(detection, score, yDistance, xDistance, rotationScore));
             }
         }
 
         // Sort detections by score in descending order
-        LL3ADetections.sort(Comparator.comparingDouble(LL3ADetection::getScore).reversed());
+        scoredDetections.sort(Comparator.comparingDouble(LL3ADetection::getScore).reversed());
 
         // Display sorted results on telemetry
-        if (!LL3ADetections.isEmpty()) {
-            telemetry.addData("Best Detection", LL3ADetections.get(0).getDetection().getClassName());
-            telemetry.addLine("Sorted Detections:");
-            for (LL3ADetection scored : LL3ADetections) {
-                LLResultTypes.DetectorResult det = scored.getDetection();
-                telemetry.addData(det.getClassName(),
-                        String.format("Score: %.2f | Position: (%.2f, %.2f) | Rotation: %.2f | XDeg %.2f: | YDeg: %.2f", scored.getScore(), scored.getXDistance(), scored.getYDistance(), Math.toDegrees(scored.getRotationScore()), det.getTargetXDegrees(), det.getTargetYDegrees()));
-            }
-        } else {
-            telemetry.addData("Detections", "None (No matches for preferred color or too close)");
+                       telemetry.clear();
+                        if (!scoredDetections.isEmpty()) {
+                            telemetry.addData("Best Detection", scoredDetections.get(0).getDetection().getClassName());
+                            telemetry.addLine("Sorted Detections:");
+                            for (LL3ADetection scored : scoredDetections) {
+                                LLResultTypes.DetectorResult det = scored.getDetection();
+                                telemetry.addData(det.getClassName(),
+                                        String.format("Score: %.2f | Position: (%.2f, %.2f) | Rotation: %.2f | XDeg %.2f: | YDeg: %.2f",scored.getScore(), scored.getXDistance(), scored.getYDistance(), scored.getRotationScore(),det.getTargetXDegrees(), det.getTargetYDegrees()));
+                            }
+                        } else {
+                            telemetry.addData("Detections", "None (No matches for preferred color or too close)");
+                        }
+
+        if(!scoredDetections.isEmpty()) {
+            sample = new Pose(scoredDetections.get(0).getYDistance() + forwardOffset, scoredDetections.get(0).getXDistance() + lateralOffset, 0);
+            telemetry.addData("sample", sample);
         }
 
-        if (!LL3ADetections.isEmpty()) {
-            double adjustedXDegrees = LL3ADetections.get(0).getDetection().getTargetXDegrees() - limelightRotationOffset;
-            double actualYAngle = limelightAngle - LL3ADetections.get(0).getDetection().getTargetYDegrees();
-            yDistance = limelightHeight * Math.tan(Math.toRadians(90) - Math.toRadians(actualYAngle));
-            xDistance = Math.tan(Math.toRadians(adjustedXDegrees)) * yDistance;
-        }
+        telemetry.update();
     }
 
     private double calculateDistance(List<Double> point1, List<Double> point2) {
@@ -169,16 +154,19 @@ public class Vision {
         return corner;
     }
 
-    // Scoring function
-    private double calculateScore(int color, double distance, double x, double rotationScore, double angleWeight, List<LLResultTypes.DetectorResult> detections) {
+    private double calculateScore(int color, double distance, double x, double rotationScore, double angleWeight, List<
+            LLResultTypes.DetectorResult> detections) {
         double score = 0.0;
         // high high penalty for detections that are too close or far
         if (distance < minDistance || distance > maxDistance) {
             score -= 100;
         }
 
+        //closer to robot is better
+        score -= distance;
+
         // Factor 2: Alignment (centered is better)
-        score -= Math.abs(x);
+        score -= Math.abs(x+4.4)/2;
 
         // Factor 3: Rotation (closer to ideal aspect ratio is better)
         score += rotationScore * angleWeight;
@@ -190,38 +178,16 @@ public class Vision {
             double xDistance = Math.tan(Math.toRadians(other.getTargetXDegrees())) * yDistance;
 
             // Penalize if another object is close
-            if (Math.abs(xDistance - x) < 4 && Math.abs(yDistance - distance) < 4) {
-                score -= 20.0; // Adjust penalty value as needed
+            if (Math.abs(xDistance - x) < 2 && (yDistance - distance) < 1) {
+                score -= 5.0; // Adjust penalty value as needed
             }
         }
-
-        for (int i : unwantedSamples)
-            if (i == color) {
-                score = -1000000000;
-                break;
-            }
 
         return score;
     }
 
-    public Pose getAlignedPose(Pose currentPose) {
-        double adjustedX = xDistance * Math.cos(Math.toRadians(currentPose.getHeading())) - yDistance * Math.sin(Math.toRadians(currentPose.getHeading()));
-        double adjustedY = xDistance * Math.sin(Math.toRadians(currentPose.getHeading())) + yDistance * Math.cos(Math.toRadians(currentPose.getHeading()));
-
-        // Adjust for the lateral offset of the claw
-        adjustedX -= clawLateralOffset * Math.sin(Math.toRadians(currentPose.getHeading()));
-        adjustedY += clawLateralOffset * Math.cos(Math.toRadians(currentPose.getHeading()));
-
-        adjustedX -= clawDistance;
-
-        adjustedX += currentPose.getX();
-        adjustedY += currentPose.getY();
-
-        return new Pose(adjustedX - lateralOffset, adjustedY - forwardOffset, currentPose.getHeading());
-    }
-
-    public void setLimelightRotationOffset(double limelightRotationOffset) {
-        this.limelightRotationOffset = limelightRotationOffset;
+    public Pose getPose(Pose currentPose) {
+        return new Pose(- sample.getX() + currentPose.getX(), - sample.getY() + currentPose.getY(), currentPose.getHeading());
     }
 
     public LL3ADetection bestDetection() {
