@@ -21,6 +21,14 @@ public class Potato extends OpMode {
 
     @Override
     public void loop() {
+
+        if(gamepad1.a) {
+            f.followPath(v.toTarget());
+            telemetry.addData("Target Path", "Following");
+        } else {
+            telemetry.addData("Target Path", "Waiting");
+        }
+
         f.update();
         v.periodic();
         telemetry.update();
