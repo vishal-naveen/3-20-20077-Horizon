@@ -112,7 +112,7 @@ public class Vision {
 
         difference = new Pose(sample.getX() - clawForwardOffset, sample.getY() + clawLateralOffset, 0);
 
-        target = new Pose(current.getX() + difference.getX(), current.getY() + difference.getY(), current.getHeading());
+        target = new Pose(f.getPose().getX() + difference.getX(), f.getPose().getY() + difference.getY(), f.getPose().getHeading());
 
         toTarget = new PathBuilder()
                 .addPath(new BezierLine(f.getPose(), target)).setConstantHeadingInterpolation(f.getPose().getHeading()).build();
@@ -122,7 +122,7 @@ public class Vision {
         telemetry.addData("Sample Position", "X: %.2f, Y: %.2f", sample.getX(), sample.getY());
         telemetry.addData("diff", difference);
         telemetry.addData("target", target);
-        telemetry.addData("current", current);
+        telemetry.addData("current", f.getPose());
         telemetry.update();
     }
 
