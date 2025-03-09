@@ -31,22 +31,28 @@ public class Vision {
     private Telemetry telemetry;
     private int[] unwanted;
     private double bestAngle;
+    private Follower f;
 
-    public Vision(HardwareMap hardwareMap, Telemetry telemetry, int[] unwanted) {
+    public Vision(HardwareMap hardwareMap, Telemetry telemetry, int[] unwanted, Follower f) {
         this.unwanted = unwanted;
         this.telemetry = telemetry;
+        this.f = f;
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelight.setPollRateHz(100);
         limelight.pipelineSwitch(9);
         limelight.start();
+
+        cachedSample = f.getPose();
+        f.update();
     }
 
-    public void periodic(Follower f) {
+    public void periodic() {
         result = limelight.getLatestResult();
         List<LLResultTypes.DetectorResult> detections = result.getDetectorResults();
 
         if (detections.isEmpty()) {
             telemetry.addData("Detections", "None");
+            target = cachedSample;
             telemetry.update();
             return;
         }
@@ -111,8 +117,8 @@ public class Vision {
                 0
         );
 
-        // Update the cache if the sample is valid
-        if (sample.getX() != 0 && sample.getY() != 0) {
+        // Update the cache if the sample and target are valid
+        if (sample.getX() != 0 && sample.getY() != 0 && target.getX() != 0 && target.getY() != 0) {
             cachedSample = sample;
         } else {
             sample = cachedSample;
