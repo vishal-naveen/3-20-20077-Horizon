@@ -6,6 +6,7 @@ import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierLine;
 import com.pedropathing.pathgen.PathBuilder;
 import com.pedropathing.pathgen.PathChain;
+import com.pedropathing.util.Timer;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
@@ -23,15 +24,18 @@ public class Vision {
     public static double clawForwardOffset = 22; // Claw's forward offset from the camera
     public static double clawLateralOffset = 5; // Claw's lateral (right is +) offset from the camera
 
-    private Pose sample = new Pose(), difference = new Pose(), target = new Pose(); // The best sample's position
+    private Pose sample = new Pose(), difference = new Pose(), target = new Pose(), cachedPose = new Pose(); // The best sample's position
     private Pose cachedSample = new Pose(); // Cached best sample
     private Limelight3A limelight;
-    private PathChain toTarget;
     private LLResult result;
     private Telemetry telemetry;
     private int[] unwanted;
     private double bestAngle;
+    private PathChain toTarget;
     private Follower f;
+    private Timer clearListTimer = new Timer();
+    private ArrayList<Pose> targetPoses = new ArrayList<>();
+    private boolean cachedValue = false;
 
     public Vision(HardwareMap hardwareMap, Telemetry telemetry, int[] unwanted, Follower f) {
         this.unwanted = unwanted;
@@ -117,19 +121,28 @@ public class Vision {
                 0
         );
 
-        // Update the cache if the sample and target are valid
-        if (sample.getX() != 0 && sample.getY() != 0 && target.getX() != 0 && target.getY() != 0) {
-            cachedSample = sample;
-        } else {
-            sample = cachedSample;
+        if (clearListTimer.getElapsedTime() > 400) {
+            targetPoses.clear();
+            clearListTimer.resetTimer();
         }
 
         difference = new Pose(sample.getX() - clawForwardOffset, sample.getY() + clawLateralOffset, 0);
 
         target = new Pose(f.getPose().getX() + difference.getX(), f.getPose().getY() + difference.getY(), f.getPose().getHeading());
 
+        targetPoses.add(target);
+
+        if (!cachedValue) {
+            for (int i = 0; i < targetPoses.size(); i++) {
+                if (Math.abs(targetPoses.get(i).getX() - targetPoses.get(i).getY()) < 1 && Math.abs(targetPoses.get(i).getY() - targetPoses.get(i).getHeading()) < 1 && Math.abs(targetPoses.get(i).getHeading() - targetPoses.get(i).getX()) < 5) {
+                    cachedPose = targetPoses.get(i);
+                    cachedValue = true;
+                }
+            }
+        }
+
         toTarget = new PathBuilder()
-                .addPath(new BezierLine(f.getPose(), target)).setConstantHeadingInterpolation(f.getPose().getHeading()).build();
+                .addPath(new BezierLine(f.getPose(), getCachedPose())).setConstantHeadingInterpolation(f.getPose().getHeading()).build();
 
         // Display results
         telemetry.addData("Best Detection", bestDetection.getDetection().getClassName());
@@ -140,8 +153,8 @@ public class Vision {
         telemetry.update();
     }
 
-    public Pose getTarget() {
-        return target;
+    public Pose getCachedPose() {
+        return cachedPose;
     }
 
     public PathChain toTarget() {
