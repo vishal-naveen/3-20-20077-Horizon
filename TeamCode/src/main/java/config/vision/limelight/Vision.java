@@ -23,8 +23,10 @@ public class Vision {
     private Limelight3A limelight;
     private LLResult result;
     private Telemetry telemetry;
+    private int[] unwanted;
 
-    public Vision(HardwareMap hardwareMap, Telemetry telemetry) {
+    public Vision(HardwareMap hardwareMap, Telemetry telemetry, int[] unwanted) {
+        this.unwanted = unwanted;
         this.telemetry = telemetry;
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelight.setPollRateHz(100);
@@ -46,22 +48,35 @@ public class Vision {
         List<LL3ADetection> scoredDetections = new ArrayList<>();
 
         for (LLResultTypes.DetectorResult detection : detections) {
-            // Compute angles
-            double actualYAngle = Math.toRadians(limelightAngle + detection.getTargetYDegrees());
-            double xAngle = Math.toRadians(-detection.getTargetXDegrees());
+            int c = detection.getClassId();
 
-            // Compute distances
-            double yDistance = limelightHeight / Math.tan(actualYAngle);  // Forward distance (FTC X)
-            double xDistance = Math.tan(xAngle) * yDistance;              // Lateral distance (FTC Y)
+            boolean colorMatch = true;
 
-            // Score based on alignment
-            double rotationScore = -Math.abs((detection.getTargetCorners().get(0).get(0) - 
-                                              detection.getTargetCorners().get(1).get(0)) /
-                                             (detection.getTargetCorners().get(1).get(1) - 
-                                              detection.getTargetCorners().get(2).get(1)) - (1.5 / 3.5));
-            double score = -yDistance - Math.abs(xDistance) + 2.0 * rotationScore; // Weighted scoring
+            for (int o : unwanted) {
+                if (c == o) {
+                    colorMatch = false;
+                    break;
+                }
+            }
 
-            scoredDetections.add(new LL3ADetection(detection, score, yDistance, xDistance, rotationScore));
+            if (colorMatch) {
+                // Compute angles
+                double actualYAngle = Math.toRadians(limelightAngle + detection.getTargetYDegrees());
+                double xAngle = Math.toRadians(-detection.getTargetXDegrees());
+
+                // Compute distances
+                double yDistance = limelightHeight / Math.tan(actualYAngle);  // Forward distance (FTC X)
+                double xDistance = Math.tan(xAngle) * yDistance;              // Lateral distance (FTC Y)
+
+                // Score based on alignment
+                double rotationScore = -Math.abs((detection.getTargetCorners().get(0).get(0) -
+                        detection.getTargetCorners().get(1).get(0)) /
+                        (detection.getTargetCorners().get(1).get(1) -
+                                detection.getTargetCorners().get(2).get(1)) - (1.5 / 3.5));
+                double score = -yDistance - Math.abs(xDistance) + 2.0 * rotationScore; // Weighted scoring
+
+                scoredDetections.add(new LL3ADetection(detection, score, yDistance, xDistance, rotationScore));
+            }
         }
 
         // Find the best detection

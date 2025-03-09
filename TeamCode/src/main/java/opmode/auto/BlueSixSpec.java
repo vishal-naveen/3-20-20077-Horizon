@@ -61,6 +61,7 @@ public class BlueSixSpec extends OpModeCommand {
                                                                         new WaitCommand(250)
                                                                                 .andThen(new InstantCommand(() -> r.getI().specimen()))
                                                                 ),
+                                                        new WaitCommand(250),
                                                         new InstantCommand(() -> r.getE().toZero()),
                                                         new InstantCommand(() -> r.getO().specimenGrab180())
                                                 )
