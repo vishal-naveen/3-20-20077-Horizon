@@ -99,9 +99,9 @@ public class Vision {
                 double rotationScore = -Math.abs(aspectRatio - idealAspectRatio); // Closer to ideal is better
 
                 // Calculate distance (approximation based on angles)
-                double actualYAngle = limelightAngle - detection.getTargetYDegrees();
+                double actualYAngle = limelightAngle + detection.getTargetYDegrees();
                 double yDistance = ((limelightHeight * Math.tan(Math.toRadians(actualYAngle))) - 16) / 3.3125;
-                double xDistance = Math.tan(Math.toRadians(detection.getTargetXDegrees())) * yDistance;
+                double xDistance = Math.tan(Math.toRadians(-detection.getTargetXDegrees())) * yDistance;
 
                 // Calculate a final score
                 double score = calculateScore(color, yDistance, xDistance, rotationScore, angleWeight, detections);
@@ -173,9 +173,9 @@ public class Vision {
 
         // Factor 4: Isolation (penalize for overlapping or blocked objects)
         for (LLResultTypes.DetectorResult other : detections) {
-            double actualYAngle = limelightAngle - other.getTargetYDegrees();
+            double actualYAngle = limelightAngle + other.getTargetYDegrees();
             double yDistance = limelightHeight / Math.cos(Math.toRadians(actualYAngle));
-            double xDistance = Math.tan(Math.toRadians(other.getTargetXDegrees())) * yDistance;
+            double xDistance = Math.tan(Math.toRadians(- other.getTargetXDegrees())) * yDistance;
 
             // Penalize if another object is close
             if (Math.abs(xDistance - x) < 2 && (yDistance - distance) < 1) {
@@ -187,7 +187,7 @@ public class Vision {
     }
 
     public Pose getPose(Pose currentPose) {
-        return new Pose(- sample.getX() + currentPose.getX(), - sample.getY() + currentPose.getY(), currentPose.getHeading());
+        return new Pose(sample.getX() + currentPose.getX(), sample.getY() + currentPose.getY(), currentPose.getHeading());
     }
 
     public LL3ADetection bestDetection() {
