@@ -21,7 +21,7 @@ public class Vision {
     // Limelight and claw configuration
     public static double limelightHeight = 9.5; // Camera height in inches
     public static double limelightAngle = 60; // Camera angle (0° = down, 90° = forward)
-    public static double clawForwardOffset = 20; // Claw's forward offset from the camera
+    public static double clawForwardOffset = 24; // Claw's forward offset from the camera
     public static double clawLateralOffset = 2.5; // Claw's lateral (right is +) offset from the camera
 
     private Pose sample = new Pose(), difference = new Pose(), target = new Pose(); // The best sample's position
