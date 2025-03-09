@@ -38,9 +38,14 @@ public class Submersible extends CommandBase {
             case 3:
                 if (timer.getElapsedTimeSeconds() > 0.25) {
                     robot.getI().hover();
-                    setState(-1);
+                    setState(4);
                 }
                 break;
+            case 4:
+                if (timer.getElapsedTimeSeconds() > 0.33) {
+                    robot.getE().toZero();
+                    setState(-1);
+                }
         }
     }
 

@@ -29,14 +29,14 @@ public class Vision {
 
     public static double limelightRotationOffset = 0.0; // Rotation of the camera in degrees
 
-    public static double clawDistance = 6; // Distance of the claw in front of the Limelight in inches
-    public static double clawLateralOffset = 4; // Distance of the claw to the right of the Limelight in inches
+    public static double clawDistance = -1; // Distance of the claw in front of the Limelight in inches
+    public static double clawLateralOffset = 0; // Distance of the claw to the right of the Limelight in inches
 
 
     private double yDistance;
     private double xDistance;
 
-    public static double forwardOffset = -4;
+    public static double forwardOffset = -5;
     public static double lateralOffset = 6;
     public static double angleOffset = -0.349;
     // 0 is Blue, Red is 1, Yellow is 2
@@ -78,48 +78,53 @@ public class Vision {
         for (LLResultTypes.DetectorResult detection : detections) {
             int color = detection.getClassId(); // Detected class (color)
 
-            // Calculate bounding box dimensions
-            List<List<Double>> corners = detection.getTargetCorners();
-            if (corners == null || corners.size() < 4) {
-                continue; // Skip invalid detections
+            boolean colorRight = true;
+            for (int e: unwantedSamples) {
+                if (color == e) {
+                    colorRight = false;
+                    break;
+                }
             }
 
-            double width = calculateDistance(corners.get(0), corners.get(1)); // Top edge
-            double height = calculateDistance(corners.get(1), corners.get(2)); // Side edge
+            if(colorRight) {
+                // Calculate bounding box dimensions
+                List<List<Double>> corners = detection.getTargetCorners();
+                if (corners == null || corners.size() < 4) {
+                    continue; // Skip invalid detections
+                }
 
-            // Calculate aspect ratio and rotation score
-            double aspectRatio = width / height;
-            double rotationScore = -Math.abs(aspectRatio - idealAspectRatio); // Closer to ideal is better
+                double width = calculateDistance(corners.get(0), corners.get(1)); // Top edge
+                double height = calculateDistance(corners.get(1), corners.get(2)); // Side edge
 
-            // Calculate distance (approximation based on angles)
-            double actualYAngle = limelightAngle - detection.getTargetYDegrees();
-            double yDistance = limelightHeight * Math.atan(Math.toRadians(actualYAngle));
-            double xDistance = Math.atan(Math.toRadians(detection.getTargetXDegrees())) * yDistance;
+                // Calculate aspect ratio and rotation score
+                double aspectRatio = width / height;
+                double rotationScore = -Math.abs(aspectRatio - idealAspectRatio); // Closer to ideal is better
 
-            // If color matches unwanted sample, skip the rest of the current iteration
-            if (Arrays.stream(unwantedSamples).anyMatch(sample -> sample == 0)) { // color
-                continue;
+                // Calculate distance (approximation based on angles)
+                double actualYAngle = limelightAngle - detection.getTargetYDegrees();
+                double yDistance = limelightHeight * Math.atan(Math.toRadians(actualYAngle));
+                double xDistance = Math.atan(Math.toRadians(detection.getTargetXDegrees())) * yDistance;
+
+                // Calculate a final score
+                double score = calculateScore(color, yDistance, xDistance, rotationScore, angleWeight, detections);
+
+                if (LL3ADetections.isEmpty()) {
+                    sampleAngle = Double.NaN;
+                }
+
+                if (corners == null || corners.size() < 4) {
+                    sampleAngle = Double.NaN;
+                }
+
+                this.corner = corners;
+
+                dx = Math.toRadians(corners.get(1).get(0) - corners.get(0).get(0));
+                dy = Math.toRadians(corners.get(2).get(1) - corners.get(0).get(1));
+                sampleAngle = ((Math.atan2(dy, dx) - angleOffset) * 4.5);
+
+                // Add the scored detection to the list
+                LL3ADetections.add(new LL3ADetection(detection, score, yDistance, xDistance, rotationScore));
             }
-
-            // Calculate a final score
-            double score = calculateScore(color, yDistance, xDistance, rotationScore, angleWeight, detections);
-
-            if (LL3ADetections.isEmpty()) {
-                sampleAngle = Double.NaN;
-            }
-
-            if (corners == null || corners.size() < 4) {
-                sampleAngle = Double.NaN;
-            }
-
-            this.corner = corners;
-
-            dx = Math.toRadians(corners.get(1).get(0) - corners.get(0).get(0));
-            dy = Math.toRadians(corners.get(2).get(1) - corners.get(0).get(1));
-            sampleAngle = ((Math.atan2(dy, dx) - angleOffset) * 4.5);
-
-            // Add the scored detection to the list
-            LL3ADetections.add(new LL3ADetection(detection, score, yDistance, xDistance, rotationScore));
         }
 
         // Sort detections by score in descending order
@@ -208,6 +213,9 @@ public class Vision {
         adjustedY += clawLateralOffset * Math.cos(Math.toRadians(currentPose.getHeading()));
 
         adjustedX -= clawDistance;
+
+        adjustedX += currentPose.getX();
+        adjustedY += currentPose.getY();
 
         return new Pose(adjustedX - lateralOffset, adjustedY - forwardOffset, currentPose.getHeading());
     }

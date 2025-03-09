@@ -2,6 +2,7 @@ package config.core.paths;
 
 import android.graphics.Path;
 
+import com.pedropathing.commands.HoldPoint;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
@@ -41,19 +42,8 @@ public class SixSpec {
                 .build();
     }
 
-    public static PathChain sub1(Pose sub) {
+    public static void sub1(Pose sub) {
         sub1 = sub;
-
-        return new PathBuilder()
-                .addPath(
-                        new BezierLine(
-                                score1,
-                                sub
-                        )
-                )
-                .setZeroPowerAccelerationMultiplier(3)
-                .setConstantHeadingInterpolation(score1.getHeading())
-                .build();
     }
 
     public static PathChain grab2() {

@@ -12,6 +12,7 @@ public class Align extends CommandBase {
 
     private int state = 0;
     private Timer timer = new Timer();
+    private Pose temp;
 
     public Align(Robot robot) {
         this.robot = robot;
@@ -28,11 +29,12 @@ public class Align extends CommandBase {
             case 1:
                 robot.getI().rotateDegrees(robot.getV().getBestDetectionAngle());
                 robot.getE().toFull();
-                Pose temp = robot.getV().getAlignedPose(robot.getF().getPose());
-                robot.getF().followPath(SixSpec.sub1(temp));
+                temp = robot.getV().getAlignedPose(robot.getF().getPose());
+                SixSpec.sub1(temp);
+                robot.getF().holdPoint(temp);
                 setState(2);
             case 2:
-                if(!robot.getF().isBusy()) {
+                if(robot.getF().getPose().roughlyEquals(temp, 0.25)) {
                     setState(-1);
                 }
         }
