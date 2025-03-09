@@ -54,9 +54,9 @@ public class VisionTest extends OpMode {
     public void loop() {
         p1.copy(g1);
         g1.copy(gamepad1);
-        v.periodic();
 
         if (g1.y && !p1.y) {
+            v.find();
             i.rotateDegrees(v.getBestDetectionAngle());
             e.toFull();
             f.followPath(v.toTarget());

@@ -21,11 +21,11 @@ public class Vision {
     // Limelight and claw configuration
     public static double limelightHeight = 9.5; // Camera height in inches
     public static double limelightAngle = 60; // Camera angle (0° = down, 90° = forward)
-    public static double clawForwardOffset = 24; // Claw's forward offset from the camera
-    public static double clawLateralOffset = 2.5; // Claw's lateral (right is +) offset from the camera
+    public static double clawForwardOffset = 15.5; // Claw's forward offset from the camera
+    public static double clawLateralOffset = 5; // Claw's lateral (right is +) offset from the camera
 
     private Pose sample = new Pose(), difference = new Pose(), target = new Pose(); // The best sample's position
-    private Pose cachedSample = new Pose(); // Cached best sample
+    private Pose cachedTarget = new Pose(); // Cached best sample
     private Limelight3A limelight;
     private PathChain toTarget;
     private LLResult result;
@@ -43,17 +43,17 @@ public class Vision {
         limelight.pipelineSwitch(9);
         limelight.start();
 
-        cachedSample = f.getPose();
+        cachedTarget = f.getPose();
         f.update();
     }
 
-    public void periodic() {
+    public void find() {
         result = limelight.getLatestResult();
         List<LLResultTypes.DetectorResult> detections = result.getDetectorResults();
 
         if (detections.isEmpty()) {
             telemetry.addData("Detections", "None");
-            target = cachedSample;
+            target = cachedTarget.copy();
             return;
         }
 
@@ -105,31 +105,37 @@ public class Vision {
         }
 
         // Find the best detection
-        scoredDetections.sort(Comparator.comparingDouble(LL3ADetection::getScore).reversed());
-        LL3ADetection bestDetection = scoredDetections.get(0);
 
-        bestAngle = bestDetection.getAngle();
+        if (!scoredDetections.isEmpty()) {
+            scoredDetections.sort(Comparator.comparingDouble(LL3ADetection::getScore).reversed());
+            LL3ADetection bestDetection = scoredDetections.get(0);
 
-        // Convert to coordinates and apply claw offsets
-        sample = new Pose(
-                bestDetection.getYDistance(), // X (forward)
-                bestDetection.getXDistance(), // Y (left)
-                0
-        );
+            bestAngle = bestDetection.getAngle();
 
-        difference = new Pose(sample.getX() - clawForwardOffset + 2.5, sample.getY() + clawLateralOffset, 0);
+            // Convert to coordinates and apply claw offsets
+            sample = new Pose(
+                    bestDetection.getYDistance(), // X (forward)
+                    bestDetection.getXDistance(), // Y (left)
+                    0
+            );
 
-        target = new Pose(f.getPose().getX() + difference.getX(), f.getPose().getY() + difference.getY(), f.getPose().getHeading());
+            difference = new Pose(sample.getX() - clawForwardOffset + 2.5, sample.getY() + clawLateralOffset, 0);
 
-        toTarget = new PathBuilder()
-                .addPath(new BezierLine(f.getPose(), target)).setConstantHeadingInterpolation(f.getPose().getHeading()).build();
+            target = new Pose(f.getPose().getX() + difference.getX(), f.getPose().getY() + difference.getY(), f.getPose().getHeading());
+            cachedTarget = target.copy();
 
-        // Display results
-        telemetry.addData("Best Detection", bestDetection.getDetection().getClassName());
-        telemetry.addData("Sample Position", "X: %.2f, Y: %.2f", sample.getX(), sample.getY());
-        telemetry.addData("diff", difference);
-        telemetry.addData("target", target);
-        telemetry.addData("current", f.getPose());
+            toTarget = new PathBuilder()
+                    .addPath(new BezierLine(f.getPose(), target)).setConstantHeadingInterpolation(f.getPose().getHeading()).build();
+
+            // Display results
+            telemetry.addData("Best Detection", bestDetection.getDetection().getClassName());
+            telemetry.addData("Sample Position", "X: %.2f, Y: %.2f", sample.getX(), sample.getY());
+            telemetry.addData("diff", difference);
+            telemetry.addData("target", target);
+            telemetry.addData("current", f.getPose());
+        } else {
+            target = cachedTarget.copy();
+        }
     }
 
     public Pose getTarget() {

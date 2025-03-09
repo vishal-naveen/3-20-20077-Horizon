@@ -35,7 +35,7 @@ public class Potato extends OpMode {
         }
 
         f.update();
-        v.periodic();
+        v.find();
         telemetry.update();
     }
 }
