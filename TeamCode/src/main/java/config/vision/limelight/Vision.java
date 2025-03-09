@@ -76,7 +76,6 @@ public class Vision {
         );
 
         // Display results
-        telemetry.clear();
         telemetry.addData("Best Detection", bestDetection.getDetection().getClassName());
         telemetry.addData("Sample Position", "X: %.2f, Y: %.2f", sample.getX(), sample.getY());
         telemetry.update();

@@ -53,6 +53,18 @@ public class BlueSixSpec extends OpModeCommand {
                                 )
                                 .andThen(new InstantCommand(() -> r.getI().open())),
                         new FollowPath(r.getF(), SixSpec.push())
+                                .alongWith(
+                                        new WaitCommand(250)
+                                                .andThen(
+                                                        new InstantCommand(() -> r.getI().open())
+                                                                .andThen(
+                                                                        new WaitCommand(250)
+                                                                                .andThen(new InstantCommand(() -> r.getI().specimen()))
+                                                                ),
+                                                        new InstantCommand(() -> r.getE().toZero()),
+                                                        new InstantCommand(() -> r.getO().specimenGrab180())
+                                                )
+                                )
                 )
         );
     }
