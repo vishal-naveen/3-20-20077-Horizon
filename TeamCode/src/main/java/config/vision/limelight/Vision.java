@@ -150,7 +150,7 @@ public class Vision {
         telemetry.addData("diff", difference);
         telemetry.addData("target", target);
         telemetry.addData("current", f.getPose());
-        telemetry.update();
+        telemetry.addData("cached", cachedPose);
     }
 
     public Pose getCachedPose() {
