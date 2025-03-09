@@ -31,7 +31,7 @@ public class VisionTest extends OpMode {
 
     @Override
     public void init() {
-        v = new Vision(hardwareMap, telemetry, new int[]{1, 2});
+        v = new Vision(hardwareMap, telemetry, new int[]{1, 2}, f);
         f = new Follower(hardwareMap, FConstants.class, LConstants.class);
         e = new Extend(hardwareMap, telemetry);
         i = new Intake(hardwareMap, telemetry);
@@ -54,7 +54,7 @@ public class VisionTest extends OpMode {
     public void loop() {
         p1.copy(g1);
         g1.copy(gamepad1);
-        v.periodic(f);
+        v.periodic();
 
         telemetry.update();
 
