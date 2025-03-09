@@ -4,6 +4,7 @@ import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import config.pedro.constants.FConstants;
 import config.pedro.constants.LConstants;
@@ -13,6 +14,8 @@ import config.vision.limelight.Vision;
 public class Potato extends OpMode {
     Vision v;
     Follower f;
+    Gamepad g1 = new Gamepad(), p1 = new Gamepad();
+
     @Override
     public void init() {
         f = new Follower(hardwareMap, FConstants.class, LConstants.class);
@@ -21,8 +24,10 @@ public class Potato extends OpMode {
 
     @Override
     public void loop() {
+        p1.copy(g1);
+        g1.copy(gamepad1);
 
-        if(gamepad1.a) {
+        if(g1.a && !p1.a) {
             f.followPath(v.toTarget());
             telemetry.addData("Target Path", "Following");
         } else {
