@@ -54,16 +54,14 @@ public class VisionTest extends OpMode {
     public void loop() {
         p1.copy(g1);
         g1.copy(gamepad1);
-        f.update();
-        v.periodic(f.getPose());
+        v.periodic(f);
 
         telemetry.update();
 
         if (g1.y && !p1.y) {
             i.rotateDegrees(v.getBestDetectionAngle());
             e.toFull();
-            Pose c = f.getPose();
-            f.holdPoint(v.getPose());
+            f.followPath(v.toTarget());
         }
 
         if (g1.dpad_up && !p1.dpad_up)
@@ -73,8 +71,7 @@ public class VisionTest extends OpMode {
             i.rotateDegrees(v.getBestDetectionAngle());
 
         if(g1.right_bumper && !p1.right_bumper) {
-            Pose c = f.getPose();
-            f.holdPoint(v.getPose());
+            f.followPath(v.toTarget());
         }
 
         if(g1.left_bumper && !p1.left_bumper) {
@@ -88,7 +85,7 @@ public class VisionTest extends OpMode {
             i.cloud();
             i.open();
         }
-
+        f.update();
         submersible();
 
 

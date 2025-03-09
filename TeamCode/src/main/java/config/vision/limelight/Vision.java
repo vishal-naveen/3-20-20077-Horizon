@@ -1,7 +1,11 @@
 package config.vision.limelight;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
+import com.pedropathing.pathgen.BezierLine;
+import com.pedropathing.pathgen.PathBuilder;
+import com.pedropathing.pathgen.PathChain;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
@@ -21,6 +25,7 @@ public class Vision {
 
     private Pose sample = new Pose(), difference = new Pose(), target = new Pose();  // The best sample's position
     private Limelight3A limelight;
+    private PathChain toTarget;
     private LLResult result;
     private Telemetry telemetry;
     private int[] unwanted;
@@ -35,7 +40,7 @@ public class Vision {
         limelight.start();
     }
 
-    public void periodic(Pose current) {
+    public void periodic(Follower f) {
         result = limelight.getLatestResult();
         List<LLResultTypes.DetectorResult> detections = result.getDetectorResults();
 
@@ -100,14 +105,17 @@ public class Vision {
 
         // Convert to coordinates and apply claw offsets
         sample = new Pose(
-                -bestDetection.getYDistance(), // X (forward)
+                bestDetection.getYDistance(), // X (forward)
                 bestDetection.getXDistance(), // Y (left)
                 0
         );
 
-        difference = new Pose(sample.getX() - clawForwardOffset, sample.getY() - clawLateralOffset, 0);
+        difference = new Pose(sample.getX() - clawForwardOffset, sample.getY() + clawLateralOffset, 0);
 
         target = new Pose(current.getX() + difference.getX(), current.getY() + difference.getY(), current.getHeading());
+
+        toTarget = new PathBuilder()
+                .addPath(new BezierLine(f.getPose(), target)).setConstantHeadingInterpolation(f.getPose().getHeading()).build();
 
         // Display results
         telemetry.addData("Best Detection", bestDetection.getDetection().getClassName());
@@ -118,8 +126,12 @@ public class Vision {
         telemetry.update();
     }
 
-    public Pose getPose() {
+    public Pose getTarget() {
         return target;
+    }
+
+    public PathChain toTarget() {
+        return toTarget;
     }
 
     public void off() {
