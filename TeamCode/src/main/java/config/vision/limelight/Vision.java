@@ -17,7 +17,7 @@ public class Vision {
     public static double limelightHeight = 9.5;  // Camera height in inches
     public static double limelightAngle = 60;    // Camera angle (0° = down, 90° = forward)
     public static double clawForwardOffset = 19; // Claw's forward offset from the camera
-    public static double clawLateralOffset = 5;  // Claw's lateral offset from the camera
+    public static double clawLateralOffset = 5;  // Claw's lateral (right is +) offset from the camera
 
     private Pose sample = new Pose();  // The best sample's position
     private Limelight3A limelight;
@@ -68,10 +68,10 @@ public class Vision {
         scoredDetections.sort(Comparator.comparingDouble(LL3ADetection::getScore).reversed());
         LL3ADetection bestDetection = scoredDetections.get(0);
 
-        // Convert to FTC coordinates and apply claw offsets
+        // Convert to coordinates and apply claw offsets
         sample = new Pose(
-                bestDetection.getYDistance() - clawForwardOffset, // FTC X (forward)
-                -bestDetection.getXDistance() - clawLateralOffset, // FTC Y (left)
+                bestDetection.getYDistance() - clawForwardOffset, // X (forward)
+                -bestDetection.getXDistance() - clawLateralOffset, // Y (left)
                 0
         );
 
