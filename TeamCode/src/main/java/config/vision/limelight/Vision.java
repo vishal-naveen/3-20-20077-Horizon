@@ -19,7 +19,7 @@ public class Vision {
     public static double clawForwardOffset = 19; // Claw's forward offset from the camera
     public static double clawLateralOffset = 5;  // Claw's lateral (right is +) offset from the camera
 
-    private Pose sample = new Pose();  // The best sample's position
+    private Pose sample = new Pose(), difference = new Pose(), target = new Pose();  // The best sample's position
     private Limelight3A limelight;
     private LLResult result;
     private Telemetry telemetry;
@@ -35,7 +35,7 @@ public class Vision {
         limelight.start();
     }
 
-    public void periodic() {
+    public void periodic(Pose current) {
         result = limelight.getLatestResult();
         List<LLResultTypes.DetectorResult> detections = result.getDetectorResults();
 
@@ -100,19 +100,26 @@ public class Vision {
 
         // Convert to coordinates and apply claw offsets
         sample = new Pose(
-                bestDetection.getYDistance() - clawForwardOffset, // X (forward)
-                -bestDetection.getXDistance() - clawLateralOffset, // Y (left)
+                -bestDetection.getYDistance(), // X (forward)
+                bestDetection.getXDistance(), // Y (left)
                 0
         );
+
+        difference = new Pose(sample.getX() - clawForwardOffset, sample.getY() - clawLateralOffset, 0);
+
+        target = new Pose(current.getX() + difference.getX(), current.getY() + difference.getY(), current.getHeading());
 
         // Display results
         telemetry.addData("Best Detection", bestDetection.getDetection().getClassName());
         telemetry.addData("Sample Position", "X: %.2f, Y: %.2f", sample.getX(), sample.getY());
+        telemetry.addData("diff", difference);
+        telemetry.addData("target", target);
+        telemetry.addData("current", current);
         telemetry.update();
     }
 
-    public Pose getPose(Pose currentPose) {
-        return new Pose(sample.getX() + currentPose.getX(), sample.getY() + currentPose.getY(), currentPose.getHeading());
+    public Pose getPose() {
+        return target;
     }
 
     public void off() {

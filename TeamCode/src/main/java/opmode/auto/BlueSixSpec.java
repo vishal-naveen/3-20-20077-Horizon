@@ -46,7 +46,7 @@ public class BlueSixSpec extends OpModeCommand {
                       //          ),
                         new FollowPath(r.getF(),SixSpec.deposit2())
                                 .alongWith(
-                                    new WaitCommand(500)
+                                    new WaitCommand(250)
                                         .andThen(
                                                 new InstantCommand(() -> r.getE().toFull())
                                         )
