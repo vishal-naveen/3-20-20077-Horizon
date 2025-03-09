@@ -8,13 +8,15 @@ public class LL3ADetection {
     private final double yDistance;
     private final double rotationScore;
     private final double xDistance;
+    private final double angle;
 
-    public LL3ADetection(LLResultTypes.DetectorResult detection, double score, double yDistance, double xDistance, double rotationScore) {
+    public LL3ADetection(LLResultTypes.DetectorResult detection, double score, double yDistance, double xDistance, double rotationScore, double angle) {
         this.detection = detection;
         this.score = score;
         this.yDistance = yDistance;
         this.rotationScore = rotationScore;
         this.xDistance = xDistance;
+        this.angle = angle;
     }
 
     public LLResultTypes.DetectorResult getDetection() {
@@ -31,5 +33,9 @@ public class LL3ADetection {
     }
     public double getRotationScore() {
         return rotationScore;
+    }
+
+    public double getAngle() {
+        return angle;
     }
 }

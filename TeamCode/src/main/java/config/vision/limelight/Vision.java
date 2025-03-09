@@ -24,6 +24,7 @@ public class Vision {
     private LLResult result;
     private Telemetry telemetry;
     private int[] unwanted;
+    private double bestAngle;
 
     public Vision(HardwareMap hardwareMap, Telemetry telemetry, int[] unwanted) {
         this.unwanted = unwanted;
@@ -75,13 +76,27 @@ public class Vision {
                                 detection.getTargetCorners().get(2).get(1)) - (1.5 / 3.5));
                 double score = -yDistance - Math.abs(xDistance) + 2.0 * rotationScore; // Weighted scoring
 
-                scoredDetections.add(new LL3ADetection(detection, score, yDistance, xDistance, rotationScore));
+                double angle;
+
+                if (detection.getTargetCorners() == null || detection.getTargetCorners().size() < 4) {
+                    angle = Double.NaN;
+                }
+
+                List<List<Double>> corners = detection.getTargetCorners();
+
+                double dx = Math.toRadians(corners.get(1).get(0) - corners.get(0).get(0));
+                double dy = Math.toRadians(corners.get(2).get(1) - corners.get(0).get(1));
+                angle = ((Math.atan2(dy, dx)) * 4.5);
+
+                scoredDetections.add(new LL3ADetection(detection, score, yDistance, xDistance, rotationScore, angle));
             }
         }
 
         // Find the best detection
         scoredDetections.sort(Comparator.comparingDouble(LL3ADetection::getScore).reversed());
         LL3ADetection bestDetection = scoredDetections.get(0);
+
+        bestAngle = bestDetection.getAngle();
 
         // Convert to coordinates and apply claw offsets
         sample = new Pose(
@@ -106,5 +121,9 @@ public class Vision {
 
     public void on() {
         limelight.start();
+    }
+
+    public double getBestDetectionAngle() {
+        return bestAngle;
     }
 }
