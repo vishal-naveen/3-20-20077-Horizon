@@ -18,12 +18,13 @@ import java.util.List;
 @Config
 public class Vision {
     // Limelight and claw configuration
-    public static double limelightHeight = 9.5;  // Camera height in inches
-    public static double limelightAngle = 60;    // Camera angle (0° = down, 90° = forward)
+    public static double limelightHeight = 9.5; // Camera height in inches
+    public static double limelightAngle = 60; // Camera angle (0° = down, 90° = forward)
     public static double clawForwardOffset = 22; // Claw's forward offset from the camera
-    public static double clawLateralOffset = 5;  // Claw's lateral (right is +) offset from the camera
+    public static double clawLateralOffset = 5; // Claw's lateral (right is +) offset from the camera
 
-    private Pose sample = new Pose(), difference = new Pose(), target = new Pose();  // The best sample's position
+    private Pose sample = new Pose(), difference = new Pose(), target = new Pose(); // The best sample's position
+    private Pose cachedSample = new Pose(); // Cached best sample
     private Limelight3A limelight;
     private PathChain toTarget;
     private LLResult result;
@@ -71,8 +72,8 @@ public class Vision {
                 double xAngle = Math.toRadians(-detection.getTargetXDegrees());
 
                 // Compute distances
-                double yDistance = limelightHeight / Math.tan(actualYAngle);  // Forward distance (FTC X)
-                double xDistance = Math.tan(xAngle) * yDistance;              // Lateral distance (FTC Y)
+                double yDistance = limelightHeight / Math.tan(actualYAngle); // Forward distance (FTC X)
+                double xDistance = Math.tan(xAngle) * yDistance; // Lateral distance (FTC Y)
 
                 // Score based on alignment
                 double rotationScore = -Math.abs((detection.getTargetCorners().get(0).get(0) -
@@ -109,6 +110,13 @@ public class Vision {
                 bestDetection.getXDistance(), // Y (left)
                 0
         );
+
+        // Update the cache if the sample is valid
+        if (sample.getX() != 0 && sample.getY() != 0) {
+            cachedSample = sample;
+        } else {
+            sample = cachedSample;
+        }
 
         difference = new Pose(sample.getX() - clawForwardOffset, sample.getY() + clawLateralOffset, 0);
 
