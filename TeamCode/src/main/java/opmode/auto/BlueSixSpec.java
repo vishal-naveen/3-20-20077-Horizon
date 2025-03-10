@@ -23,7 +23,7 @@ public class BlueSixSpec extends OpModeCommand {
 
     @Override
     public void initialize() {
-        r = new Robot(hardwareMap, telemetry, Alliance.BLUE, SixSpec.start);
+        r = new Robot(hardwareMap, telemetry, Alliance.BLUE, SixSpec.start, true, 1);
         r.getI().hover();
         r.getO().specimenScore0();
         r.getE().toZero();
