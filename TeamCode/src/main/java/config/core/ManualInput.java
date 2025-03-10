@@ -60,7 +60,17 @@ public class ManualInput {
                 currentPose = manualPoses.size() - 1;
         }
 
+
+
+        telemetry.addData("Current Sample Pose (0 is the first)", currentPose);
         getCurrent().update();
+
+        telemetry.addLine();
+
+        for(ManualPose mp : manualPoses)
+            telemetry.addData("Pose " + manualPoses.indexOf(mp), mp.getPose().toString());
+
+        telemetry.update();
     }
 
     public ManualPose getCurrent() {

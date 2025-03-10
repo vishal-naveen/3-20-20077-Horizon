@@ -1,5 +1,7 @@
 package config.core;
 
+import androidx.annotation.NonNull;
+
 import com.pedropathing.localization.Pose;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -71,7 +73,13 @@ public class ManualPose {
 
     public void update() {
         calculate();
-        telemetry.addData("Sample Position", "X: %.2f inches, Y: %.2f inches", xOffset, yOffset);
+        telemetry.addData("Tabs", "X: %.2f, Y: %.2f", xTabs, yTabs);
+        telemetry.addData("Position", "X: %.2f inches, Y: %.2f inches", xOffset, yOffset);
         telemetry.addData("Rotation", "%.2f degrees", rotation);
+    }
+
+    @NonNull
+    public String toString() {
+        return "X Tabs: " + xTabs + ", Y Tabs: " + yTabs + "\n" + "X Offset: " + xOffset + ", Y Offset: " + yOffset + "\nRotation: " + rotation;
     }
 }
