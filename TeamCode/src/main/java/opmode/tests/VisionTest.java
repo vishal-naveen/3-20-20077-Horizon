@@ -27,7 +27,7 @@ public class VisionTest extends OpMode {
     Gamepad g1, p1;
     
     public int sState;
-    public Timer sTimer;
+    public Timer sTimer, timer;
 
     @Override
     public void init() {
@@ -44,6 +44,7 @@ public class VisionTest extends OpMode {
         p1 = new Gamepad();
 
         sTimer = new Timer();
+        timer = new Timer();
         
         o.score();
 
@@ -60,6 +61,15 @@ public class VisionTest extends OpMode {
             i.rotateDegrees(v.getBestDetectionAngle());
             e.toFull();
             f.followPath(v.toTarget());
+        }
+
+        if (g1.dpad_left) {
+            if (timer.getElapsedTimeSeconds() > 0.25) {
+                v.find();
+                i.rotateDegrees(v.getBestDetectionAngle());
+                f.followPath(v.toTarget());
+                timer.resetTimer();
+            }
         }
 
         if (g1.dpad_up && !p1.dpad_up)
