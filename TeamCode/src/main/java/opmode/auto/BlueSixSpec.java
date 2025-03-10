@@ -40,10 +40,10 @@ public class BlueSixSpec extends OpModeCommand {
                                                     new FollowPath(r.getF(), SixSpec.score1())
                                                 )
                                 ),
-                     //   new Align(r)
-                       //         .andThen(
-                                    new Submersible(r),
-                      //          ),
+                        new Align(r, r.getM().getManualPoses().get(0))
+                                .andThen(
+                                    new Submersible(r)
+                                ),
                         new FollowPath(r.getF(),SixSpec.deposit2())
                                 .alongWith(
                                     new WaitCommand(250)

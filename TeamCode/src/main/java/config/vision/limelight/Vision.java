@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import config.core.ManualInput;
+
 @Config
 public class Vision {
     // Limelight and claw configuration
@@ -33,11 +35,14 @@ public class Vision {
     private int[] unwanted;
     private double bestAngle;
     private Follower f;
+    private ManualInput manualInput;
 
-    public Vision(HardwareMap hardwareMap, Telemetry telemetry, int[] unwanted, Follower f) {
+    public Vision(HardwareMap hardwareMap, Telemetry telemetry, int[] unwanted, Follower f, ManualInput manualInput) {
         this.unwanted = unwanted;
         this.telemetry = telemetry;
         this.f = f;
+        this.manualInput = manualInput;
+
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelight.setPollRateHz(100);
         limelight.pipelineSwitch(9);
@@ -154,7 +159,8 @@ public class Vision {
         limelight.start();
     }
 
-    public double getBestDetectionAngle() {
+    public double getAngle() {
         return bestAngle;
+        //return manualInput.getPose().getHeading();
     }
 }

@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import config.core.ManualInput;
+import config.core.paths.SixSpec;
 import config.pedro.constants.FConstants;
 import config.pedro.constants.LConstants;
 import config.vision.limelight.Vision;
@@ -14,12 +16,20 @@ import config.vision.limelight.Vision;
 public class Potato extends OpMode {
     Vision v;
     Follower f;
+    ManualInput manualInput;
     Gamepad g1 = new Gamepad(), p1 = new Gamepad();
 
     @Override
     public void init() {
         f = new Follower(hardwareMap, FConstants.class, LConstants.class);
-        v = new Vision(hardwareMap, telemetry, new int[]{1, 2}, f);
+        manualInput = new ManualInput(telemetry, gamepad1, 0, true);
+        v = new Vision(hardwareMap, telemetry, new int[]{1, 2}, f, manualInput);
+    }
+
+    @Override
+    public void init_loop() {
+        manualInput.update();
+        telemetry.update();
     }
 
     @Override

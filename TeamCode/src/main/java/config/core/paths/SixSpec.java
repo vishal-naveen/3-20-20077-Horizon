@@ -15,7 +15,7 @@ public class SixSpec {
 
     public static Pose start = new Pose(8, 66, Math.toRadians(0));
     public static Pose score1 = new Pose(37.75, 66, Math.toRadians(0));
-    public static Pose sub2 = new Pose(37.75, 66, Math.toRadians(0));
+    public static Pose sub2 = new Pose(25, 66, Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
     public static Pose deposit2 = new Pose(40,40, Math.toRadians(225));
     public static Pose grab2 = new Pose(7, 36, Math.toRadians(180));
     public static Pose score2 = new Pose(42, 76, Math.toRadians(180));
@@ -43,7 +43,6 @@ public class SixSpec {
     }
 
     public static PathChain sub2() {
-
         return new PathBuilder()
                 .addPath(
                         new BezierLine(

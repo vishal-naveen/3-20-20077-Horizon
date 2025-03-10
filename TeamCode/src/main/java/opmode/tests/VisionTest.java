@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import config.core.ManualInput;
 import config.core.paths.SixSpec;
 import config.pedro.constants.FConstants;
 import config.pedro.constants.LConstants;
@@ -24,6 +25,7 @@ public class VisionTest extends OpMode {
     Intake i;
     Light j;
     Outtake o;
+    ManualInput manualInput;
     Gamepad g1, p1;
     
     public int sState;
@@ -31,8 +33,9 @@ public class VisionTest extends OpMode {
 
     @Override
     public void init() {
-        v = new Vision(hardwareMap, telemetry, new int[]{1, 2}, f);
         f = new Follower(hardwareMap, FConstants.class, LConstants.class);
+        manualInput = new ManualInput(telemetry, gamepad1, 0, true);
+        v = new Vision(hardwareMap, telemetry, new int[]{1, 2}, f, manualInput);
         e = new Extend(hardwareMap, telemetry);
         i = new Intake(hardwareMap, telemetry);
         j = new Light(hardwareMap, telemetry);
@@ -52,13 +55,19 @@ public class VisionTest extends OpMode {
     }
 
     @Override
+    public void init_loop() {
+        manualInput.update();
+        telemetry.update();
+    }
+
+    @Override
     public void loop() {
         p1.copy(g1);
         g1.copy(gamepad1);
 
         if (g1.y && !p1.y) {
             v.find();
-            i.rotateDegrees(v.getBestDetectionAngle());
+            i.rotateDegrees(v.getAngle());
             e.toFull();
             f.followPath(v.toTarget());
         }
@@ -66,7 +75,7 @@ public class VisionTest extends OpMode {
         if (g1.dpad_left) {
             if (timer.getElapsedTimeSeconds() > 0.25) {
                 v.find();
-                i.rotateDegrees(v.getBestDetectionAngle());
+                i.rotateDegrees(v.getAngle());
                 f.followPath(v.toTarget());
                 timer.resetTimer();
             }
@@ -76,7 +85,7 @@ public class VisionTest extends OpMode {
             j.switchI();
 
         if (g1.a && !p1.a)
-            i.rotateDegrees(v.getBestDetectionAngle());
+            i.rotateDegrees(v.getAngle());
 
         if(g1.right_bumper && !p1.right_bumper) {
             f.followPath(v.toTarget());

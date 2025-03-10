@@ -35,6 +35,7 @@ public class Robot {
     private Lift l;
     private Outtake o;
     private Light j;
+    private ManualInput m;
     private Vision v;
     private Opmode op = TELEOP;
     public static Pose autoEndPose = new Pose();
@@ -89,7 +90,42 @@ public class Robot {
         l = new Lift(this.h,this.t);
         i = new Intake(this.h,this.t);
         o = new Outtake(this.h,this.t);
+        m = new ManualInput(this.t, this.g2, 0, true);
      //   v = new Vision(this.h, this.t, a == Alliance.BLUE ? new int[]{1,2} : new int[]{0,2});
+
+        this.g2 = new Gamepad();
+        this.p2 = new Gamepad();
+
+        tTimer = new Timer();
+        sTimer = new Timer();
+        spec0Timer = new Timer();
+        spec180Timer = new Timer();
+        c0Timer = new Timer();
+        c180Timer = new Timer();
+        aInitLoopTimer = new Timer();
+
+        aInitLoopTimer.resetTimer();
+        aInitLoop = false;
+        o.close();
+        t.addData("s", s);
+        t.addData("status", "not ready");
+    }
+
+    public Robot(HardwareMap h, Telemetry t, Alliance a, Pose startPose, boolean spec, int subSamples) {
+        this.op = AUTONOMOUS;
+        this.h = h;
+        this.t = t;
+        this.a = a;
+        this.s = startPose.copy();
+
+        f = new Follower(this.h, FConstants.class, LConstants.class);
+        f.setStartingPose(startPose);
+
+        e = new Extend(this.h,this.t);
+        l = new Lift(this.h,this.t);
+        i = new Intake(this.h,this.t);
+        o = new Outtake(this.h,this.t);
+        m = new ManualInput(this.t, this.g2, subSamples, spec);
 
         this.g2 = new Gamepad();
         this.p2 = new Gamepad();
@@ -112,7 +148,6 @@ public class Robot {
     public void aPeriodic() {
         t.addData("path", f.getCurrentPath());
 
-     //   v.periodic();
         e.periodic();
         l.periodic();
         i.periodic();
@@ -132,6 +167,8 @@ public class Robot {
 
         p2.copy(g2);
         g2.copy(g2a);
+
+        m.update();
 
         if (g2.a && !p2.a) {
             t.addData("status", "all ready!");
@@ -318,6 +355,10 @@ public class Robot {
 
     public Vision getV() {
         return v;
+    }
+
+    public ManualInput getM() {
+        return m;
     }
 
     public void slowDrive() {
