@@ -14,15 +14,15 @@ public class SixSpecDrag {
     public static Pose sub2 = new Pose(25, 66, Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
     public static Pose deposit2 = new Pose(24,48, Math.toRadians(225));
     public static Pose grab2 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score2 = new Pose(39, 76, Math.toRadians(180));
+    public static Pose score2 = new Pose(39, 66, Math.toRadians(180));
     public static Pose grab3 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score3 = new Pose(39, 75, Math.toRadians(180));
+    public static Pose score3 = new Pose(39, 66, Math.toRadians(180));
     public static Pose grab4 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score4 = new Pose(39, 73, Math.toRadians(180));
+    public static Pose score4 = new Pose(39, 66, Math.toRadians(180));
     public static Pose grab5 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score5 = new Pose(39, 71, Math.toRadians(180));
+    public static Pose score5 = new Pose(39, 66, Math.toRadians(180));
     public static Pose grab6 = new Pose(7.75, 36, Math.toRadians(180));
-    public static Pose score6 = new Pose(39, 71, Math.toRadians(270));
+    public static Pose score6 = new Pose(39, 66, Math.toRadians(270));
     public static Pose park = new Pose(24,48, Math.toRadians(225));
 
     public static PathChain score1() {
@@ -183,8 +183,9 @@ public class SixSpecDrag {
     public static PathChain score3() {
         return new PathBuilder()
                 .addPath(
-                        new BezierLine(
+                        new BezierCurve(
                                 grab3,
+                                new Pose(score3.getX() - 10, score3.getY()),
                                 score3
                         )
                 )
@@ -209,8 +210,9 @@ public class SixSpecDrag {
     public static PathChain score4() {
         return new PathBuilder()
                 .addPath(
-                        new BezierLine(
+                        new BezierCurve(
                                 grab4,
+                                new Pose(score4.getX() - 10, score4.getY()),
                                 score4
                         )
                 )
@@ -235,8 +237,9 @@ public class SixSpecDrag {
     public static PathChain score5() {
         return new PathBuilder()
                 .addPath(
-                        new BezierLine(
+                        new BezierCurve(
                                 grab5,
+                                new Pose(score5.getX() - 10, score5.getY()),
                                 score5
                         )
                 )
@@ -263,7 +266,7 @@ public class SixSpecDrag {
                 .addPath(
                         new BezierCurve(
                                 grab6,
-                                new Pose(32.000, 70.500),
+                                new Pose(score6.getX() - 10, score6.getY()),
                                 score6
                         )
                 )

@@ -20,8 +20,6 @@ public class ManualInput {
             manualPoses.add(new ManualPose(telemetry, spec));
     }
 
-
-
     public void update(Gamepad g) {
         p1.copy(g1);
         g1.copy(g);
