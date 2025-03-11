@@ -16,7 +16,7 @@ import config.subsystems.Light;
 import config.subsystems.Outtake;
 import config.vision.limelight.Vision;
 
-@TeleOp(group = "TeleOp", name = "Vision Test")
+@TeleOp(group = "zzz", name = "Vision Test")
 public class VisionTest extends OpMode {
     Vision v;
     Follower f;

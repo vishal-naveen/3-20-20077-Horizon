@@ -1,6 +1,6 @@
 package config.core;
 
-import static config.core.Opmode.*;
+import static config.core.util.Opmode.*;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
@@ -10,6 +10,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import config.core.util.Alliance;
+import config.core.util.Opmode;
 import config.pedro.constants.FConstants;
 import config.pedro.constants.LConstants;
 import config.subsystems.Extend;

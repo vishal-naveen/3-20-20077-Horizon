@@ -64,6 +64,7 @@ public class Transfer extends CommandBase {
             case 5:
                 if (timer.getElapsedTimeSeconds() > 0.2) {
                     robot.getO().score();
+                    robot.getI().hover();
                     setState(-1);
                 }
                 break;

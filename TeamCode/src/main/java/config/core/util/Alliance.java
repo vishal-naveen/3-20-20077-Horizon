@@ -1,4 +1,4 @@
-package config.core;
+package config.core.util;
 
 public enum Alliance {
     BLUE,

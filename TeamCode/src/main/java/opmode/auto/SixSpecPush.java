@@ -7,23 +7,21 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.pedropathing.commands.FollowPath;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import config.commands.Align;
 import config.commands.Chamber;
 import config.commands.ForwardChamber;
 import config.commands.Specimen;
 import config.commands.Submersible;
-import config.core.Alliance;
-import config.core.OpModeCommand;
+import config.core.util.Alliance;
+import config.core.util.OpModeCommand;
 import config.core.Robot;
-import config.core.paths.SixSpecPush;
 
-@Autonomous(name = "Blue Six Spec Push", group = "...Sigma")
-public class BlueSixSpecPush extends OpModeCommand {
+@Autonomous(name = "6+0 Push", group = "Unsigma")
+public class SixSpecPush extends OpModeCommand {
     Robot r;
 
     @Override
     public void initialize() {
-        r = new Robot(hardwareMap, telemetry, Alliance.BLUE, SixSpecPush.start, true, 1);
+        r = new Robot(hardwareMap, telemetry, Alliance.BLUE, config.core.paths.SixSpecPush.start, true, 1);
         r.getI().hover();
         r.getO().specimenScore0();
         r.getE().toZero();
@@ -37,14 +35,23 @@ public class BlueSixSpecPush extends OpModeCommand {
                                 .alongWith(
                                         new WaitCommand(500)
                                                 .andThen(
-                                                    new FollowPath(r.getF(), SixSpecPush.score1())
+                                                    new FollowPath(r.getF(), config.core.paths.SixSpecPush.score1())
                                                 )
                                 ),
-                        new Align(r, r.getM().getManualPoses().get(0))
+                        new InstantCommand(
+                                () -> {
+                                    r.getI().rotateDegrees(r.getM().getManualPoses().get(0).getRotation());//robot.getV().getBestDetectionAngle());
+                                    r.getE().toFull();
+                                    config.core.paths.SixSpecPush.sub2 = r.getM().getManualPoses().get(0).getPose().copy();
+                                }
+                        )
                                 .andThen(
-                                    new Submersible(r)
+                                        new FollowPath(r.getF(), config.core.paths.SixSpecPush.sub2())
+                                                .andThen(
+                                                        new Submersible(r)
+                                                )
                                 ),
-                        new FollowPath(r.getF(), SixSpecPush.deposit2())
+                        new FollowPath(r.getF(), config.core.paths.SixSpecPush.deposit2())
                                 .alongWith(
                                     new WaitCommand(500)
                                         .andThen(
@@ -52,7 +59,7 @@ public class BlueSixSpecPush extends OpModeCommand {
                                         )
                                 )
                                 .andThen(new InstantCommand(() -> r.getI().open())),
-                        new FollowPath(r.getF(), SixSpecPush.push())
+                        new FollowPath(r.getF(), config.core.paths.SixSpecPush.push())
                                 .alongWith(
                                         new WaitCommand(250)
                                                 .andThen(
@@ -66,47 +73,47 @@ public class BlueSixSpecPush extends OpModeCommand {
                                                         new InstantCommand(() -> r.getO().specimenGrab180())
                                                 )
                                 ),
-                        new FollowPath(r.getF(), SixSpecPush.grab2()),
+                        new FollowPath(r.getF(), config.core.paths.SixSpecPush.grab2()),
                         new Chamber(r)
                                 .alongWith(
                                         new WaitCommand(300)
                                                 .andThen(
-                                                        new FollowPath(r.getF(), SixSpecPush.score2())
+                                                        new FollowPath(r.getF(), config.core.paths.SixSpecPush.score2())
                                                 )
                                 ),
-                        new FollowPath(r.getF(), SixSpecPush.grab3(), true, 1)
+                        new FollowPath(r.getF(), config.core.paths.SixSpecPush.grab3(), true, 1)
                                 .alongWith(new Specimen(r)),
                         new Chamber(r).alongWith(
                                 new WaitCommand(250)
                                         .andThen(
-                                                new FollowPath(r.getF(), SixSpecPush.score3(), true, 1).setCompletionThreshold(0.975)
+                                                new FollowPath(r.getF(), config.core.paths.SixSpecPush.score3(), true, 1).setCompletionThreshold(0.975)
                                         )
                         ),
-                        new FollowPath(r.getF(), SixSpecPush.grab4(), true, 1)
+                        new FollowPath(r.getF(), config.core.paths.SixSpecPush.grab4(), true, 1)
                                 .alongWith(new Specimen(r)),
                         new Chamber(r).alongWith(
                                 new WaitCommand(250)
                                         .andThen(
-                                                new FollowPath(r.getF(), SixSpecPush.score4(), true, 1).setCompletionThreshold(0.975)
+                                                new FollowPath(r.getF(), config.core.paths.SixSpecPush.score4(), true, 1).setCompletionThreshold(0.975)
                                         )
                         ),
-                        new FollowPath(r.getF(), SixSpecPush.grab5(), true, 1)
+                        new FollowPath(r.getF(), config.core.paths.SixSpecPush.grab5(), true, 1)
                                 .alongWith(new Specimen(r)),
                         new Chamber(r).alongWith(
                                 new WaitCommand(250)
                                         .andThen(
-                                                new FollowPath(r.getF(), SixSpecPush.score5(), true, 1).setCompletionThreshold(0.975)
+                                                new FollowPath(r.getF(), config.core.paths.SixSpecPush.score5(), true, 1).setCompletionThreshold(0.975)
                                         )
                         ),
-                        new FollowPath(r.getF(), SixSpecPush.grab6(), true, 1)
+                        new FollowPath(r.getF(), config.core.paths.SixSpecPush.grab6(), true, 1)
                                 .alongWith(new Specimen(r)),
                         new Chamber(r).alongWith(
                                 new WaitCommand(250)
                                         .andThen(
-                                                new FollowPath(r.getF(), SixSpecPush.score6(), true, 1).setCompletionThreshold(0.975)
+                                                new FollowPath(r.getF(), config.core.paths.SixSpecPush.score6(), true, 1).setCompletionThreshold(0.975)
                                         )
                         ),
-                        new FollowPath(r.getF(), SixSpecPush.park(), true, 1)
+                        new FollowPath(r.getF(), config.core.paths.SixSpecPush.park(), true, 1)
                                 .alongWith(
                                         new InstantCommand(
                                                 () -> {

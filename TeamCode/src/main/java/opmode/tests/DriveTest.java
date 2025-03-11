@@ -9,12 +9,14 @@ import config.pedro.constants.FConstants;
 import config.pedro.constants.LConstants;
 import config.subsystems.Extend;
 import config.subsystems.Intake;
+import config.subsystems.Outtake;
 
-@TeleOp
+@TeleOp(name = "Drive Test", group = "zzz")
 public class DriveTest extends OpMode {
     Follower f;
     Intake i;
     Extend e;
+    Outtake o;
 
     @Override
     public void init() {
@@ -23,13 +25,14 @@ public class DriveTest extends OpMode {
 
         i = new Intake(hardwareMap, telemetry);
         e = new Extend(hardwareMap, telemetry);
+        o = new Outtake(hardwareMap, telemetry);
 
         e.toFull();
     }
 
     @Override
     public void loop() {
-        i.drag();
+        o.specimenGrab0();
         f.update();
         i.periodic();
         telemetry.addData("Pose", f.getPose());

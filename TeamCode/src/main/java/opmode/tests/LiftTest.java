@@ -10,7 +10,7 @@ import config.subsystems.Lift;
 import config.subsystems.Outtake;
 
 @Config
-@TeleOp(group = "TeleOp", name = "Lift Test")
+@TeleOp(group = "zzz", name = "Lift Test")
 public class LiftTest extends OpMode {
     public static int target = 0;
 

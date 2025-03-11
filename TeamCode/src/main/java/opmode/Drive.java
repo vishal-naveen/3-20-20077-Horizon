@@ -5,10 +5,10 @@ import static config.core.Robot.autoEndPose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import config.core.Alliance;
+import config.core.util.Alliance;
 import config.core.Robot;
 
-@TeleOp(name = "Drive")
+@TeleOp(name = "Drive", group = "...Sigma")
 public class Drive extends OpMode {
 
     Robot r;
