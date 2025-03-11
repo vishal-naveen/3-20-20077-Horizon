@@ -1,13 +1,11 @@
 package opmode.tests;
 
 import com.pedropathing.follower.Follower;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import config.core.ManualInput;
-import config.core.paths.SixSpec;
 import config.pedro.constants.FConstants;
 import config.pedro.constants.LConstants;
 import config.vision.limelight.Vision;
@@ -28,7 +26,7 @@ public class Potato extends OpMode {
 
     @Override
     public void init_loop() {
-        manualInput.update();
+        manualInput.update(gamepad2);
         telemetry.update();
     }
 

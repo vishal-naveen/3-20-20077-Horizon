@@ -1,13 +1,11 @@
 package config.commands;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.pedropathing.localization.Pose;
 import com.pedropathing.util.Timer;
 
-import config.core.ManualInput;
 import config.core.ManualPose;
 import config.core.Robot;
-import config.core.paths.SixSpec;
+import config.core.paths.SixSpecPush;
 
 public class Align extends CommandBase {
     private final Robot robot;
@@ -34,8 +32,8 @@ public class Align extends CommandBase {
             case 1:
                 robot.getI().rotateDegrees(manualPose.getRotation());//robot.getV().getBestDetectionAngle());
                 robot.getE().toFull();
-                SixSpec.sub2 = manualPose.getPose().copy();
-                robot.getF().followPath(SixSpec.sub2());
+                SixSpecPush.sub2 = manualPose.getPose().copy();
+                robot.getF().followPath(SixSpecPush.sub2());
                 setState(2);
                 break;
             case 2:

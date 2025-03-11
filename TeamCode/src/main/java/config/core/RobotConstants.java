@@ -6,24 +6,25 @@ import com.acmerobotics.dashboard.config.Config;
 public class RobotConstants {
 
     // Outtake
-    public static double outtakeGrabClose = 0.03;
+    public static double outtakeGrabClose = 0;
     public static double outtakeGrabOpen = 0.3;
     public static double outtakeRotateTransfer = 0.575;
-    public static double outtakeRotateSpecimenGrab180 = 0.58;
+    public static double outtakeRotateSpecimenGrab180 = 0.62;
     public static double outtakeRotateSpecimenGrab0 = 0.56;
     public static double outtakeRotateLeftScore = 0.9;
     public static double outtakeRotateRightScore = 0.5;
-    public static double outtakeRotateLeftSpecimenScore180 = 0.68;
-    public static double outtakeRotateRightSpecimenScore180 = 0.24;
+    public static double outtakeRotateLeftSpecimenScore180 = 0.74;
+    public static double outtakeRotateRightSpecimenScore180 = 0.3;
     public static double outtakeRotateLeftSpecimenScore0 = 0.575;
     public static double outtakeRotateRightSpecimenScore0 = 0.575;
     public static double outtakePivotTransfer= 0.8; //0
     public static double outtakePivotScore = 0.4;
     public static double outtakePivotSpecimenGrab180 = 0.87;
-    public static double outtakePivotSpecimenScore180 = 0.32;
+    public static double outtakePivotSpecimenScore180 = 0.36;
 
     public static double outtakePivotSpecimenGrab0 = 0.97;
     public static double outtakePivotSpecimenScore0 = 0.8;
+    public static double outtakePivotAfterSpecScore = 0.25;
 
     // Intake
     public static double intakeGrabClose = 0.095;
@@ -39,6 +40,8 @@ public class RobotConstants {
     public static double intakePivotCloud = 0.6;
     public static double intakePivotSpecimen = 0;
     public static double intakeRotatePerDegree = 0.0011;
+    public static double intakePivotDrag = 1;
+    public static double intakeRotateDrag = 0.25;
 
     // Lift Positions
     public static int liftToZero = 10;

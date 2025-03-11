@@ -1,14 +1,13 @@
 package opmode.tests;
 
 import com.pedropathing.follower.Follower;
-import com.pedropathing.localization.Pose;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import config.core.ManualInput;
-import config.core.paths.SixSpec;
+import config.core.paths.SixSpecPush;
 import config.pedro.constants.FConstants;
 import config.pedro.constants.LConstants;
 import config.subsystems.Extend;
@@ -41,7 +40,7 @@ public class VisionTest extends OpMode {
         j = new Light(hardwareMap, telemetry);
         o = new Outtake(hardwareMap, telemetry);
 
-        f.setStartingPose(SixSpec.score1);
+        f.setStartingPose(SixSpecPush.score1);
 
         g1 = new Gamepad();
         p1 = new Gamepad();
@@ -56,7 +55,7 @@ public class VisionTest extends OpMode {
 
     @Override
     public void init_loop() {
-        manualInput.update();
+        manualInput.update(gamepad2);
         telemetry.update();
     }
 

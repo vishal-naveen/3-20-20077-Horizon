@@ -26,13 +26,13 @@ public class ForwardChamber extends CommandBase {
     public void execute() {
         switch (state) {
             case 0:
-                if(timer.getElapsedTimeSeconds() > 0.15) {
+                if(timer.getElapsedTimeSeconds() > 0) {
                     robot.getO().close();
                     setState(1);
                 }
                 break;
             case 1:
-                if (timer.getElapsedTimeSeconds() > 0.25) {
+                if (timer.getElapsedTimeSeconds() > 0.1) {
                     robot.getO().specimenScore0();
                     robot.getI().hover();
                     robot.getE().toFull();

@@ -2,18 +2,13 @@ package config.core;
 
 import static config.core.Opmode.*;
 
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
-import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
-import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-
-import java.util.List;
 
 import config.pedro.constants.FConstants;
 import config.pedro.constants.LConstants;
@@ -157,23 +152,18 @@ public class Robot {
     }
 
     public void aInitLoop(Gamepad g2a) {
-        if (!aInitLoop) {
-            if (aInitLoopTimer.getElapsedTimeSeconds() > 2) {
-                o.init();
-                t.addData("status", "ready to verify");
-                aInitLoop = true;
-            }
-        }
+//        if (!aInitLoop) {
+//            if (aInitLoopTimer.getElapsedTimeSeconds() > 2) {
+//                o.init();
+//                t.addData("status", "ready to verify");
+//                aInitLoop = true;
+//            }
+//        }
+//
+//        p2.copy(g2);
+//        g2.copy(g2a);
 
-        p2.copy(g2);
-        g2.copy(g2a);
-
-        m.update();
-
-        if (g2.a && !p2.a) {
-            t.addData("status", "all ready!");
-        }
-
+        m.update(g2a);
         t.update();
     }
 
@@ -488,7 +478,7 @@ public class Robot {
                 break;
             case 3:
                 if(c180Timer.getElapsedTimeSeconds() > 0.25) {
-                    o.hang();
+                    o.afterSpecScore();
                     o.open();
                     setChamber180State(-1);
                 }

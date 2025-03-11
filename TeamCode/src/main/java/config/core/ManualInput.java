@@ -9,13 +9,12 @@ import java.util.ArrayList;
 
 public class ManualInput {
     private Telemetry telemetry;
-    private Gamepad g, g1 = new Gamepad(), p1 = new Gamepad();
+    private Gamepad g1 = new Gamepad(), p1 = new Gamepad();
     private ArrayList<ManualPose> manualPoses = new ArrayList<>();
     private int currentPose = 0;
 
     public ManualInput(Telemetry telemetry, Gamepad g, int sample, boolean spec) {
         this.telemetry = telemetry;
-        this.g = g;
 
         for(int i = 0; i < sample; i++)
             manualPoses.add(new ManualPose(telemetry, spec));
@@ -23,7 +22,7 @@ public class ManualInput {
 
 
 
-    public void update() {
+    public void update(Gamepad g) {
         p1.copy(g1);
         g1.copy(g);
 
@@ -60,8 +59,6 @@ public class ManualInput {
                 currentPose = manualPoses.size() - 1;
         }
 
-
-
         telemetry.addData("Current Sample Pose (0 is the first)", currentPose);
         getCurrent().update();
 
@@ -69,8 +66,6 @@ public class ManualInput {
 
         for(ManualPose mp : manualPoses)
             telemetry.addData("Pose " + manualPoses.indexOf(mp), mp.getPose().toString());
-
-        telemetry.update();
     }
 
     public ManualPose getCurrent() {

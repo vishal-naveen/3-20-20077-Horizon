@@ -45,12 +45,12 @@ public class Extend {
     }
 
     public void toQuarter() {
-        setTarget(extendFull/4);
+        setTarget(extendZero - (extendZero - extendFull)/4);
         state = ExtendState.QUARTER;
     }
 
     public void toHalf() {
-        setTarget(extendFull/2);
+        setTarget(extendZero - (extendZero - extendFull)/2);
         state = ExtendState.HALF;
     }
 
@@ -64,15 +64,15 @@ public class Extend {
         state = ExtendState.TRANSFER;
     }
 
-    public void extendInches(double inches) {
-        double temp = extendZero - (inches * extendInchesPer);
-
-        if(temp < extendFull) {
-            temp = extendFull;
-        }
-
-        setTarget(temp);
-    }
+//    public void extendInches(double inches) {
+//        double temp = extendZero - (inches * extendInchesPer);
+//
+//        if(temp < extendFull) {
+//            temp = extendFull;
+//        }
+//
+//        setTarget(temp);
+//    }
 
     public double getPos() {
         pos = right.getPosition();

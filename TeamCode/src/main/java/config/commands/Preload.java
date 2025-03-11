@@ -30,7 +30,7 @@ public class Preload extends CommandBase {
                 break;
             case 1:
                 if (timer.getElapsedTimeSeconds() > 1.4) {
-                    robot.getO().hang();
+                    robot.getO().afterSpecScore();
                     setState(2);
                 }
                 break;

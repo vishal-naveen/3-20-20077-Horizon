@@ -156,7 +156,7 @@ public class Outtake {
         switch(specGrabState) {
             case 0:
                 if(pivotState == PivotState.SPECIMENSCORE180) {
-                    hang();
+                    afterSpecScore();
                     setSpecGrabState(1);
                 } else {
                     setRotateState(RotateState.SPECIMENGRAB180);
@@ -244,7 +244,12 @@ public class Outtake {
         setGrabState(GrabState.CLOSED);
     }
 
-
+    public void afterSpecScore() {
+        setRotateState(RotateState.SPECIMENSCORE180);
+        leftPivot.setPosition(outtakePivotAfterSpecScore);
+        rightPivot.setPosition(outtakePivotAfterSpecScore);
+        setGrabState(GrabState.CLOSED);
+    }
 
     public void telemetry() {
         telemetry.addData("Outtake Grab State: ", grabState);

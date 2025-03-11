@@ -101,6 +101,6 @@ public class BlueFiveSpecOneSample extends OpModeCommand {
     @Override
     public void init_loop() {
         super.init_loop();
-        r.aInitLoop(gamepad2);
+        r.aInitLoop(gamepad1);
     }
 }

@@ -37,9 +37,9 @@ public class Chamber extends CommandBase {
                 }
                 break;
             case 2:
-                if (!robot.getF().isBusy()) {
+                if (!robot.getF().isBusy() && timer.getElapsedTimeSeconds() > 0.25) {
                     robot.getO().close();
-                    robot.getO().hang();
+                    robot.getO().afterSpecScore();
                     setState(3);
                 }
                 break;

@@ -67,8 +67,8 @@ public class ManualPose {
     }
 
     public void calculate() {
-        xOffset = 1.1875 * xTabs;
-        yOffset = 1.1875 * yTabs;
+        xOffset = 1.181 * xTabs;
+        yOffset = 1.181 * yTabs;
     }
 
     public void update() {

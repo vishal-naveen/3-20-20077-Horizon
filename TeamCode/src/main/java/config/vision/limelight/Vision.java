@@ -47,7 +47,7 @@ public class Vision {
         limelight.setPollRateHz(100);
         limelight.pipelineSwitch(9);
         limelight.start();
-
+f.update();
         cachedTarget = f.getPose();
         f.update();
     }

@@ -26,25 +26,26 @@ public class Submersible extends CommandBase {
         robot.getT().update();
         switch (state) {
             case 1:
-                robot.getI().ground();
+                robot.getI().cloud();
                 robot.getI().open();
                 robot.getO().transfer();
                 setState(2);
                 break;
             case 2:
-                if(timer.getElapsedTimeSeconds() > 0.3) {
+                if(timer.getElapsedTimeSeconds() > 0.25) {
+                    robot.getI().ground();
                     robot.getI().close();
                     setState(3);
                 }
                 break;
             case 3:
-                if (timer.getElapsedTimeSeconds() > 0.25) {
+                if (timer.getElapsedTimeSeconds() > 0.2) {
                     robot.getI().hover();
                     setState(4);
                 }
                 break;
             case 4:
-                if (timer.getElapsedTimeSeconds() > 0.33) {
+                if (timer.getElapsedTimeSeconds() > 0.1) {
                     robot.getE().toZero();
                     setState(-1);
                 }
