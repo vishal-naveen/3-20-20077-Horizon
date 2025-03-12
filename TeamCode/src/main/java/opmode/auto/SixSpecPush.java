@@ -22,7 +22,7 @@ public class SixSpecPush extends OpModeCommand {
     @Override
     public void initialize() {
         r = new Robot(hardwareMap, telemetry, Alliance.BLUE, config.core.paths.SixSpecPush.start, true, 1);
-        r.getI().hover();
+        r.getI().init();
         r.getO().specimenScore0();
         r.getE().toZero();
         r.getT().addData("init", true);
@@ -35,7 +35,16 @@ public class SixSpecPush extends OpModeCommand {
                                 .alongWith(
                                         new WaitCommand(500)
                                                 .andThen(
-                                                    new FollowPath(r.getF(), config.core.paths.SixSpecPush.score1())
+                                                        new FollowPath(r.getF(), config.core.paths.SixSpecPush.score1())
+                                                ),
+                                        new WaitCommand(100)
+                                                .andThen(
+                                                        new InstantCommand(
+                                                                () -> {
+                                                                    r.getI().hover();
+                                                                    r.getE().toFull();
+                                                                }
+                                                        )
                                                 )
                                 ),
                         new InstantCommand(
@@ -53,10 +62,10 @@ public class SixSpecPush extends OpModeCommand {
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SixSpecPush.deposit2())
                                 .alongWith(
-                                    new WaitCommand(500)
-                                        .andThen(
-                                                new InstantCommand(() -> r.getE().toFull())
-                                        )
+                                        new WaitCommand(500)
+                                                .andThen(
+                                                        new InstantCommand(() -> r.getE().toFull())
+                                                )
                                 )
                                 .andThen(new InstantCommand(() -> r.getI().open())),
                         new FollowPath(r.getF(), config.core.paths.SixSpecPush.push())

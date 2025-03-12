@@ -7,13 +7,13 @@ import config.core.Robot;
 import config.subsystems.Extend;
 import config.subsystems.Outtake;
 
-public class Transfer extends CommandBase {
+public class SpecTransfer extends CommandBase {
     private final Robot robot;
 
     private int state = 0;
     private Timer timer = new Timer();
 
-    public Transfer(Robot robot) {
+    public SpecTransfer(Robot robot) {
         this.robot = robot;
     }
 
@@ -29,7 +29,6 @@ public class Transfer extends CommandBase {
         switch (state) {
             case 1:
                 //     transferSampleDetected = (intake.getColor() == IntakeColor.BLUE || intake.getColor() == IntakeColor.RED || intake.getColor() == IntakeColor.YELLOW);
-                //robot.getL().toZero();
                 robot.getO().transfer();
                 robot.getI().transfer();
                 setState(2);

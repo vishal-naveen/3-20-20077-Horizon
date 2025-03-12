@@ -7,8 +7,11 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.pedropathing.commands.FollowPath;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import config.commands.AlignSevenSpecFirst;
+import config.commands.AlignSevenSpecSecond;
 import config.commands.Chamber;
 import config.commands.ForwardChamber;
+import config.commands.SpecTransfer;
 import config.commands.Specimen;
 import config.commands.Submersible;
 import config.commands.Transfer;
@@ -16,17 +19,19 @@ import config.core.util.Alliance;
 import config.core.util.OpModeCommand;
 import config.core.Robot;
 
-@Autonomous(name = "7+0", group = "...Sigma")
+@Autonomous(name = "7+0", group = "....Sigma")
 public class SevenSpec extends OpModeCommand {
     Robot r;
 
     @Override
     public void initialize() {
-        r = new Robot(hardwareMap, telemetry, Alliance.BLUE, config.core.paths.SevenSpec.start, true, 1);
-        r.getI().hover();
+        r = new Robot(hardwareMap, telemetry, Alliance.BLUE, config.core.paths.SevenSpec.start, true, 2);
+        r.getI().init();
         r.getO().specimenScore0();
         r.getE().toZero();
         r.getT().addData("init", true);
+        r.getT().addData("sub2", config.core.paths.SevenSpec.sub2);
+        r.getT().addData("sub3", config.core.paths.SevenSpec.sub3);
         r.getT().update();
 
         schedule(
@@ -34,27 +39,25 @@ public class SevenSpec extends OpModeCommand {
                 new SequentialCommandGroup(
                         new ForwardChamber(r)
                                 .alongWith(
-                                        //        new WaitCommand(500)
-                                        //                .andThen(
-                                        new FollowPath(r.getF(), config.core.paths.SevenSpec.score1())
-                                        //                )
-                                ),
-                        new InstantCommand(
-                                () -> {
-                                    r.getI().rotateDegrees(r.getM().getManualPoses().get(0).getRotation());//robot.getV().getBestDetectionAngle());
-                                    r.getE().toFull();
-                                    config.core.paths.SevenSpec.sub2 = r.getM().getManualPoses().get(0).getPose().copy();
-                                }
-                        )
-                                .andThen(
-                                        new FollowPath(r.getF(), config.core.paths.SevenSpec.sub2())
+                                        new FollowPath(r.getF(), config.core.paths.SevenSpec.score1()),
+                                        new WaitCommand(100)
                                                 .andThen(
-                                                        new Submersible(r)
+                                                        new InstantCommand(
+                                                                () -> {
+                                                                    r.getI().hover();
+                                                                    r.getE().toFull();
+                                                                }
+                                                        )
                                                 )
+                                ),
+                        new AlignSevenSpecFirst(r, r.getM().getManualPoses().get(0))
+                                .andThen(
+                                                        new Submersible(r)
+
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.deposit2())
                                 .alongWith(
-                                        new Transfer(r)
+                                        new SpecTransfer(r)
                                                 .andThen(
                                                         new InstantCommand(
                                                                 () -> {
@@ -73,19 +76,19 @@ public class SevenSpec extends OpModeCommand {
                         new ForwardChamber(r)
                                 .alongWith(
                                         new FollowPath(r.getF(), config.core.paths.SevenSpec.score2())
-                                ),
-                        new InstantCommand(
-                                () -> {
-                                    r.getI().rotateDegrees(r.getM().getManualPoses().get(1).getRotation());//robot.getV().getBestDetectionAngle());
-                                    r.getE().toFull();
-                                    config.core.paths.SevenSpec.sub3 = r.getM().getManualPoses().get(1).getPose().copy();
-                                }
-                        )
-                                .andThen(
-                                        new FollowPath(r.getF(), config.core.paths.SevenSpec.sub3())
                                                 .andThen(
-                                                        new Submersible(r)
+                                                        new InstantCommand(
+                                                                () -> {
+                                                                    r.getI().hover();
+                                                                    r.getE().toFull();
+                                                                }
+                                                        )
                                                 )
+                                ),
+                        new AlignSevenSpecSecond(r, r.getM().getManualPoses().get(1))
+                                .andThen(
+                                                        new Submersible(r)
+
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.deposit3())
                                 .alongWith(
@@ -190,6 +193,11 @@ public class SevenSpec extends OpModeCommand {
     @Override
     public void init_loop() {
         super.init_loop();
+        config.core.paths.SevenSpec.sub2 = r.getM().getManualPoses().get(0).getPose().copy();
+        config.core.paths.SevenSpec.sub3 = r.getM().getManualPoses().get(1).getPose().copy();
+        r.getT().addData("sub2", config.core.paths.SevenSpec.sub2);
+        r.getT().addData("sub3", config.core.paths.SevenSpec.sub3);
+        r.getT().addLine();
         r.aInitLoop(gamepad2);
     }
 }

@@ -189,6 +189,14 @@ public class Intake {
         setPivotState(PivotState.DRAG);
     }
 
+    public void init() {
+        rotateDegrees = 0;
+        setGrabState(GrabState.CLOSED);
+        setRotateState(RotateState.HOVER);
+        setPivotState(PivotState.HOVER);
+        pivot.setPosition(0.15);
+    }
+
     public void start() {
         rotateDegrees = 0;
         setPivotState(PivotState.HOVER);

@@ -12,8 +12,8 @@ public class SevenSpec {
     public static Pose start = new Pose(8, 66, Math.toRadians(0));
     public static Pose score1 = new Pose(37.75, 70, Math.toRadians(0));
     public static Pose sub2 = new Pose(25, 66, Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
-    public static Pose deposit2 = new Pose(24,36, Math.toRadians(0));
-    public static Pose grab2 = new Pose(20, 36, Math.toRadians(0));
+    public static Pose deposit2 = new Pose(21,25.75, Math.toRadians(0));
+    public static Pose grab2 = new Pose(17.5, 25.75, Math.toRadians(0));
     public static Pose score2 = new Pose(37.75, 66, Math.toRadians(0));
     public static Pose sub3 = new Pose(25, 66, Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
     public static Pose deposit3 = new Pose(24,48, Math.toRadians(225));
@@ -50,7 +50,7 @@ public class SevenSpec {
                                 new Point(sub2)
                         )
                 )
-                .setConstantHeadingInterpolation(start.getHeading())
+                .setConstantHeadingInterpolation(score1.getHeading())
                 .setZeroPowerAccelerationMultiplier(3)
                 .build();
 
@@ -97,7 +97,7 @@ public class SevenSpec {
                                 new Point(sub3)
                         )
                 )
-                .setConstantHeadingInterpolation(start.getHeading())
+                .setConstantHeadingInterpolation(score2.getHeading())
                 .setZeroPowerAccelerationMultiplier(3)
                 .build();
 

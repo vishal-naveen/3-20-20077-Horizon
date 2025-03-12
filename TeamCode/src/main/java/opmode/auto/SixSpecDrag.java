@@ -22,7 +22,7 @@ public class SixSpecDrag extends OpModeCommand {
     @Override
     public void initialize() {
         r = new Robot(hardwareMap, telemetry, Alliance.BLUE, config.core.paths.SixSpecDrag.start, true, 1);
-        r.getI().hover();
+        r.getI().init();
         r.getO().specimenScore0();
         r.getE().toZero();
         r.getT().addData("init", true);
@@ -36,6 +36,15 @@ public class SixSpecDrag extends OpModeCommand {
                                         new WaitCommand(500)
                                                 .andThen(
                                                         new FollowPath(r.getF(), config.core.paths.SixSpecDrag.score1())
+                                                ),
+                                        new WaitCommand(100)
+                                                .andThen(
+                                                        new InstantCommand(
+                                                                () -> {
+                                                                    r.getI().hover();
+                                                                    r.getE().toFull();
+                                                                }
+                                                        )
                                                 )
                                 ),
                         new InstantCommand(

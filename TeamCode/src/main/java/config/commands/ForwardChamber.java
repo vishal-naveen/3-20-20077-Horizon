@@ -34,8 +34,6 @@ public class ForwardChamber extends CommandBase {
             case 1:
                 if (timer.getElapsedTimeSeconds() > 0.1) {
                     robot.getO().specimenScore0();
-                    robot.getI().hover();
-                    robot.getE().toFull();
                     robot.getL().toChamber();
                     setState(2);
                 }

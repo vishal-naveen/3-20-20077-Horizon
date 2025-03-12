@@ -38,7 +38,7 @@ import config.pedro.constants.LConstants;
  * @version 1.0, 5/6/2024
  */
 @Config
-@TeleOp(group = "Localization Test", name = "zzzzz")
+@TeleOp(group = "Tests", name = "Localization Test")
 public class LocalizationTest extends OpMode {
     private PoseUpdater poseUpdater;
     private DashboardPoseTracker dashboardPoseTracker;

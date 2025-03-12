@@ -3,6 +3,7 @@ package config.subsystems;
 import static config.core.RobotConstants.liftAfterHighChamber;
 import static config.core.RobotConstants.liftToHighBucket;
 import static config.core.RobotConstants.liftToHighChamber;
+import static config.core.RobotConstants.liftToPark;
 import static config.core.RobotConstants.liftToZero;
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -64,11 +65,14 @@ public class Lift {
                 rightLift.setPower(power);
                 leftLift.setPower(power);
             }
+        } else {
+            rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
     }
 
     public void manual(double left, double right) {
-        pidOff();
+        pidOn = false;
         leftLift.setPower(right - left);
         rightLift.setPower(right - left);
     }
@@ -107,8 +111,12 @@ public class Lift {
         setTarget(liftAfterHighChamber);
     }
 
+    public void toPark() {
+        setTarget(liftToPark);
+    }
+
     public boolean roughlyAtTarget() {
-        return Math.abs(getPos() - target) < 50;
+        return Math.abs(getPos() - target) < 25;
     }
 
     public void pidOn() {

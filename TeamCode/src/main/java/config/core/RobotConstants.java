@@ -10,19 +10,19 @@ public class RobotConstants {
     public static double outtakeGrabOpen = 0.3;
     public static double outtakeRotateTransfer = 0.575;
     public static double outtakeRotateSpecimenGrab180 = 0.62;
-    public static double outtakeRotateSpecimenGrab0 = 0.56;
+    public static double outtakeRotateSpecimenScore0 = 0.575;
     public static double outtakeRotateLeftScore = 0.9;
     public static double outtakeRotateRightScore = 0.5;
     public static double outtakeRotateLeftSpecimenScore180 = 0.74;
     public static double outtakeRotateRightSpecimenScore180 = 0.3;
-    public static double outtakeRotateLeftSpecimenScore0 = 0.575;
-    public static double outtakeRotateRightSpecimenScore0 = 0.575;
+    public static double outtakeRotateLeftSpecimenGrab0 = 0.3;
+    public static double outtakeRotateRightSpecimenGrab0 = 0.7;
     public static double outtakePivotTransfer= 0.8; //0
     public static double outtakePivotScore = 0.4;
     public static double outtakePivotSpecimenGrab180 = 0.87;
     public static double outtakePivotSpecimenScore180 = 0.36;
 
-    public static double outtakePivotSpecimenGrab0 = 0.97;
+    public static double outtakePivotSpecimenGrab0 = 0.1;
     public static double outtakePivotSpecimenScore0 = 0.8;
     public static double outtakePivotAfterSpecScore = 0.25;
 
@@ -50,7 +50,7 @@ public class RobotConstants {
     public static int liftAfterHighChamber = 500;
     public static int liftToHighBucket = 2000;
     public static int liftToTransfer = 200;
-    public static int liftToPark = 0;
+    public static int liftToPark = 800;
 
     // Extend Positions
     public static double extendZero = 0.5375;

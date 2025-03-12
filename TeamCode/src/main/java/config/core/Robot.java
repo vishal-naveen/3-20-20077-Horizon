@@ -280,6 +280,10 @@ public class Robot {
 
         if (g2.right_stick_button)
             i.transfer();
+
+        if (g2.back) {
+            i.drag();
+        }
         
         f.setTeleOpMovementVectors(flip * -g1.left_stick_y * speed, flip * -g1.left_stick_x * speed, -g1.right_stick_x * speed * 0.5, true);
     }
@@ -415,8 +419,10 @@ public class Robot {
             case 5:
                 if (tTimer.getElapsedTimeSeconds() > 0.2) {
                     o.score();
+                    i.hover();
                     setTransferState(-1);
                 }
+                break;
         }
     }
 

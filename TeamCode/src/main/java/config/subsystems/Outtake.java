@@ -63,12 +63,12 @@ public class Outtake {
             rightRotate.setPosition(outtakeRotateRightSpecimenScore180);
             this.rotateState = RotateState.SPECIMENSCORE180;
         } else if (state == RotateState.SPECIMENGRAB0) {
-            leftRotate.setPosition(outtakeRotateSpecimenGrab0+0.045);
-            rightRotate.setPosition(outtakeRotateSpecimenGrab0);
+            leftRotate.setPosition(outtakeRotateLeftSpecimenGrab0+0.045);
+            rightRotate.setPosition(outtakeRotateRightSpecimenGrab0);
             this.rotateState = RotateState.SPECIMENGRAB0;
         } else if (state == RotateState.SPECIMENSCORE0) {
-            leftRotate.setPosition(outtakeRotateLeftSpecimenScore0);
-            rightRotate.setPosition(outtakeRotateRightSpecimenScore0);
+            leftRotate.setPosition(outtakeRotateSpecimenScore0+0.045);
+            rightRotate.setPosition(outtakeRotateSpecimenScore0);
             this.rotateState = RotateState.SPECIMENSCORE0;
         }
 
