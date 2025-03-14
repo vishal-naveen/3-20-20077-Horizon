@@ -1,6 +1,8 @@
 package opmode.tests;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.pedropathing.follower.Follower;
+import com.pedropathing.localization.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -13,33 +15,22 @@ import config.subsystems.Extend;
 import config.subsystems.Intake;
 import config.subsystems.Outtake;
 
-
-@TeleOp(name = "Drive Test", group = "Tests")
-public class DriveTest extends OpMode {
+@Config
+@TeleOp(name = "IAmGoingInsaneTest", group = "Tests")
+public class IAmGoingInsaneTest extends OpMode {
     Follower f;
-    Intake i;
-    Extend e;
-    Outtake o;
-
+    public static double x = 41.75, y = 66;
     @Override
     public void init() {
         f = new Follower(hardwareMap, FConstants.class, LConstants.class);
         f.setStartingPose(SevenSpec.start);
-
-        i = new Intake(hardwareMap, telemetry);
-        e = new Extend(hardwareMap, telemetry);
-        o = new Outtake(hardwareMap, telemetry);
-
-        e.toFull();
-        o.specimenScore0();
-        i.hover();
     }
 
     @Override
     public void loop()
     {
+        f.holdPoint(new Pose(x, y, 0));
         f.update();
-        i.periodic();
         telemetry.addData("Pose", f.getPose());
         telemetry.update();
     }

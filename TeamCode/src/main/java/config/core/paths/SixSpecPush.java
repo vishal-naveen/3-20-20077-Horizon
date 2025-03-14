@@ -9,8 +9,8 @@ import com.pedropathing.pathgen.Point;
 
 public class SixSpecPush {
 
-    public static Pose start = new Pose(8, 66, Math.toRadians(0));
-    public static Pose score1 = new Pose(37.75, 66, Math.toRadians(0));
+    public static Pose start = new Pose(8, 65.5, Math.toRadians(0));
+    public static Pose score1 = new Pose(42, 66, Math.toRadians(0));
     public static Pose sub2 = new Pose(25, 66, Math.toRadians(0)); // 48 + 2.5 - 18.5 - 7
     public static Pose deposit2 = new Pose(24,48, Math.toRadians(225));
     public static Pose grab2 = new Pose(7.75, 16, Math.toRadians(180));

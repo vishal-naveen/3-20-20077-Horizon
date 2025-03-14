@@ -22,7 +22,7 @@ public class LiftTest extends OpMode {
         l = new Lift(hardwareMap, telemetry);
         o = new Outtake(hardwareMap, telemetry);
 
-        o.score();
+        o.specimenScore0();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class LiftTest extends OpMode {
             l.manual(gamepad1.left_trigger, gamepad1.right_trigger);
         }
 
-        o.score();
+        o.specimenScore0();
 
         l.periodic();
         telemetry.update();

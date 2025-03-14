@@ -19,7 +19,7 @@ public class SpecTransfer extends CommandBase {
 
     @Override
     public void initialize() {
-        setState(1);
+        setState(0);
     }
 
     @Override
@@ -27,11 +27,17 @@ public class SpecTransfer extends CommandBase {
         robot.getT().addData("t state", state);
         robot.getT().update();
         switch (state) {
-            case 1:
+            case 0:
                 //     transferSampleDetected = (intake.getColor() == IntakeColor.BLUE || intake.getColor() == IntakeColor.RED || intake.getColor() == IntakeColor.YELLOW);
                 robot.getO().transfer();
-                robot.getI().transfer();
-                setState(2);
+                robot.getI().hover();
+                setState(1);
+                break;
+            case 1:
+                if (robot.getF().getCurrentTValue() >= 0.4) {
+                    robot.getI().transfer();
+                    setState(2);
+                }
                 break;
             case 2:
                 if (timer.getElapsedTimeSeconds() > 0.1) {

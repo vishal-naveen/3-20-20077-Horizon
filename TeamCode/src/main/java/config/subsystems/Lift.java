@@ -7,6 +7,7 @@ import static config.core.RobotConstants.liftToPark;
 import static config.core.RobotConstants.liftToZero;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -21,6 +22,7 @@ import config.core.hardware.CachedMotor;
  * @version 2.0 | 1/4/25
  */
 
+@Config
 public class Lift {
 
     private Telemetry telemetry;
@@ -29,7 +31,7 @@ public class Lift {
     public PIDController pid;
     public boolean pidOn = false;
     public static int target;
-    public static double p = 0.01, i = 0, d = 0, f = 0.005;
+    public static double p = 0.01, i = 0, d = 0.00000000000005, f = 0.05;
 
 
     public Lift(HardwareMap hardwareMap, Telemetry telemetry) {

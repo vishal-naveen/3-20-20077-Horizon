@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import config.commands.AlignSevenSpecFirst;
 import config.commands.AlignSevenSpecSecond;
-import config.commands.Chamber;
 import config.commands.ForwardChamber;
+import config.commands.SevenChamber;
 import config.commands.SpecTransfer;
 import config.commands.Specimen;
 import config.commands.Submersible;
@@ -28,6 +28,7 @@ public class SevenSpec extends OpModeCommand {
         r = new Robot(hardwareMap, telemetry, Alliance.BLUE, config.core.paths.SevenSpec.start, true, 2);
         r.getI().init();
         r.getO().specimenScore0();
+        r.getO().close();
         r.getE().toZero();
         r.getT().addData("init", true);
         r.getT().addData("sub2", config.core.paths.SevenSpec.sub2);
@@ -71,7 +72,7 @@ public class SevenSpec extends OpModeCommand {
                                 .andThen(
                                         new InstantCommand(() -> r.getO().open()),
                                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab2()).setCompletionThreshold(0.975)
-                                                .andThen(new InstantCommand(() -> r.getO().close()))
+                                                .andThen(new InstantCommand(() -> { r.getO().close(); r.getI().init(); }))
                                 ),
                         new ForwardChamber(r)
                                 .alongWith(
@@ -134,7 +135,7 @@ public class SevenSpec extends OpModeCommand {
                                 new InstantCommand(() -> r.getO().specimenGrab180())
                         ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab3()),
-                        new Chamber(r)
+                        new SevenChamber(r)
                                 .alongWith(
                                         new WaitCommand(300)
                                                 .andThen(
@@ -142,49 +143,49 @@ public class SevenSpec extends OpModeCommand {
                                                 )
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab4(), true, 1)
-                                .alongWith(new Specimen(r)),
-                        new Chamber(r).alongWith(
+                                /*.alongWith(new Specimen(r))*/,
+                        new SevenChamber(r).alongWith(
                                 new WaitCommand(250)
                                         .andThen(
                                                 new FollowPath(r.getF(), config.core.paths.SevenSpec.score4(), true, 1).setCompletionThreshold(0.975)
                                         )
                         ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab5(), true, 1)
-                                .alongWith(new Specimen(r)),
-                        new Chamber(r).alongWith(
+                                /*.alongWith(new Specimen(r))*/,
+                        new SevenChamber(r).alongWith(
                                 new WaitCommand(250)
                                         .andThen(
                                                 new FollowPath(r.getF(), config.core.paths.SevenSpec.score5(), true, 1).setCompletionThreshold(0.975)
                                         )
                         ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab6(), true, 1)
-                                .alongWith(new Specimen(r)),
-                        new Chamber(r).alongWith(
+                                /*.alongWith(new Specimen(r))*/,
+                        new SevenChamber(r).alongWith(
                                 new WaitCommand(250)
                                         .andThen(
                                                 new FollowPath(r.getF(), config.core.paths.SevenSpec.score6(), true, 1).setCompletionThreshold(0.975)
                                         )
                         ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab7(), true, 1)
-                                .alongWith(new Specimen(r)),
-                        new Chamber(r).alongWith(
+                                /*.alongWith(new Specimen(r))*/,
+                        new SevenChamber(r).alongWith(
                                 new WaitCommand(250)
                                         .andThen(
                                                 new FollowPath(r.getF(), config.core.paths.SevenSpec.score7(), true, 1).setCompletionThreshold(0.975)
                                         )
                         ),
-                        new FollowPath(r.getF(), config.core.paths.SevenSpec.park(), true, 1)
-                                .alongWith(
+                        //new FollowPath(r.getF(), config.core.paths.SevenSpec.park(), true, 1)
+                        //        .alongWith(
                                         new InstantCommand(
                                                 () -> {
-                                                    r.getO().transfer();
+                        //                            r.getO().transfer();
                                                     r.getI().hover();
                                                 }
-                                        ),
-                                        new WaitCommand(500)
-                                                .andThen(
-                                                        new InstantCommand(() -> r.getE().toFull())
-                                                )
+                        //                ),
+                       //                 new WaitCommand(500)
+                        //                        .andThen(
+                        //                                new InstantCommand(() -> r.getE().toFull())
+                        //                        )
                                 )
                 )
         );
