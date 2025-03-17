@@ -62,7 +62,7 @@ public class SpecTransfer extends CommandBase {
                 }
                 break;
             case 4:
-                if (timer.getElapsedTimeSeconds() > 0.2) {
+                if (timer.getElapsedTimeSeconds() > 0.35) {
                     robot.getI().open();
                     setState(5);
                 }

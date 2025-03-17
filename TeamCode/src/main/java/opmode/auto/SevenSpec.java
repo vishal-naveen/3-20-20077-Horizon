@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.pedropathing.commands.FollowPath;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -53,7 +54,7 @@ public class SevenSpec extends OpModeCommand {
                                 ),
                         new AlignSevenSpecFirst(r, r.getM().getManualPoses().get(0))
                                 .andThen(
-                                                        new Submersible(r)
+                                        new Submersible(r)
 
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.deposit2())
@@ -72,7 +73,10 @@ public class SevenSpec extends OpModeCommand {
                                 .andThen(
                                         new InstantCommand(() -> r.getO().open()),
                                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab2()).setCompletionThreshold(0.975)
-                                                .andThen(new InstantCommand(() -> { r.getO().close(); r.getI().init(); }))
+                                                .andThen(new InstantCommand(() -> {
+                                                    r.getO().close();
+                                                    r.getI().init();
+                                                }))
                                 ),
                         new ForwardChamber(r)
                                 .alongWith(
@@ -88,10 +92,28 @@ public class SevenSpec extends OpModeCommand {
                                 ),
                         new AlignSevenSpecSecond(r, r.getM().getManualPoses().get(1))
                                 .andThen(
-                                                        new Submersible(r)
+                                        new Submersible(r),
+                                        new InstantCommand(() -> r.getO().score())
 
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.deposit3())
+                                .andThen(
+                                        new InstantCommand(() -> r.getE().toFull()),
+                                        new WaitCommand(200)
+                                                .andThen(
+                                                        new InstantCommand(() -> r.getI().open())
+                                                )
+                                ),
+                        new FollowPath(r.getF(), config.core.paths.SevenSpec.push())
+                                .alongWith(
+                                        new WaitCommand(250).andThen(
+                                            new InstantCommand(() -> r.getI().specimen()),
+                                            new WaitCommand(500),
+                                            new InstantCommand(() -> r.getE().toZero()),
+                                            new InstantCommand(() -> r.getO().specimenGrab180())
+                                        )
+                                ),
+                        /*new FollowPath(r.getF(), config.core.paths.SevenSpec.deposit3())
                                 .alongWith(
                                         new InstantCommand(() -> r.getI().hover()),
                                         new WaitCommand(500)
@@ -133,7 +155,7 @@ public class SevenSpec extends OpModeCommand {
                                 new WaitCommand(500),
                                 new InstantCommand(() -> r.getE().toZero()),
                                 new InstantCommand(() -> r.getO().specimenGrab180())
-                        ),
+                        ),*/
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab3()),
                         new SevenChamber(r)
                                 .alongWith(
@@ -143,7 +165,7 @@ public class SevenSpec extends OpModeCommand {
                                                 )
                                 ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab4(), true, 1)
-                                /*.alongWith(new Specimen(r))*/,
+                        /*.alongWith(new Specimen(r))*/,
                         new SevenChamber(r).alongWith(
                                 new WaitCommand(250)
                                         .andThen(
@@ -151,7 +173,7 @@ public class SevenSpec extends OpModeCommand {
                                         )
                         ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab5(), true, 1)
-                                /*.alongWith(new Specimen(r))*/,
+                        /*.alongWith(new Specimen(r))*/,
                         new SevenChamber(r).alongWith(
                                 new WaitCommand(250)
                                         .andThen(
@@ -159,7 +181,7 @@ public class SevenSpec extends OpModeCommand {
                                         )
                         ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab6(), true, 1)
-                                /*.alongWith(new Specimen(r))*/,
+                        /*.alongWith(new Specimen(r))*/,
                         new SevenChamber(r).alongWith(
                                 new WaitCommand(250)
                                         .andThen(
@@ -167,7 +189,7 @@ public class SevenSpec extends OpModeCommand {
                                         )
                         ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab7(), true, 1)
-                                /*.alongWith(new Specimen(r))*/,
+                        /*.alongWith(new Specimen(r))*/,
                         new SevenChamber(r).alongWith(
                                 new WaitCommand(250)
                                         .andThen(
@@ -176,17 +198,17 @@ public class SevenSpec extends OpModeCommand {
                         ),
                         //new FollowPath(r.getF(), config.core.paths.SevenSpec.park(), true, 1)
                         //        .alongWith(
-                                        new InstantCommand(
-                                                () -> {
-                        //                            r.getO().transfer();
-                                                    r.getI().hover();
-                                                }
-                        //                ),
-                       //                 new WaitCommand(500)
-                        //                        .andThen(
-                        //                                new InstantCommand(() -> r.getE().toFull())
-                        //                        )
-                                )
+                        new InstantCommand(
+                                () -> {
+                                    //                            r.getO().transfer();
+                                    r.getI().hover();
+                                }
+                                //                ),
+                                //                 new WaitCommand(500)
+                                //                        .andThen(
+                                //                                new InstantCommand(() -> r.getE().toFull())
+                                //                        )
+                        )
                 )
         );
     }
@@ -194,11 +216,26 @@ public class SevenSpec extends OpModeCommand {
     @Override
     public void init_loop() {
         super.init_loop();
-        config.core.paths.SevenSpec.sub2 = r.getM().getManualPoses().get(0).getPose().copy();
-        config.core.paths.SevenSpec.sub3 = r.getM().getManualPoses().get(1).getPose().copy();
-        r.getT().addData("sub2", config.core.paths.SevenSpec.sub2);
-        r.getT().addData("sub3", config.core.paths.SevenSpec.sub3);
-        r.getT().addLine();
-        r.aInitLoop(gamepad2);
+       /* r.getM().update(gamepad2);
+
+        if(gamepad2.left_stick_button) {
+            r.getT().addLine();
+            r.getT().addLine();
+
+            config.core.paths.SevenSpec.sub2 = r.getM().getManualPoses().get(0).getPose().copy();
+            config.core.paths.SevenSpec.sub3 = r.getM().getManualPoses().get(1).getPose().copy();
+
+            r.getT().addData("sub2", config.core.paths.SevenSpec.sub2);
+            r.getT().addData("sub3", config.core.paths.SevenSpec.sub3);
+
+            r.getT().addLine();
+
+            config.core.paths.SevenSpec.score1.setY(r.getM().getManualPoses().get(0).getPose().getY());
+            config.core.paths.SevenSpec.score2.setY(r.getM().getManualPoses().get(1).getPose().getY());
+
+            r.getT().addData("score1", config.core.paths.SevenSpec.score1);
+            r.getT().addData("score2", config.core.paths.SevenSpec.score2);
+        }
+        r.getT().update();*/
     }
 }
