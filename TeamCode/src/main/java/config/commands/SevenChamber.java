@@ -38,7 +38,7 @@ public class SevenChamber extends CommandBase {
                 break;
             case 2:
                 if (!robot.getF().isBusy() && timer.getElapsedTimeSeconds() > 0.1) {
-                    robot.getO().startSpecGrab();
+                    robot.getO().startSpecGrabAuto();
                     setState(-1);
                 }
                 break;

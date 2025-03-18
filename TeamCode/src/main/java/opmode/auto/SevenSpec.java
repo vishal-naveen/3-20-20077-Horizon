@@ -80,7 +80,7 @@ public class SevenSpec extends OpModeCommand {
                                 ),
                         new ForwardChamber(r)
                                 .alongWith(
-                                        new FollowPath(r.getF(), config.core.paths.SevenSpec.score2())
+                                        new FollowPath(r.getF(), config.core.paths.SevenSpec.score2()).setCompletionThreshold(0.975)
                                                 .andThen(
                                                         new InstantCommand(
                                                                 () -> {
@@ -96,7 +96,7 @@ public class SevenSpec extends OpModeCommand {
                                         new InstantCommand(() -> r.getO().score())
 
                                 ),
-                        new FollowPath(r.getF(), config.core.paths.SevenSpec.deposit3())
+             /*           new FollowPath(r.getF(), config.core.paths.SevenSpec.deposit3())
                                 .andThen(
                                         new InstantCommand(() -> r.getE().toFull()),
                                         new WaitCommand(200)
@@ -112,11 +112,11 @@ public class SevenSpec extends OpModeCommand {
                                             new InstantCommand(() -> r.getE().toZero()),
                                             new InstantCommand(() -> r.getO().specimenGrab180())
                                         )
-                                ),
-                        /*new FollowPath(r.getF(), config.core.paths.SevenSpec.deposit3())
+                                ),*/
+                        new FollowPath(r.getF(), config.core.paths.SevenSpec.deposit3())
                                 .alongWith(
                                         new InstantCommand(() -> r.getI().hover()),
-                                        new WaitCommand(500)
+                                        new WaitCommand(800)
                                                 .andThen(
                                                         new InstantCommand(() -> r.getE().toFull())
                                                 )
@@ -152,14 +152,14 @@ public class SevenSpec extends OpModeCommand {
                                                 new InstantCommand(() -> r.getE().toFull())
                                         ),
                                 new InstantCommand(() -> r.getI().specimen()),
-                                new WaitCommand(500),
+                                new WaitCommand(300),
                                 new InstantCommand(() -> r.getE().toZero()),
                                 new InstantCommand(() -> r.getO().specimenGrab180())
-                        ),*/
+                        ),
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab3()),
                         new SevenChamber(r)
                                 .alongWith(
-                                        new WaitCommand(300)
+                                        new WaitCommand(250)
                                                 .andThen(
                                                         new FollowPath(r.getF(), config.core.paths.SevenSpec.score3()).setCompletionThreshold(0.975)
                                                 )
@@ -167,7 +167,7 @@ public class SevenSpec extends OpModeCommand {
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab4(), true, 1)
                         /*.alongWith(new Specimen(r))*/,
                         new SevenChamber(r).alongWith(
-                                new WaitCommand(250)
+                                new WaitCommand(150)
                                         .andThen(
                                                 new FollowPath(r.getF(), config.core.paths.SevenSpec.score4(), true, 1).setCompletionThreshold(0.975)
                                         )
@@ -175,7 +175,7 @@ public class SevenSpec extends OpModeCommand {
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab5(), true, 1)
                         /*.alongWith(new Specimen(r))*/,
                         new SevenChamber(r).alongWith(
-                                new WaitCommand(250)
+                                new WaitCommand(150)
                                         .andThen(
                                                 new FollowPath(r.getF(), config.core.paths.SevenSpec.score5(), true, 1).setCompletionThreshold(0.975)
                                         )
@@ -183,7 +183,7 @@ public class SevenSpec extends OpModeCommand {
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab6(), true, 1)
                         /*.alongWith(new Specimen(r))*/,
                         new SevenChamber(r).alongWith(
-                                new WaitCommand(250)
+                                new WaitCommand(150)
                                         .andThen(
                                                 new FollowPath(r.getF(), config.core.paths.SevenSpec.score6(), true, 1).setCompletionThreshold(0.975)
                                         )
@@ -191,7 +191,7 @@ public class SevenSpec extends OpModeCommand {
                         new FollowPath(r.getF(), config.core.paths.SevenSpec.grab7(), true, 1)
                         /*.alongWith(new Specimen(r))*/,
                         new SevenChamber(r).alongWith(
-                                new WaitCommand(250)
+                                new WaitCommand(150)
                                         .andThen(
                                                 new FollowPath(r.getF(), config.core.paths.SevenSpec.score7(), true, 1).setCompletionThreshold(0.975)
                                         )

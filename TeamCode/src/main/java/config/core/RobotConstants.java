@@ -41,7 +41,7 @@ public class RobotConstants {
     public static double intakePivotSpecimen = 0;
     public static double intakeRotatePerDegree = 0.0011;
     public static double intakePivotDrag = 1;
-    public static double intakeRotateDrag = 0.25;
+    public static double intakeRotateDrag = 0.29;
 
     // Lift Positions
     public static int liftToZero = 10;

@@ -190,6 +190,44 @@ public class Outtake {
         setSpecGrabState(0);
     }
 
+    public void specGrabAuto() {
+        switch(specGrabState) {
+            case 0:
+                if(pivotState == PivotState.SPECIMENSCORE180) {
+                    afterSpecScore();
+                    setSpecGrabState(1);
+                } else {
+                    setRotateState(RotateState.SPECIMENGRAB180);
+                    setPivotState(PivotState.SPECIMENGRAB180);
+                    setGrabState(GrabState.OPEN);
+                    setSpecGrabState(-1);
+                }
+                break;
+            case 1:
+                if(specScoreTimer.getElapsedTimeSeconds() > 0.2) {
+                    setGrabState(GrabState.OPEN);
+                    setSpecGrabState(2);
+                }
+                break;
+            case 2:
+                if(specScoreTimer.getElapsedTimeSeconds() > 0.25) {
+                    setRotateState(RotateState.SPECIMENGRAB180);
+                    setPivotState(PivotState.SPECIMENGRAB180);
+                    setSpecGrabState(-1);
+                }
+                break;
+        }
+    }
+
+    public void setSpecGrabAutoState(int i) {
+        specGrabState = i;
+        specScoreTimer.resetTimer();
+    }
+
+    public void startSpecGrabAuto() {
+        setSpecGrabAutoState(0);
+    }
+
     public void preload() {
         setRotateState(RotateState.SPECIMENSCORE180);
         setPivotState(PivotState.SPECIMENSCORE180);
@@ -258,6 +296,7 @@ public class Outtake {
     }
 
     public void periodic() {
+        specGrabAuto();
         specGrab();
         telemetry();
     }
