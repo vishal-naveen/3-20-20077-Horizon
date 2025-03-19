@@ -79,12 +79,12 @@ f.update();
 
             if (colorMatch) {
                 // Compute angles
-                double actualYAngle = Math.toRadians(limelightAngle + detection.getTargetYDegrees());
-                double xAngle = Math.toRadians(-detection.getTargetXDegrees());
+                double actualXAngle = Math.toRadians(limelightAngle + detection.getTargetYDegrees());
+                double yAngle = Math.toRadians(-detection.getTargetXDegrees());
 
                 // Compute distances
-                double yDistance = limelightHeight / Math.tan(actualYAngle); // Forward distance (FTC X)
-                double xDistance = Math.tan(xAngle) * yDistance; // Lateral distance (FTC Y)
+                double xDistance = limelightHeight / Math.tan(actualXAngle); // Forward distance (FTC X)
+                double yDistance = Math.tan(yAngle) * xDistance; // Lateral distance (FTC Y)
 
                 // Score based on alignment
                 double rotationScore = -Math.abs((detection.getTargetCorners().get(0).get(0) -
@@ -119,8 +119,8 @@ f.update();
 
             // Convert to coordinates and apply claw offsets
             sample = new Pose(
-                    bestDetection.getYDistance(), // X (forward)
-                    bestDetection.getXDistance(), // Y (left)
+                    bestDetection.getXDistance(), // X (forward)
+                    bestDetection.getYDistance(), // Y (left)
                     0
             );
 
