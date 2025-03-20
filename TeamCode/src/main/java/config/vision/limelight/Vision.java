@@ -35,13 +35,11 @@ public class Vision {
     private int[] unwanted;
     private double bestAngle;
     private Follower f;
-    private ManualInput manualInput;
 
     public Vision(HardwareMap hardwareMap, Telemetry telemetry, int[] unwanted, Follower f, ManualInput manualInput) {
         this.unwanted = unwanted;
         this.telemetry = telemetry;
         this.f = f;
-        this.manualInput = manualInput;
 
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelight.setPollRateHz(100);
@@ -83,7 +81,7 @@ f.update();
                 double yAngle = Math.toRadians(-detection.getTargetXDegrees());
 
                 // Compute distances
-                double xDistance = ((limelightHeight * 2) * Math.sin(xAngle)) / Math.sin(150-xAngle);
+                double xDistance = -(((limelightHeight * 2) * Math.sin(xAngle)) / Math.sin(150-xAngle));
                 double yDistance = Math.tan(yAngle) * xDistance;
 
                 // Score based on alignment
@@ -93,7 +91,7 @@ f.update();
                                 detection.getTargetCorners().get(2).get(1)) - (1.5 / 3.5));
                 double score = -yDistance - Math.abs(xDistance) + 2.0 * rotationScore; // Weighted scoring
 
-                double angle;
+                double angle = 0;
 
                 if (detection.getTargetCorners() == null || detection.getTargetCorners().size() < 4) {
                     angle = Double.NaN;
@@ -119,12 +117,12 @@ f.update();
 
             // Convert to coordinates and apply claw offsets
             sample = new Pose(
-                    bestDetection.getXDistance(), // X (forward)
-                    bestDetection.getYDistance(), // Y (left)
+                    bestDetection.getXDistance(),
+                    bestDetection.getYDistance(),
                     0
             );
 
-            difference = new Pose(sample.getX() - clawForwardOffset + 2.5, sample.getY() + clawLateralOffset, 0);
+            difference = new Pose(sample.getX() - clawForwardOffset, sample.getY() + clawLateralOffset, 0);
 
             target = new Pose(f.getPose().getX() + difference.getX(), f.getPose().getY() + difference.getY(), f.getPose().getHeading());
             cachedTarget = target.copy();
