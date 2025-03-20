@@ -16,6 +16,7 @@ public class Drive extends OpMode {
     @Override
     public void init() {
         r = new Robot(hardwareMap, telemetry, gamepad1 , gamepad2, Alliance.BLUE, autoEndPose);
+        //test
     }
 
     @Override
