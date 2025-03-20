@@ -79,12 +79,12 @@ f.update();
 
             if (colorMatch) {
                 // Compute angles
-                double actualXAngle = Math.toRadians(limelightAngle + detection.getTargetYDegrees());
+                double xAngle = detection.getTargetYDegrees();
                 double yAngle = Math.toRadians(-detection.getTargetXDegrees());
 
                 // Compute distances
-                double xDistance = limelightHeight / Math.tan(actualXAngle); // Forward distance (FTC X)
-                double yDistance = Math.tan(yAngle) * xDistance; // Lateral distance (FTC Y)
+                double xDistance = ((limelightHeight * 2) * Math.sin(xAngle)) / Math.sin(150-xAngle);
+                double yDistance = Math.tan(yAngle) * xDistance;
 
                 // Score based on alignment
                 double rotationScore = -Math.abs((detection.getTargetCorners().get(0).get(0) -
